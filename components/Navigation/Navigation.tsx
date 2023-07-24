@@ -1,5 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import SignInButton from "../Buttons/SignInButton";
+import AuthCheck from "../AuthCheck";
+import SignOutButton from "../Buttons/SignOutButton";
 
 export default function Navigation() {
   return (
@@ -26,12 +29,16 @@ export default function Navigation() {
         </Link>
       </div>
       <div className="flex flex-row gap-x-4 ml-auto mr-4 py-2 content-end">
-        <button className=" bg-btn-background h-10 px-6 py-2 rounded-md font-spaceMono text-mainColor">
+        {/* <button className=" bg-btn-background h-10 px-6 py-2 rounded-md font-spaceMono text-mainColor">
           Login
         </button>
         <button className="border bg-mainColor h-10 px-6 py-2 rounded-md font-spaceMono text-white">
           Sign up
-        </button>
+        </button> */}
+        <SignInButton />
+        <AuthCheck>
+          <SignOutButton />
+        </AuthCheck>
       </div>
     </div>
   );
