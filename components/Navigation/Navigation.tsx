@@ -3,6 +3,7 @@ import Link from "next/link";
 import SignInButton from "../Buttons/SignInButton";
 import AuthCheck from "../AuthCheck";
 import SignOutButton from "../Buttons/SignOutButton";
+import NavLink from "./NavLink";
 
 export default function Navigation() {
   return (
@@ -15,18 +16,8 @@ export default function Navigation() {
         alt="Logo"
       />
       <div className="flex flex-row gap-x-4 mx-auto py-3 content-center">
-        <Link
-          className="hover:border-b-4 font-spaceMono font-bold text-[#471AA0FF] px-4"
-          href="/"
-        >
-          Home
-        </Link>
-        <Link
-          className="hover:border-b-4 font-spaceMono font-bold text-[#471AA0FF] px-4"
-          href="/demo"
-        >
-          Demo
-        </Link>
+        <NavLink name="Home" path="/" />
+        <NavLink name="Demo" path="/demo" />
       </div>
       <div className="flex flex-row gap-x-4 ml-auto mr-4 py-2 content-end">
         {/* <button className=" bg-btn-background h-10 px-6 py-2 rounded-md font-spaceMono text-mainColor">
