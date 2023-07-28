@@ -1,3 +1,3 @@
 export default function Demo() {
-  return <div>Demo Page</div>;
+  return <main className="">Demo Intro</main>;
 }
