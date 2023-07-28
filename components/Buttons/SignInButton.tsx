@@ -2,11 +2,17 @@
 import { useSession, signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { VscLoading } from "react-icons/vsc";
 
 export default function SignInButton() {
   const { data: session, status } = useSession();
   if (status === "loading") {
-    return <p>Loading...</p>;
+    return (
+      <p className="flex flex-row gap-x-3">
+        <VscLoading className="animate-spin"></VscLoading>
+        Loading...
+      </p>
+    );
   }
 
   if (status === "authenticated") {

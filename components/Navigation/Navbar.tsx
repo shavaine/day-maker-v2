@@ -4,7 +4,7 @@ import Navigation from "./Navigation";
 
 export default function Navbar() {
   return (
-    <div className="flex flex-row content-center py-2 sticky top-0 z-50">
+    <div className="flex flex-row bg-white content-center py-2 sticky top-0 z-50">
       <Image
         className="mr-auto ml-4  w-auto h-16"
         src="/assets/logo.png"
@@ -21,12 +21,6 @@ export default function Navbar() {
         </li>
       </ul>
       <Navigation />
-      {/* <div className="flex flex-row gap-x-4 ml-auto mr-4 py-2 content-end">
-        <SignInButton />
-        <AuthCheck>
-          <SignOutButton />
-        </AuthCheck>
-      </div> */}
     </div>
   );
 }
