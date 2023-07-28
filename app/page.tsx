@@ -1,7 +1,11 @@
+import HeaderCard from "@/components/Cards/HeaderCard";
+
 export default function Home() {
   return (
     <main>
-      <h1>Home Page</h1>
+      <section className="bg-home-header py-32 w-full">
+        <HeaderCard />
+      </section>
     </main>
   );
 }
