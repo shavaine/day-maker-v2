@@ -19,6 +19,7 @@ module.exports = {
     extend: {
       colors: {
         mainColor: '#471AA0FF',
+        secondaryColor: '#3C1053',
         'btn-background': '#F5F2FDFF',
       },
       fontFamily: {

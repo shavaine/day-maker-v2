@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import AuthProvider from "./AuthProvider";
 import Navbar from "@/components/Navigation/Navbar";
+import Footer from "@/components/Footer/Footer";
 
 export const metadata: Metadata = {
   title: "Day Maker",
@@ -19,6 +20,7 @@ export default function RootLayout({
         <body>
           <Navbar />
           {children}
+          <Footer />
         </body>
       </html>
     </AuthProvider>
