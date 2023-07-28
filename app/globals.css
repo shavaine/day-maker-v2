@@ -8,3 +8,7 @@ body {
   padding: 0px;
   height: 100vh;
 }
+
+.dropdown {
+  @apply absolute right-0 top-full w-full p-5 rounded-b-lg bg-white min-w-[210px] flex flex-col gap-y-4 justify-end items-end;
+}

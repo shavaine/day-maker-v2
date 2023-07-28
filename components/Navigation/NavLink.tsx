@@ -13,7 +13,7 @@ export default function NavLink({ name, path }: Props) {
     <Link
       className={`${
         pathname === path
-          ? "border-b-4 font-spaceMono font-bold text-[#471AA0FF] px-4"
+          ? "pb-2 border-b-4 font-spaceMono font-bold text-[#471AA0FF] px-4"
           : "hover:border-b-4 font-spaceMono font-bold text-[#471AA0FF] px-4"
       }`}
       href={path}
