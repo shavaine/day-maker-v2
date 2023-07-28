@@ -8,8 +8,8 @@ export default function HeaderCard() {
       </p>
       <h1 className="text-5xl text-mainColor">Scheduling Made Simple</h1>
       <p className="text-sm text-[#6F7787FF]">
-        Effortlessly organize your schedule, supercharge your productivity, and
-        reclaim control of your day.
+        Effortlessly organize your schedule, supercharge your <br />{" "}
+        productivity, and reclaim control of your day.
       </p>
       <button className="bg-purple-950 text-white p-2 px-4 rounded-full mx-auto flex flex-row gap-3">
         <FaGithub className="text-2xl" />

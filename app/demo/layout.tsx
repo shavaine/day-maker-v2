@@ -8,7 +8,7 @@ export default function DemoLayout({
   return (
     <div className="flex flex-row">
       <SideNav />
-      <div className="w-full bg-gray-100">{children}</div>
+      <main className="w-full bg-gray-100">{children}</main>
     </div>
   );
 }
