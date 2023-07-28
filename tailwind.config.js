@@ -29,7 +29,8 @@ module.exports = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'home-header': "url('/assets/header-bg.svg')"
+        'home-header': "url('/assets/header-bg.svg')",
+        'home-main': "url('/assets/side-wave_background.svg')"
       },
     },
   },
