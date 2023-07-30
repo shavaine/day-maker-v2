@@ -18,6 +18,11 @@ export function Reducer(state: InitialState, action: ActionType): InitialState {
         ...state,
         actions: state.actions.filter((currentAction) => currentAction.actionId !== action.payload),
       };
+      case "DELETE_TEMPLATE":
+      return {
+        ...state,
+        templates: state.templates.filter((currentTemplate) => currentTemplate.templateId !== action.payload),
+      };
     default:
       return state;
   }
