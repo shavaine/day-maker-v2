@@ -4,7 +4,7 @@ import Navigation from "./Navigation";
 
 export default function Navbar() {
   return (
-    <div className="flex flex-row bg-white content-center py-2 sticky top-0 z-40">
+    <div className="flex flex-row border-b bg-white content-center py-2 sticky top-0 z-40">
       <Image
         className="mr-auto ml-4  w-auto h-16"
         src="/assets/logo.png"

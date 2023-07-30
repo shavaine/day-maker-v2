@@ -5,9 +5,21 @@ import AuthCheck from "../AuthCheck";
 import SignOutButton from "../Buttons/SignOutButton";
 import NavLink from "./NavLink";
 import { FaBars } from "react-icons/fa";
+import { usePathname } from "next/navigation";
+import SideLink from "./SideLink";
+import {
+  AiFillLayout,
+  AiFillSchedule,
+  AiOutlineCalendar,
+} from "react-icons/ai";
+import { HiListBullet } from "react-icons/hi2";
 
 export default function Navigation() {
+  const pathname = usePathname();
   const [toggleDropdown, setToggleDropdown] = useState(false);
+  const closeNav = () => {
+    setToggleDropdown(false);
+  };
   return (
     <div className="flex flex-row gap-x-4 ml-auto mr-4 py-2 content-end z-50">
       <SignInButton />
@@ -21,14 +33,45 @@ export default function Navigation() {
         className="sm:hidden text-3xl cursor-pointer text-mainColor mt-1"
       />
       {toggleDropdown && (
-        <ul className="dropdown gap-y-4">
-          <li>
-            <NavLink name="Home" path="/" />
-          </li>
-          <li>
-            <NavLink name="Demo" path="/demo" />
-          </li>
-        </ul>
+        <div>
+          <ul className="dropdown gap-y-4">
+            <li>
+              <NavLink name="Home" path="/" toggleNav={closeNav} />
+            </li>
+            <li>
+              <NavLink name="Demo" path="/demo" toggleNav={closeNav} />
+            </li>
+            <hr className="mt-3 border-1 w-full " />
+            {pathname.includes("demo") && (
+              <>
+                <li>
+                  <SideLink path="/demo/schedule" toggleNav={closeNav}>
+                    <AiFillSchedule className="text-2xl ml-3" />
+                    <p>Schedule</p>
+                  </SideLink>
+                </li>
+                <li>
+                  <SideLink path="/demo/calendar" toggleNav={closeNav}>
+                    <AiOutlineCalendar className="text-2xl ml-3" />
+                    <p>Calendar</p>
+                  </SideLink>
+                </li>
+                <li>
+                  <SideLink path="/demo/templates" toggleNav={closeNav}>
+                    <AiFillLayout className="text-2xl ml-3" />
+                    <p>Templates</p>
+                  </SideLink>
+                </li>
+                <li>
+                  <SideLink path="/demo/actions" toggleNav={closeNav}>
+                    <HiListBullet className="text-2xl ml-3" />
+                    <p>Actions</p>
+                  </SideLink>
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
       )}
     </div>
   );

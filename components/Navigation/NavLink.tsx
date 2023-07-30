@@ -5,13 +5,23 @@ import { usePathname } from "next/navigation";
 interface Props {
   name: string;
   path: string;
+  toggleNav?: () => void;
 }
 
-export default function NavLink({ name, path }: Props) {
+export default function NavLink({ name, path, toggleNav }: Props) {
   const pathname = usePathname();
   if (path === "/demo") {
     return (
       <Link
+        onClick={
+          toggleNav
+            ? () => {
+                setTimeout(() => {
+                  toggleNav!();
+                }, 75);
+              }
+            : undefined
+        }
         className={`${
           pathname.includes(path)
             ? "pb-2 border-b-4 border-[#471AA0FF] font-spaceMono font-bold text-[#471AA0FF] px-4"
@@ -26,6 +36,15 @@ export default function NavLink({ name, path }: Props) {
 
   return (
     <Link
+      onClick={
+        toggleNav
+          ? () => {
+              setTimeout(() => {
+                toggleNav!();
+              }, 75);
+            }
+          : undefined
+      }
       className={`${
         pathname === path
           ? "pb-2 border-b-4 border-[#471AA0FF] font-spaceMono font-bold text-[#471AA0FF] px-4"
