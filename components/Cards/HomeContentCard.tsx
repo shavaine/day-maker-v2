@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export default function HomeContentCard() {
   return (
-    <div className="container py-20 bg-white rounded-lg flex flex-col text-center drop-shadow-2xl border">
-      <h1 className="font-bold text-4xl text-purple-950 mb-16">How To Use</h1>
+    <div className="container py-20 bg-white rounded-lg flex flex-col font-workSans text-center drop-shadow-2xl border">
+      <h1 className="font-bold  text-4xl text-purple-950 mb-16">How To Use</h1>
       <div className="flex flex-col gap-y-6">
         <div className="flex flex-row justify-between">
           <h3 className="self-center text-mainColor text-2xl text-start w-[60%] font-bold">

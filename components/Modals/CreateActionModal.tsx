@@ -11,7 +11,7 @@ const CreateActionModal: FC = () => {
 
   return (
     <div>
-      <button className="hover:font-bold" onClick={toggleModal}>
+      <button className="hover:font-bold font-spaceMono" onClick={toggleModal}>
         Create Action
       </button>
       {modalOpen && (
@@ -20,7 +20,9 @@ const CreateActionModal: FC = () => {
           {/* Modal Container  */}
           <div className="flex flex-col gap-y-4 bg-white p-5 rounded-2xl max-w-[600px]">
             <div className="flex flex-row justify-between">
-              <h1 className="text-3xl font-bold text-black">Create Action</h1>
+              <h1 className="text-3xl font-workSans font-bold text-black">
+                Create Action
+              </h1>
               <button onClick={toggleModal}>X</button>
             </div>
             <CreateActionForm toggleModal={toggleModal} />

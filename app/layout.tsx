@@ -1,3 +1,4 @@
+import { spaceMono, viaodaLibre, workSans } from "./fonts";
 import "./globals.css";
 import type { Metadata } from "next";
 import AuthProvider from "./AuthProvider";
@@ -17,7 +18,9 @@ export default function RootLayout({
   return (
     <AuthProvider>
       <html lang="en">
-        <body>
+        <body
+          className={`${spaceMono.variable} ${viaodaLibre.variable} ${workSans.variable}`}
+        >
           <Navbar />
           {children}
           <Footer />

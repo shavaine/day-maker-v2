@@ -12,7 +12,7 @@ export default function Footer() {
             height={351}
             alt="White Logo"
           />
-          <p className="text-white text-center sm:text-start lg:text-end lg:-mt-6 w-screen sm:w-auto">
+          <p className="font-viaodaLibre text-white text-center sm:text-start lg:text-end lg:-mt-6 w-screen sm:w-auto">
             © 2023 Copyright - Shavaine Brown
           </p>
         </div>

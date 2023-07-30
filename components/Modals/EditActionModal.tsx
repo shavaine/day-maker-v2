@@ -18,7 +18,7 @@ const EditActionModal: FC<Action> = ({ title, actionId }: Props) => {
   return (
     <>
       <button
-        className="bg-[#C5AFF2] text-mainColor w-1/2 font-bold grow hover:opacity-80 p-2"
+        className="bg-[#C5AFF2] text-mainColor w-1/2 font-workSans font-bold grow hover:opacity-80 p-2"
         onClick={toggleModal}
       >
         Edit
@@ -29,7 +29,9 @@ const EditActionModal: FC<Action> = ({ title, actionId }: Props) => {
           {/* Modal Container */}
           <div className="flex flex-col gap-y-4 bg-white p-5 rounded-2xl max-w-[600px]">
             <div className="flex flex-row justify-between">
-              <h1 className="text-3xl font-bold text-black">Edit Action</h1>
+              <h1 className="text-3xl font-workSans font-bold text-black">
+                Edit Action
+              </h1>
               <button onClick={toggleModal}>X</button>
             </div>
             <EditActionForm

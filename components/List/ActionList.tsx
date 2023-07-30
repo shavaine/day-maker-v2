@@ -8,7 +8,7 @@ const ActionList: FC = () => {
   const { state } = useContext(DemoContext);
 
   return (
-    <div className="container p-0 py-10 flex flex-row flex-wrap gap-4">
+    <div className="p-10 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4">
       {state.actions.map((action) => (
         <ActionCard
           key={action.actionId}

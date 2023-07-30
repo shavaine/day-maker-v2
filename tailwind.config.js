@@ -23,8 +23,9 @@ module.exports = {
         'btn-background': '#F5F2FDFF',
       },
       fontFamily: {
-        spaceMono: ['Space_Mono', 'monospace'],
-        viaodaLibre: ['viaodaLibre', 'sans-serif']
+        spaceMono: ['var(--font-space_mono)'],
+        viaodaLibre: ['var(--font-viaoda_libre)'],
+        workSans: ['var(--font-work_sans)']
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
