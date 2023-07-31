@@ -3,10 +3,12 @@ import { initialState } from "../InitialData";
 import { InitialState } from "../Interfaces";
 import { ActionType } from "../Types";
 
-export const DemoContext = createContext<{
+interface Props {
   state: InitialState;
   dispatch: Dispatch<ActionType>;
-}>({
+}
+
+export const DemoContext = createContext<Props>({
   state: initialState,
   dispatch: () => {},
 });
