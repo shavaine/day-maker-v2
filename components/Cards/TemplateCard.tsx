@@ -9,11 +9,7 @@ interface Props {
   description: string;
 }
 
-const TemplateCard: FC<Template> = ({
-  templateId,
-  name,
-  description,
-}: Props): React.ReactNode => {
+const TemplateCard: FC<Props> = ({ templateId, name, description }) => {
   const { dispatch } = useContext(DemoContext);
 
   const deleteTemplate = (templateId: string) => {

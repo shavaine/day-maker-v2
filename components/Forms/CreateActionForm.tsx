@@ -2,13 +2,13 @@
 import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { Action } from "@/context/Interfaces";
 import { generateCUID } from "@/lib/generateCUID";
-import { FormEvent, useContext, useState } from "react";
+import { FC, FormEvent, useContext, useState } from "react";
 
 interface Props {
   toggleModal: () => void;
 }
 
-export const CreateActionForm = ({ toggleModal }: Props) => {
+export const CreateActionForm: FC<Props> = ({ toggleModal }) => {
   const { dispatch } = useContext(DemoContext);
   const [actionTitle, setActionTitle] = useState<string>("");
 

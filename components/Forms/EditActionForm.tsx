@@ -1,7 +1,7 @@
 "use client";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { Action } from "@/context/Interfaces";
-import { FormEvent, useContext, useState } from "react";
+import { FC, FormEvent, useContext, useState } from "react";
 
 interface Props {
   toggleModal: () => void;
@@ -9,7 +9,7 @@ interface Props {
   title: string;
 }
 
-export const EditActionForm = ({ toggleModal, actionId, title }: Props) => {
+export const EditActionForm: FC<Props> = ({ toggleModal, actionId, title }) => {
   const { dispatch } = useContext(DemoContext);
   const [actionTitle, setActionTitle] = useState<string>(`${title}`);
 

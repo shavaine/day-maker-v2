@@ -8,7 +8,7 @@ interface Props {
   actionId: string;
 }
 // Imported In ActionCard Component
-const EditActionModal: FC<Action> = ({ title, actionId }: Props) => {
+const EditActionModal: FC<Props> = ({ title, actionId }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const toggleModal = () => {
