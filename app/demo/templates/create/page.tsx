@@ -1,3 +1,4 @@
+import BackButton from "@/components/Buttons/BackButton";
 import CreateTemplateCard from "@/components/Cards/CreateTemplateCard";
 
 export default function Templates() {
@@ -7,6 +8,7 @@ export default function Templates() {
         <h1 className=" text-secondaryColor font-workSans font-bold text-4xl">
           Create Template
         </h1>
+        <BackButton />
       </div>
       <div className="p-10">
         <CreateTemplateCard />

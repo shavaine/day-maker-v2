@@ -1,3 +1,5 @@
+import BackButton from "@/components/Buttons/BackButton";
+
 export default function ViewTemplateLayout({
   children,
 }: {
@@ -9,6 +11,7 @@ export default function ViewTemplateLayout({
         <h1 className=" text-secondaryColor font-workSans font-bold text-4xl">
           View Template
         </h1>
+        <BackButton />
       </div>
       <div className="p-10">{children}</div>
     </div>

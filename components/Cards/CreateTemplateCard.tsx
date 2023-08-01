@@ -95,7 +95,7 @@ const CreateTemplateCard: FC = () => {
 
       <div className="flex flex-row justify-end gap-x-2">
         <button
-          onClick={() => router.push("/demo/templates")}
+          onClick={() => router.back()}
           className="border w-24 rounded-lg p-1 hover:font-bold"
           type="button"
         >
