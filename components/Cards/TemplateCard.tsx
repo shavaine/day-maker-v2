@@ -1,6 +1,7 @@
 "use client";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { Template } from "@/context/Interfaces";
+import Link from "next/link";
 import { FC, useContext } from "react";
 
 interface Props {
@@ -30,9 +31,16 @@ const TemplateCard: FC<Props> = ({ templateId, name, description }) => {
       </div>
 
       <div className="flex flex-row w-full">
-        <button className="bg-purple-500 text-mainColor font-workSans font-bold w-1/3 grow hover:opacity-80 p-2">
-          View
-        </button>
+        <Link
+          className="w-1/3 grow"
+          href={`/demo/templates/view/${templateId}`}
+        >
+          {" "}
+          <button className="bg-purple-500 text-mainColor font-workSans font-bold w-full hover:opacity-80 p-2">
+            View
+          </button>
+        </Link>
+
         <button className="bg-purple-300 text-mainColor font-workSans font-bold w-1/3 grow hover:opacity-80 p-2">
           Edit
         </button>
