@@ -4,8 +4,9 @@ import { Task, Template } from "@/context/Interfaces";
 import { useRouter } from "next/navigation";
 import { FC, useContext, useState } from "react";
 import CreateTaskModal from "../Modals/CreateTaskModal";
-import { applyTemplateId, getActionTitleById } from "@/lib/helpers";
+import { applyTemplateId } from "@/lib/helpers";
 import { generateCUID } from "@/lib/generateCUID";
+import TaskCard from "./TaskCard";
 
 const CreateTemplateCard: FC = () => {
   const router = useRouter();
@@ -22,8 +23,15 @@ const CreateTemplateCard: FC = () => {
   };
 
   // Allows nested form to add tasks to local state
-  const addTemplateTasks = (task: Task) => {
+  const addTemplateTask = (task: Task) => {
     setTemplateTasks([...templateTasks, task]);
+  };
+
+  const deleteTemplateTask = (toDeleteTask: Task) => {
+    const newTemplateTasks = templateTasks.filter(
+      (task) => task.taskId !== toDeleteTask.taskId
+    );
+    setTemplateTasks([...newTemplateTasks]);
   };
 
   const handleSubmit = () => {
@@ -55,7 +63,7 @@ const CreateTemplateCard: FC = () => {
             onChange={(e) => setTemplateName(e.target.value)}
             placeholder="Enter Title"
             id="templateName"
-            className="border rounded-md px-3 py-2 w-96 focus:outline-mainColor"
+            className="border rounded-md px-3 py-2 w-full focus:outline-mainColor"
           />
         </div>
         <div className="flex flex-col">
@@ -71,14 +79,17 @@ const CreateTemplateCard: FC = () => {
             className="border rounded-md px-3 py-2 focus:outline-mainColor"
           />
         </div>
-
-        <CreateTaskModal addTemplateTasks={addTemplateTasks} />
+        <label className="text-black text-sm" htmlFor="">
+          Tasks:
+        </label>
+        <CreateTaskModal addTemplateTasks={addTemplateTask} />
         {templateTasks.map((task) => (
-          <div key={task.taskId}>
-            {getActionTitleById(task.actionId, state.actions)} -{" "}
-            {task.startTime} - {task.endTime} - Notes: {task.notes} - tempId:{" "}
-            {task.templateId}
-          </div>
+          <TaskCard
+            key={task.taskId}
+            task={task}
+            actions={state.actions}
+            removeTask={deleteTemplateTask}
+          />
         ))}
       </div>
 

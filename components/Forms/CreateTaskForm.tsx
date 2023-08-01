@@ -81,7 +81,7 @@ export const CreateTaskForm: FC<Props> = ({
         </div>
         <label htmlFor="notes">Notes</label>
         <textarea
-          className="border"
+          className="border px-3 py-2"
           rows={3}
           value={notes}
           id="notes"
