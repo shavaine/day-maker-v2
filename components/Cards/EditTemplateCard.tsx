@@ -12,8 +12,9 @@ interface Props {
   name: string;
   description: string;
   tasks: Task[];
+  tempId: string;
 }
-const EditTemplateCard: FC<Props> = ({ name, description, tasks }) => {
+const EditTemplateCard: FC<Props> = ({ name, description, tasks, tempId }) => {
   const router = useRouter();
   const { state, dispatch } = useContext(DemoContext);
   const [templateName, setTemplateName] = useState<string>(name);
@@ -24,7 +25,23 @@ const EditTemplateCard: FC<Props> = ({ name, description, tasks }) => {
   // Dispatch Multiple tasks to central state
   const dispatchTasks = (tasks: Task[]) => {
     tasks.forEach((task) => {
-      dispatch({ type: "ADD_TASK", payload: task });
+      // Updates Task in global state if it already exist
+      if (state.tasks.includes(task)) {
+        dispatch({ type: "UPDATE_TASK", payload: task });
+      }
+      // Adds Task to global state if it doesn't exist
+      if (!state.tasks.includes(task)) {
+        dispatch({ type: "ADD_TASK", payload: task });
+      }
+    });
+  };
+
+  // Deletes Task from global state if deleted in template
+  const removeDeletedTasks = (tasks: Task[]) => {
+    tasks.forEach((task) => {
+      if (task.templateId === tempId && !templateTasks.includes(task)) {
+        dispatch({ type: "DELETE_TASK", payload: task.taskId });
+      }
     });
   };
 
@@ -41,17 +58,18 @@ const EditTemplateCard: FC<Props> = ({ name, description, tasks }) => {
   };
 
   const handleSubmit = () => {
-    const newTemplate: Template = {
-      templateId: generateCUID(),
+    const currentTemplate: Template = {
+      templateId: tempId,
       name: templateName,
       description: templateDescription,
     };
 
-    applyTemplateId(newTemplate.templateId, templateTasks);
+    applyTemplateId(currentTemplate.templateId, templateTasks);
 
     if (templateName.trim() !== "") {
-      dispatch({ type: "ADD_TEMPLATE", payload: newTemplate });
+      dispatch({ type: "UPDATE_TEMPLATE", payload: currentTemplate });
       dispatchTasks(templateTasks);
+      removeDeletedTasks(state.tasks);
       router.push("/demo/templates");
     }
   };

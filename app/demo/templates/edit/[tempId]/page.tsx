@@ -26,6 +26,7 @@ const TemplateEdit: FC<Props> = ({ params }) => {
         name={currentTemplate?.name!}
         description={currentTemplate?.description!}
         tasks={currentTask!}
+        tempId={params.tempId}
       />
     </div>
   );
