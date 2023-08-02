@@ -20,6 +20,13 @@ export function Reducer(state: InitialState, action: ActionType): InitialState {
       };
     case "ADD_TEMPLATE":
       return { ...state, templates: [...state.templates, action.payload] };
+    case "UPDATE_TEMPLATE":
+      return {
+        ...state,
+        templates: state.templates.map((currentTemplate) =>
+          currentTemplate.templateId === action.payload.templateId ? action.payload : currentTemplate
+        ),
+      };
     case "DELETE_TEMPLATE":
     return {
       ...state,
@@ -27,7 +34,20 @@ export function Reducer(state: InitialState, action: ActionType): InitialState {
     };
     case "ADD_TASK":
       return { ...state, tasks: [...state.tasks, action.payload] };
+    case "UPDATE_TASK":
+      return {
+        ...state,
+        tasks: state.tasks.map((currentTask) =>
+          currentTask.taskId === action.payload.taskId ? action.payload : currentTask
+        ),
+      };
+    case "DELETE_TASK":
+    return {
+      ...state,
+      tasks: state.tasks.filter((currentTask) => currentTask.taskId !== action.payload),
+    };
     default:
       return state;
+      
   }
 }
