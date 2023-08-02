@@ -4,6 +4,9 @@ export type ActionType =
   | { type: "ADD_ACTION"; payload: Action }
   | { type: "UPDATE_ACTION"; payload: Action }
   | { type: "DELETE_ACTION"; payload: string } // payload is the actionId
-  | { type: "DELETE_TEMPLATE"; payload: string }
   | { type: "ADD_TEMPLATE"; payload: Template }
+  | { type: "UPDATE_TEMPLATE"; payload: Template }
+  | { type: "DELETE_TEMPLATE"; payload: string } // payload is templateId
   | { type: "ADD_TASK"; payload: Task }
+  | { type: "UPDATE_TASK"; payload: Task }
+  | { type: "DELETE_TASK"; payload: string } // payload is taskId
