@@ -1,6 +1,6 @@
 "use client";
 import { Action, Task } from "@/context/Interfaces";
-import { getActionTitleById } from "@/lib/helpers";
+import { formatTime, formatTimeType, getActionTitleById } from "@/lib/helpers";
 import { useState } from "react";
 import { FaAngleUp, FaMinusCircle } from "react-icons/fa";
 
@@ -20,8 +20,10 @@ const TaskCard = ({ task, actions, removeTask }: Props) => {
           className="text-xl text-red-400 mr-4"
           onClick={() => removeTask(task)}
         />
-        <span className="font-bold mr-1">Start Time:</span> {task.startTime}
-        <span className="font-bold ml-6 mr-1">End Time:</span> {task.endTime}
+        <span className="font-bold mr-1">Start Time:</span>{" "}
+        {formatTimeType(formatTime(task.startTime))}
+        <span className="font-bold ml-6 mr-1">End Time:</span>{" "}
+        {formatTimeType(formatTime(task.endTime))}
         <span className="font-bold ml-6 mr-1">Action:</span>
         {getActionTitleById(task.actionId, actions)}
         <FaAngleUp

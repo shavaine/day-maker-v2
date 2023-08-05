@@ -1,6 +1,6 @@
 import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { Task } from "@/context/Interfaces";
-import { getActionTitleById } from "@/lib/helpers";
+import { formatTime, formatTimeType, getActionTitleById } from "@/lib/helpers";
 import { FC, useContext, useState } from "react";
 import { FaAngleUp } from "react-icons/fa";
 
@@ -19,8 +19,8 @@ const TaskTableRow: FC<Props> = ({ task, index }) => {
           index % 2 === 0 ? "text-center" : "bg-gray-100 text-center"
         }`}
       >
-        <td>{task.startTime}</td>
-        <td>{task.endTime}</td>
+        <td>{formatTimeType(formatTime(task.startTime))}</td>
+        <td>{formatTimeType(formatTime(task.endTime))}</td>
         <td>{getActionTitleById(task.actionId, state.actions)}</td>
         <td>
           {" "}
