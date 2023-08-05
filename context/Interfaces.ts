@@ -6,8 +6,8 @@ export interface Action {
 export interface Task {
   taskId: string;
   notes: string;
-  startTime: string;
-  endTime: string;
+  startTime: number;
+  endTime: number;
   actionId: string;
   templateId: string;
 }
