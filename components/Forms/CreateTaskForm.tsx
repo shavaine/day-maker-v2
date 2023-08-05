@@ -3,6 +3,8 @@ import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { Task } from "@/context/Interfaces";
 import { generateCUID } from "@/lib/generateCUID";
 import { FC, FormEvent, useContext, useState } from "react";
+import TimePicker from "../TimePicker";
+import { formatTime } from "@/lib/helpers";
 
 interface Props {
   toggleModal: () => void;
@@ -15,9 +17,20 @@ export const CreateTaskForm: FC<Props> = ({
 }) => {
   const { state } = useContext(DemoContext);
   const [actionId, setActionId] = useState<string>("");
-  const [startTime, setStartTime] = useState<string>("");
-  const [endTime, setEndTime] = useState<string>("");
+  const [startTime, setStartTime] = useState<number>(0);
+  const [endTime, setEndTime] = useState<number>(0);
   const [notes, setNotes] = useState<string>("");
+
+  console.log(`Start Time: ${startTime} - ${formatTime(startTime)}`);
+  console.log(`End Time: ${endTime} - ${formatTime(endTime)}`);
+
+  const handleStartTimeChange = (newTime: number) => {
+    setStartTime(newTime);
+  };
+
+  const handleEndtTimeChange = (newTime: number) => {
+    setEndTime(newTime);
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,52 +54,53 @@ export const CreateTaskForm: FC<Props> = ({
       className="flex flex-col gap-y-14 font-spaceMono"
       onSubmit={handleSubmit}
     >
-      <div className="flex flex-col">
-        <label htmlFor="action">Action</label>
-        <select
-          className="border"
-          id="action"
-          name="action"
-          value={actionId}
-          onChange={(e) => setActionId(e.target.value)}
-        >
-          <option value="">Select an action</option>
-          {state.actions.map((action) => (
-            <option key={action.actionId} value={action.actionId}>
-              {action.title}
-            </option>
-          ))}
-        </select>
-        <div className="flex flex-row">
+      <div className="flex flex-col gap-y-4">
+        <div className="flex flex-col">
+          <label htmlFor="action">Action</label>
+          <select
+            className="border"
+            id="action"
+            name="action"
+            value={actionId}
+            onChange={(e) => setActionId(e.target.value)}
+          >
+            <option value="">Select an action</option>
+            {state.actions.map((action) => (
+              <option key={action.actionId} value={action.actionId}>
+                {action.title}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="flex flex-row gap-x-4">
           <div className="grow">
             <label htmlFor="startTime">Start Time</label>
-            <input
-              className="border"
-              type="text"
-              value={startTime}
+            <TimePicker
+              selectedTime={startTime}
+              onTimeChange={handleStartTimeChange}
               id="startTime"
-              onChange={(e) => setStartTime(e.target.value)}
             />
           </div>
           <div className="grow">
             <label htmlFor="endTime">End Time</label>
-            <input
-              className="border"
-              type="text"
-              value={endTime}
+            <TimePicker
+              selectedTime={endTime}
+              onTimeChange={handleEndtTimeChange}
               id="endTime"
-              onChange={(e) => setEndTime(e.target.value)}
             />
           </div>
         </div>
-        <label htmlFor="notes">Notes</label>
-        <textarea
-          className="border px-3 py-2"
-          rows={3}
-          value={notes}
-          id="notes"
-          onChange={(e) => setNotes(e.target.value)}
-        />
+        <div className="flex flex-col">
+          <label htmlFor="notes">Notes</label>
+          <textarea
+            className="border px-3 py-2"
+            rows={3}
+            value={notes}
+            id="notes"
+            onChange={(e) => setNotes(e.target.value)}
+          />
+        </div>
       </div>
 
       <div className="flex flex-row justify-end gap-x-2">
