@@ -28,3 +28,13 @@ import { Action, Task, Template } from "@/context/Interfaces";
       remainingMinutes
     ).padStart(2, "0")}`;
   }
+
+  export const formatTimeType = (time: string) => {
+    const [hours, minutes] = time.split(":");
+    const newHours = Number(hours) > 12 ? Number(hours) - 12 : Number(hours);
+    if (Number(hours) > 11) {
+      return `${String(newHours)}:${minutes.padStart(2, "0")}PM`
+    } else {
+      return `${String(newHours)}:${minutes.padStart(2, "0")}AM`
+    }
+  }
