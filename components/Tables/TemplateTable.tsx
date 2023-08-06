@@ -3,12 +3,12 @@ import { FC, useContext } from "react";
 import TaskTableRow from "./TaskTableRow";
 
 interface Props {
-  tempId: string;
+  tempId: string | undefined;
 }
 const TemplateTable: FC<Props> = ({ tempId }) => {
   const { state } = useContext(DemoContext);
   return (
-    <table>
+    <table className="border">
       <tbody>
         <tr className="bg-gray-100">
           <th>Start Time</th>
@@ -16,11 +16,17 @@ const TemplateTable: FC<Props> = ({ tempId }) => {
           <th>Action</th>
           <th>Notes</th>
         </tr>
-        {state.tasks
-          .filter((task) => task.templateId === tempId)
-          .map((task, index) => (
-            <TaskTableRow key={task.taskId} task={task} index={index} />
-          ))}
+        {tempId ? (
+          state.tasks
+            .filter((task) => task.templateId === tempId)
+            .map((task, index) => (
+              <TaskTableRow key={task.taskId} task={task} index={index} />
+            ))
+        ) : (
+          <tr>
+            <td>No template exist...</td>
+          </tr>
+        )}
       </tbody>
     </table>
   );
