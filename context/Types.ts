@@ -1,4 +1,4 @@
-import { Action, Task, Template } from "./Interfaces";
+import { Action, Schedule, Task, Template } from "./Interfaces";
 
 export type ActionType =
   | { type: "ADD_ACTION"; payload: Action }
@@ -10,3 +10,6 @@ export type ActionType =
   | { type: "ADD_TASK"; payload: Task }
   | { type: "UPDATE_TASK"; payload: Task }
   | { type: "DELETE_TASK"; payload: string } // payload is taskId
+  | { type: "ADD_SCHEDULE"; payload: Schedule }
+  | { type: "UPDATE_SCHEDULE"; payload: Schedule }
+  | { type: "DELETE_SCHEDULE"; payload: string };

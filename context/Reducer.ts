@@ -46,6 +46,20 @@ export function Reducer(state: InitialState, action: ActionType): InitialState {
       ...state,
       tasks: state.tasks.filter((currentTask) => currentTask.taskId !== action.payload),
     };
+    case "ADD_SCHEDULE":
+      return { ...state, schedules: [...state.schedules, action.payload] };
+    case "UPDATE_SCHEDULE":
+      return {
+        ...state,
+        schedules: state.schedules.map((currentSchedule) =>
+          currentSchedule.scheduleId === action.payload.scheduleId ? action.payload : currentSchedule
+        ),
+      };
+    case "DELETE_SCHEDULE":
+    return {
+      ...state,
+      schedules: state.schedules.filter((currentSchedule) => currentSchedule.scheduleId !== action.payload),
+    };
     default:
       return state;
       
