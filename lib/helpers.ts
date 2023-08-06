@@ -38,3 +38,10 @@ import { Action, Task, Template } from "@/context/Interfaces";
       return `${String(newHours)}:${minutes.padStart(2, "0")}AM`
     }
   }
+
+  export const formatCustomDate = (date: Date): string => {
+    const options: Intl.DateTimeFormatOptions = { weekday: 'short', month: 'short', day: '2-digit', year: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  }
+
+  
