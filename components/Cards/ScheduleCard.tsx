@@ -5,6 +5,8 @@ import { formatCustomDate, getTemplateNameById } from "@/lib/helpers";
 import { useContext, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import TemplateTable from "../Tables/TemplateTable";
+import ChangeTemplateModal from "../Modals/ChangeTemplateModal";
+import RemoveTemplateModal from "../Modals/RemoveTemplateModal";
 
 const ScheduleCard = () => {
   const [scheduleDate, setScheduleDate] = useState(new Date(Date.now()));
@@ -46,11 +48,26 @@ const ScheduleCard = () => {
         />
       </div>
       <div className="flex flex-col">
-        {shownSchedule?.templateId && (
-          <h2 className="text-2xl text-secondaryColor font-workSans font-bold">
-            {getTemplateNameById(shownSchedule?.templateId, state.templates)}
-          </h2>
-        )}
+        <div className="flex flex-row justify-between">
+          {shownSchedule?.templateId && (
+            <h2 className="text-2xl text-secondaryColor font-workSans font-bold">
+              {getTemplateNameById(shownSchedule?.templateId, state.templates)}
+            </h2>
+          )}
+          {shownSchedule?.templateId && (
+            <div className="flex flex-row gap-x-6">
+              <ChangeTemplateModal
+                currentScheduleId={shownSchedule?.scheduleId}
+                currentDate={shownSchedule?.date}
+                tempID={shownSchedule?.templateId}
+              />
+              <RemoveTemplateModal
+                currentScheduleId={shownSchedule?.scheduleId}
+              />
+            </div>
+          )}
+        </div>
+
         <TemplateTable tempId={shownSchedule?.templateId} />
       </div>
     </div>
