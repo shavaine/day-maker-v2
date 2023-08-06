@@ -37,12 +37,12 @@ const tasks: Task[] = [
   },
 ];
 
-
+let todaysDate = new Date(Date.now());
 
 const schedules: Schedule[] = [
   {
     scheduleId: 'clkniyxhs00003p6ob1q5xq2y',
-    date: "2023-07-28",
+    date: todaysDate,
     templateId: templates[0].templateId,
   },
 ];

@@ -20,7 +20,7 @@ export interface Template {
 
 export interface Schedule {
   scheduleId: string;
-  date: string;
+  date: Date;
   templateId: string;
 }
 

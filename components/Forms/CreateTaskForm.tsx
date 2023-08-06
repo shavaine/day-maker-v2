@@ -4,7 +4,6 @@ import { Task } from "@/context/Interfaces";
 import { generateCUID } from "@/lib/generateCUID";
 import { FC, FormEvent, useContext, useState } from "react";
 import TimePicker from "../TimePicker";
-import { formatTime } from "@/lib/helpers";
 
 interface Props {
   toggleModal: () => void;
@@ -20,9 +19,6 @@ export const CreateTaskForm: FC<Props> = ({
   const [startTime, setStartTime] = useState<number>(0);
   const [endTime, setEndTime] = useState<number>(0);
   const [notes, setNotes] = useState<string>("");
-
-  console.log(`Start Time: ${startTime} - ${formatTime(startTime)}`);
-  console.log(`End Time: ${endTime} - ${formatTime(endTime)}`);
 
   const handleStartTimeChange = (newTime: number) => {
     setStartTime(newTime);
