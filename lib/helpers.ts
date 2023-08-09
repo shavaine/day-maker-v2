@@ -44,4 +44,26 @@ import { Action, Task, Template } from "@/context/Interfaces";
     return date.toLocaleDateString('en-US', options);
   }
 
-  
+  export const getCalendarData = (year: number, month: number) => {
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const startOffset = firstDay.getDay();
+    const endOffset = 6 - lastDay.getDay();
+
+    const calendarData = [];
+    // Padding for days before the first day
+    for (let i = 0; i < startOffset; i++) {
+      calendarData.push(null);
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      calendarData.push(new Date(year, month, day));
+    }
+    // Padding for days before the last day
+    for (let i = 0; i < endOffset; i++) {
+      calendarData.push(null);
+    }
+
+    return calendarData;
+  }
