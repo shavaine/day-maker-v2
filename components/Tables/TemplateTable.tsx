@@ -24,7 +24,9 @@ const TemplateTable: FC<Props> = ({ tempId }) => {
             ))
         ) : (
           <tr>
-            <td>No template exist...</td>
+            <td className="text-center" colSpan={4}>
+              No template exist...
+            </td>
           </tr>
         )}
       </tbody>
