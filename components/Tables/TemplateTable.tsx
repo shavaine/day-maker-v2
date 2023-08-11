@@ -7,6 +7,7 @@ interface Props {
 }
 const TemplateTable: FC<Props> = ({ tempId }) => {
   const { state } = useContext(DemoContext);
+  console.log(state.tasks);
   return (
     <table className="border">
       <tbody>
@@ -19,6 +20,7 @@ const TemplateTable: FC<Props> = ({ tempId }) => {
         {tempId ? (
           state.tasks
             .filter((task) => task.templateId === tempId)
+            .sort((a, b) => a.startTime - b.startTime)
             .map((task, index) => (
               <TaskTableRow key={task.taskId} task={task} index={index} />
             ))

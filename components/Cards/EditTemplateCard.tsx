@@ -107,14 +107,16 @@ const EditTemplateCard: FC<Props> = ({ name, description, tasks, tempId }) => {
           Tasks:
         </label>
         <CreateTaskModal addTemplateTasks={addTemplateTask} />
-        {templateTasks.map((task) => (
-          <TaskCard
-            key={task.taskId}
-            task={task}
-            actions={state.actions}
-            removeTask={deleteTemplateTask}
-          />
-        ))}
+        {templateTasks
+          .sort((a, b) => a.startTime - b.startTime)
+          .map((task) => (
+            <TaskCard
+              key={task.taskId}
+              task={task}
+              actions={state.actions}
+              removeTask={deleteTemplateTask}
+            />
+          ))}
       </div>
 
       <div className="flex flex-row justify-end gap-x-2">
