@@ -1,10 +1,12 @@
 "use client";
-import { getCalendarData } from "@/lib/helpers";
-import { FC, ReactNode, useState } from "react";
+import { DemoContext } from "@/context/DemoContext/DemoContext";
+import { getCalendarData, getTemplateNameById } from "@/lib/helpers";
+import { FC, ReactNode, useContext, useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 const Calendar: FC = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
+  const { state, dispatch } = useContext(DemoContext);
 
   const handlePrevMonth = () => {
     setCurrentMonth(
@@ -31,6 +33,22 @@ const Calendar: FC = () => {
       return <p>{date.getDate()}</p>;
     } else {
       return "";
+    }
+  };
+
+  const applySchedule = (date: Date | null) => {
+    let schedule = state.schedules.find(
+      (schedule) =>
+        schedule.date.getMonth() === date?.getMonth() &&
+        schedule.date.getDate() === date?.getDate()
+    );
+
+    if (schedule) {
+      return (
+        <p className="font-bold">
+          {getTemplateNameById(schedule.templateId, state.templates)}
+        </p>
+      );
     }
   };
 
@@ -65,6 +83,7 @@ const Calendar: FC = () => {
           {calendarData.map((date, index) => (
             <div className="border pb-14 flex flex-col" key={index}>
               {applyDate(date)}
+              {applySchedule(date)}
             </div>
           ))}
         </div>

@@ -3,6 +3,11 @@ import { Action, Task, Template, Schedule, InitialState } from "./Interfaces";
 const actions: Action[] = [
   { actionId: 'clkniwd650000356kel7co7pw', title: "Take out the trash" },
   { actionId: 'clknix59w00003p6ozop5d3ox', title: "Wash dishes" },
+  { actionId: 'cla627c0e000108md2m8n113p', title: "Clean Room" },
+  { actionId: 'clqk27n0n000208md3rxh2hf2', title: "Pick-up Dinner" },
+  { actionId: 'cld6282l7000308mdagfb0fe7  ', title: "Prepare Lunch" },
+  { actionId: 'cly62887j000408md8syn4459  ', title: "Eat Breakfast" },
+  { actionId: 'clb628lu2000508md8ccm6cl9 ', title: "Go For A Jog" },
 ];
 
 const templates: Template[] = [

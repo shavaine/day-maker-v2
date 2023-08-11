@@ -7,7 +7,6 @@ interface Props {
 }
 const TemplateTable: FC<Props> = ({ tempId }) => {
   const { state } = useContext(DemoContext);
-  console.log(state.tasks);
   return (
     <table className="border">
       <tbody>
