@@ -12,25 +12,25 @@ export default function SideNav() {
       <ul className="flex flex-col gap-y-5 font-spaceMono">
         <li>
           <SideLink path="/demo/schedule">
-            <AiFillSchedule className="text-2xl ml-3" />
+            <AiFillSchedule className="text-3xl ml-3" />
             <p>Schedule</p>
           </SideLink>
         </li>
         <li>
           <SideLink path="/demo/calendar">
-            <AiOutlineCalendar className="text-2xl ml-3" />
+            <AiOutlineCalendar className="text-3xl ml-3" />
             <p>Calendar</p>
           </SideLink>
         </li>
         <li>
           <SideLink path="/demo/templates">
-            <AiFillLayout className="text-2xl ml-3" />
+            <AiFillLayout className="text-3xl ml-3" />
             <p>Templates</p>
           </SideLink>
         </li>
         <li>
           <SideLink path="/demo/actions">
-            <HiListBullet className="text-2xl ml-3" />
+            <HiListBullet className="text-3xl ml-3" />
             <p>Actions</p>
           </SideLink>
         </li>
