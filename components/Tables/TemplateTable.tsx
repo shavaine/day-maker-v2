@@ -8,7 +8,7 @@ interface Props {
 const TemplateTable: FC<Props> = ({ tempId }) => {
   const { state } = useContext(DemoContext);
   return (
-    <table className="border lg:mx-10">
+    <table className="border">
       <tbody>
         <tr className="bg-gray-200 font-workSans font-normal">
           <th className=" p-4 text-start font-normal">Start Time</th>

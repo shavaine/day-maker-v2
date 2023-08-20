@@ -30,7 +30,7 @@ const ScheduleCard = () => {
   };
 
   return (
-    <div className="flex flex-col gap-y-20 bg-white p-4 rounded-md border shadow">
+    <div className="flex flex-col gap-y-20 bg-white p-3 lg:p-10 rounded-md border shadow">
       <div className="flex flex-row justify-between">
         <FaArrowLeft
           className="text-2xl self-center hover:opacity-80 hover:cursor-pointer"
@@ -48,7 +48,7 @@ const ScheduleCard = () => {
         />
       </div>
       <div className="flex flex-col">
-        <div className="flex flex-col sm:flex-row justify-between lg:mx-10">
+        <div className="flex flex-col sm:flex-row justify-between">
           {shownSchedule?.templateId && (
             <h2 className="text-2xl text-secondaryColor font-workSans font-bold">
               {getTemplateNameById(shownSchedule?.templateId, state.templates)}

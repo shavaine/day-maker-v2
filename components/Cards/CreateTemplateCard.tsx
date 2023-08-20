@@ -51,7 +51,7 @@ const CreateTemplateCard: FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-y-14 font-spaceMono bg-white p-4 rounded-md border shadow">
+    <div className="flex flex-col gap-y-14 font-spaceMono bg-white p-3 lg:p-10 rounded-md border shadow">
       <div className="flex flex-col gap-y-4">
         <div className="flex flex-col">
           <label className="text-black text-sm" htmlFor="templateName">

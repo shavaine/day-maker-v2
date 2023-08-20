@@ -7,9 +7,7 @@ export default function Schedule() {
         <h1 className="pageTitle">Schedule</h1>
         <h4 className="text-lg text-gray-500 self-center">Create Schedule</h4>
       </div>
-      <div>
-        <ScheduleCard />
-      </div>
+      <ScheduleCard />
     </div>
   );
 }
