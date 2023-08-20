@@ -8,13 +8,13 @@ interface Props {
 const TemplateTable: FC<Props> = ({ tempId }) => {
   const { state } = useContext(DemoContext);
   return (
-    <table className="border">
+    <table className="border lg:mx-10">
       <tbody>
-        <tr className="bg-gray-100">
-          <th>Start Time</th>
-          <th>End Time</th>
-          <th>Action</th>
-          <th>Notes</th>
+        <tr className="bg-gray-200 font-workSans font-normal">
+          <th className=" p-4 text-start font-normal">Start Time</th>
+          <th className=" p-4 text-start font-normal">End Time</th>
+          <th className=" p-4 text-start font-normal">Action</th>
+          <th className=" p-4 font-normal">Notes</th>
         </tr>
         {tempId ? (
           state.tasks
