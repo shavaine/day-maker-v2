@@ -6,7 +6,7 @@ export default function Navbar() {
   return (
     <div className="flex flex-row border-b bg-white content-center py-2 sticky top-0 z-40">
       <Image
-        className="mr-auto ml-4  w-auto h-16"
+        className="ml-3 sm:ml-10 mr-auto w-auto h-16"
         src="/assets/logo.png"
         width={2000}
         height={1500}

@@ -8,7 +8,7 @@ import SideLink from "./SideLink";
 
 export default function SideNav() {
   return (
-    <div className="hidden sm:flex w-60 h-screen border-r py-6 px-3">
+    <div className="hidden sm:flex h-screen border-r py-6 px-5">
       <ul className="flex flex-col gap-y-5 font-spaceMono">
         <li>
           <SideLink path="/demo/schedule">

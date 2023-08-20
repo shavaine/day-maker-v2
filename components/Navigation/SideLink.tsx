@@ -23,8 +23,8 @@ export default function SideLink({ path, toggleNav, children }: Props) {
       }
       className={`${
         pathname.includes(path)
-          ? "p-2 flex flex-row gap-x-2 bg-btn-background font-spaceMono font-bold text-[#471AA0FF]"
-          : "p-2 flex flex-row gap-x-2 hover:bg-btn-background hover:text-[#471AA0FF] font-spaceMono font-bold opacity-70 hover:opacity-100"
+          ? "p-2 pr-20 flex flex-row gap-x-2 bg-btn-background font-spaceMono font-bold text-[#471AA0FF]"
+          : "p-2 pr-20 flex flex-row gap-x-2 hover:bg-btn-background hover:text-[#471AA0FF] font-spaceMono font-bold opacity-70 hover:opacity-100"
       }`}
       href={path}
     >
