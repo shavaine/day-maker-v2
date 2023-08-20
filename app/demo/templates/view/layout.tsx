@@ -13,7 +13,7 @@ export default function ViewTemplateLayout({
         </h1>
         <BackButton />
       </div>
-      <div className="p-10">{children}</div>
+      <div className="mx-3 sm:mx-10">{children}</div>
     </div>
   );
 }

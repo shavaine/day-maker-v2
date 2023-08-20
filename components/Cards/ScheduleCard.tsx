@@ -48,14 +48,14 @@ const ScheduleCard = () => {
         />
       </div>
       <div className="flex flex-col">
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-col sm:flex-row justify-between lg:mx-10">
           {shownSchedule?.templateId && (
             <h2 className="text-2xl text-secondaryColor font-workSans font-bold">
               {getTemplateNameById(shownSchedule?.templateId, state.templates)}
             </h2>
           )}
           {shownSchedule?.templateId && (
-            <div className="flex flex-row gap-x-6">
+            <div className="flex flex-row justify-between sm:gap-x-6">
               <ChangeTemplateModal
                 currentScheduleId={shownSchedule?.scheduleId}
                 currentDate={shownSchedule?.date}
