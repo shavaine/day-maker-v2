@@ -8,7 +8,7 @@ const TemplateList: FC = () => {
   const { state } = useContext(DemoContext);
 
   return (
-    <div className="p-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {state.templates.map((template) => (
         <TemplateCard
           key={template.templateId}

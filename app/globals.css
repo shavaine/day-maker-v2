@@ -11,3 +11,7 @@ body {
 .dropdown {
   @apply absolute right-0 top-full w-full p-5 rounded-b-lg bg-white min-w-[210px] flex flex-col gap-y-4 justify-end items-end;
 }
+
+.pageTitle {
+  @apply mb-6 mt-3  sm:mb-12 text-secondaryColor font-workSans font-bold text-4xl;
+}

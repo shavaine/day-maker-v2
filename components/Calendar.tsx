@@ -64,7 +64,7 @@ const Calendar: FC = () => {
   );
 
   return (
-    <div className="px-3 sm:px-10">
+    <div>
       <div className="flex flex-col gap-y-20 bg-white p-4 py-10 rounded-md border shadow">
         <div className="flex flex-row justify-between">
           <FaAngleLeft

@@ -10,7 +10,7 @@ export default function DemoLayout({
     <div className="flex flex-row">
       <SideNav />
       <DemoProvider>
-        <main className="w-full bg-gray-100">{children}</main>
+        <main className="w-full bg-gray-100 p-3 sm:p-10">{children}</main>
       </DemoProvider>
     </div>
   );
