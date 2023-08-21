@@ -21,8 +21,8 @@ const ActionCard: FC<Action> = ({
   };
 
   return (
-    <div className="flex flex-col justify-between bg-white border shadow grow h-40 pt-3 break-all overflow-auto font-spaceMon rounded-md">
-      <p className="text-center font-workSans font-bold text-mainColor text-lg">
+    <div className="flex flex-col justify-between bg-white border shadow grow break-all overflow-auto font-spaceMon rounded-md">
+      <p className="text-center font-workSans font-bold text-mainColor text-lg p-3">
         {title}
       </p>
       <div className="flex flex-row w-full">

@@ -14,16 +14,16 @@ const TaskTableRow: FC<Props> = ({ task, index }) => {
   return (
     <>
       <tr className={`${index % 2 === 0 ? "my-3" : "bg-gray-100"}`}>
-        <td className="w-[15%] p-4 font-bold font-spaceMono">
+        <td className="p-4 font-bold font-spaceMono">
           {formatTimeType(formatTime(task.startTime))}
         </td>
-        <td className="w-[15%] p-4 font-bold font-spaceMono">
+        <td className="p-4 font-bold font-spaceMono">
           {formatTimeType(formatTime(task.endTime))}
         </td>
-        <td className="w-[55%] p-4 font-spaceMono">
+        <td className="p-4 font-spaceMono">
           {getActionTitleById(task.actionId, state.actions)}
         </td>
-        <td className="w-[15%] p-4">
+        <td className="p-4">
           <button
             onClick={() => {
               setToggleNotes((prev) => !prev);

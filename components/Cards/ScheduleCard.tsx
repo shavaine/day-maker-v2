@@ -7,10 +7,11 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import TemplateTable from "../Tables/TemplateTable";
 import ChangeTemplateModal from "../Modals/ChangeTemplateModal";
 import RemoveTemplateModal from "../Modals/RemoveTemplateModal";
+import AddTemplateModal from "../Modals/AddTemplateModal";
 
 const ScheduleCard = () => {
   const [scheduleDate, setScheduleDate] = useState(new Date(Date.now()));
-  const { state, dispatch } = useContext(DemoContext);
+  const { state } = useContext(DemoContext);
 
   const shownSchedule = state.schedules.find(
     (schedule) =>
@@ -48,13 +49,13 @@ const ScheduleCard = () => {
         />
       </div>
       <div className="flex flex-col">
-        <div className="flex flex-col sm:flex-row justify-between">
+        {/* <div className="flex flex-col sm:flex-row justify-between">
           {shownSchedule?.templateId && (
             <h2 className="text-2xl text-secondaryColor font-workSans font-bold">
               {getTemplateNameById(shownSchedule?.templateId, state.templates)}
             </h2>
           )}
-          {shownSchedule?.templateId && (
+          {shownSchedule?.templateId ? (
             <div className="flex flex-row justify-between sm:gap-x-6">
               <ChangeTemplateModal
                 currentScheduleId={shownSchedule?.scheduleId}
@@ -65,10 +66,38 @@ const ScheduleCard = () => {
                 currentScheduleId={shownSchedule?.scheduleId}
               />
             </div>
+          ) : (
+            <AddTemplateModal scheduleDate={scheduleDate} />
           )}
-        </div>
-
-        <TemplateTable tempId={shownSchedule?.templateId} />
+        </div> */}
+        <>
+          {shownSchedule?.templateId ? (
+            <div className="flex flex-col sm:flex-row justify-between">
+              <h2 className="text-2xl text-secondaryColor font-workSans font-bold">
+                {getTemplateNameById(
+                  shownSchedule?.templateId,
+                  state.templates
+                )}
+              </h2>
+              <div className="flex flex-row justify-between sm:gap-x-6">
+                <ChangeTemplateModal
+                  currentScheduleId={shownSchedule?.scheduleId}
+                  currentDate={shownSchedule?.date}
+                  tempID={shownSchedule?.templateId}
+                />
+                <RemoveTemplateModal
+                  currentScheduleId={shownSchedule?.scheduleId}
+                />
+              </div>
+            </div>
+          ) : (
+            <AddTemplateModal scheduleDate={scheduleDate} />
+          )}
+        </>
+        {/* Table */}
+        {shownSchedule?.templateId && (
+          <TemplateTable tempId={shownSchedule?.templateId} />
+        )}
       </div>
     </div>
   );
