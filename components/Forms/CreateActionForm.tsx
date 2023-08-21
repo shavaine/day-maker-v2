@@ -42,6 +42,7 @@ export const CreateActionForm: FC<Props> = ({ toggleModal }) => {
           placeholder="Enter Title"
           id="CreateAction"
           className="border rounded-lg px-3 py-2 w-96"
+          autoFocus
         />
       </div>
 
