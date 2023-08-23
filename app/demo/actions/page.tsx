@@ -6,7 +6,7 @@ export default function Actions() {
     <div className="max-h-screen overflow-auto">
       <div className="flex flex-row justify-between ">
         <h1 className="pageTitle">Actions</h1>
-        <h4 className="text-lg text-gray-500 self-center">
+        <h4 className="text-lg text-gray-500 mt-5">
           <CreateActionModal />
         </h4>
       </div>
