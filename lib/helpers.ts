@@ -39,6 +39,25 @@ import { Action, Task, Template } from "@/context/Interfaces";
     }
   }
 
+  export const formatStringToDate = (date: string) => {
+    const [year, month, day] = date!.split('-').map(Number);
+
+    if (isNaN(year) || isNaN(month) || isNaN(day)) {
+      throw new Error("Invalid date format. Please provide a valid yyyy-mm-dd date string.");
+    }
+
+    const newDate = new Date(year, month - 1, day, 12, 0, 0);
+    return newDate;
+  }
+
+  export const formatDateToString = (date: Date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
+
   export const formatCustomDate = (date: Date): string => {
     const options: Intl.DateTimeFormatOptions = { weekday: 'short', month: 'short', day: '2-digit', year: 'numeric' };
     return date.toLocaleDateString('en-US', options);
