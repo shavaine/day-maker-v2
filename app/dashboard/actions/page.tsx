@@ -1,3 +1,16 @@
+import ActionList from "@/components/List/ActionList";
+import CreateActionModal from "@/components/Modals/CreateActionModal";
+
 export default function Actions() {
-  return <div>Actions</div>;
+  return (
+    <div className="max-h-screen overflow-auto">
+      <div className="flex flex-row justify-between ">
+        <h1 className="pageTitle">Actions</h1>
+        <h4 className="text-lg text-gray-500 mt-5">
+          <CreateActionModal />
+        </h4>
+      </div>
+      <ActionList />
+    </div>
+  );
 }
