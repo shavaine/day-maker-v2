@@ -13,6 +13,7 @@ import {
   AiOutlineCalendar,
 } from "react-icons/ai";
 import { HiListBullet } from "react-icons/hi2";
+import DashOrDemo from "./DashOrDemo";
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -38,32 +39,30 @@ export default function Navigation() {
             <li>
               <NavLink name="Home" path="/" toggleNav={closeNav} />
             </li>
-            <li>
-              <NavLink name="Demo" path="/demo" toggleNav={closeNav} />
-            </li>
+            <DashOrDemo />
             <hr className="mt-3 border-1 w-full " />
-            {pathname.includes("demo") && (
+            {(pathname.includes("dashboard") || pathname.includes("demo")) && (
               <>
                 <li>
-                  <SideLink path="/demo/schedule" toggleNav={closeNav}>
+                  <SideLink path="schedule" toggleNav={closeNav}>
                     <AiFillSchedule className="text-2xl ml-3" />
                     <p>Schedule</p>
                   </SideLink>
                 </li>
                 <li>
-                  <SideLink path="/demo/calendar" toggleNav={closeNav}>
+                  <SideLink path="calendar" toggleNav={closeNav}>
                     <AiOutlineCalendar className="text-2xl ml-3" />
                     <p>Calendar</p>
                   </SideLink>
                 </li>
                 <li>
-                  <SideLink path="/demo/templates" toggleNav={closeNav}>
+                  <SideLink path="templates" toggleNav={closeNav}>
                     <AiFillLayout className="text-2xl ml-3" />
                     <p>Templates</p>
                   </SideLink>
                 </li>
                 <li>
-                  <SideLink path="/demo/actions" toggleNav={closeNav}>
+                  <SideLink path="actions" toggleNav={closeNav}>
                     <HiListBullet className="text-2xl ml-3" />
                     <p>Actions</p>
                   </SideLink>

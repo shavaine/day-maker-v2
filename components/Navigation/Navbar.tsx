@@ -1,6 +1,7 @@
 import Image from "next/image";
 import NavLink from "./NavLink";
 import Navigation from "./Navigation";
+import DashOrDemo from "./DashOrDemo";
 
 export default function Navbar() {
   return (
@@ -16,9 +17,7 @@ export default function Navbar() {
         <li>
           <NavLink name="Home" path="/" />
         </li>
-        <li>
-          <NavLink name="Demo" path="/demo" />
-        </li>
+        <DashOrDemo />
       </ul>
       <Navigation />
     </div>

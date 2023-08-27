@@ -10,7 +10,7 @@ interface Props {
 
 export default function NavLink({ name, path, toggleNav }: Props) {
   const pathname = usePathname();
-  if (path === "/demo") {
+  if (path === "/demo" || path === "/dashboard") {
     return (
       <Link
         onClick={

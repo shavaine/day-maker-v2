@@ -1,4 +1,5 @@
 "use client";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -10,6 +11,9 @@ interface Props {
 
 export default function SideLink({ path, toggleNav, children }: Props) {
   const pathname = usePathname();
+  const { data: session, status } = useSession();
+
+  const authenticated = status === "authenticated" ? true : false;
   return (
     <Link
       onClick={
@@ -26,7 +30,7 @@ export default function SideLink({ path, toggleNav, children }: Props) {
           ? "p-2 pr-20 flex flex-row gap-x-2 bg-btn-background text-lg font-spaceMono font-bold text-[#471AA0FF]"
           : "p-2 pr-20 flex flex-row gap-x-2 hover:bg-btn-background text-lg hover:text-[#471AA0FF] font-spaceMono hover:font-bold opacity-70 hover:opacity-100"
       }`}
-      href={path}
+      href={`/${authenticated ? "dashboard" : "demo"}/${path}`}
     >
       {children}
     </Link>
