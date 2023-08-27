@@ -38,13 +38,15 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String     @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?    @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
+  Template      Template[]
+  Schedule      Schedule[]
 }
 
 model VerificationToken {
@@ -53,4 +55,40 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Action {
+  id    String @id @default(cuid())
+  title String
+  Task  Task[]
+}
+
+model Task {
+  id         String   @id @default(cuid())
+  notes      String?
+  startTime  String
+  endTime    String
+  action     Action   @relation(fields: [actionId], references: [id])
+  actionId   String
+  template   Template @relation(fields: [templateId], references: [id])
+  templateId String
+}
+
+model Template {
+  id          String     @id @default(cuid())
+  name        String
+  description String
+  user        User       @relation(fields: [userId], references: [id])
+  userId      String
+  Task        Task[]
+  Schedule    Schedule[]
+}
+
+model Schedule {
+  id         String   @id @default(cuid())
+  date       DateTime
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  template   Template @relation(fields: [templateId], references: [id])
+  templateId String
 }
