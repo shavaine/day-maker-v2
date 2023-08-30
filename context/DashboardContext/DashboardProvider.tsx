@@ -1,14 +1,18 @@
 "use client";
 import { FC, useReducer } from "react";
-import { initialState } from "../InitialData";
-import { Reducer } from "../Reducer";
+import { Reducer } from "./Reducer";
 import { DashboardContext } from "./DashboardContext";
+import { InitialState } from "./Interfaces";
 
 interface DashboardProviderProps {
   children: React.ReactNode;
+  initialState: InitialState;
 }
 
-export const DashboardProvider: FC<DashboardProviderProps> = ({ children }) => {
+export const DashboardProvider: FC<DashboardProviderProps> = ({
+  children,
+  initialState,
+}) => {
   const [state, dispatch] = useReducer(Reducer, initialState);
 
   return (

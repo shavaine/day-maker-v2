@@ -1,17 +1,19 @@
 import SideNav from "@/components/Navigation/SideNav";
-import { DemoProvider } from "@/context/DemoContext/DemoProvider";
+import { DashboardProvider } from "@/context/DashboardContext/DashboardProvider";
+import { InitialData } from "@/context/DashboardContext/InitialData";
 
-export default function DemoLayout({
+export default async function DemoLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const initialState = await InitialData();
   return (
     <div className="flex flex-row">
       <SideNav />
-      <DemoProvider>
+      <DashboardProvider initialState={initialState}>
         <main className="w-full bg-gray-100 p-3 sm:p-10">{children}</main>
-      </DemoProvider>
+      </DashboardProvider>
     </div>
   );
 }

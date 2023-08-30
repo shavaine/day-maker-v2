@@ -1,7 +1,6 @@
 import { createContext, Dispatch } from "react";
-import { initialState } from "../InitialData";
-import { InitialState } from "../Interfaces";
-import { ActionType } from "../Types";
+import { ActionType } from "./Types";
+import { initialContextValue, InitialState } from "./Interfaces";
 
 interface Props {
   state: InitialState;
@@ -9,6 +8,6 @@ interface Props {
 }
 
 export const DashboardContext = createContext<Props>({
-  state: initialState,
+  state: initialContextValue,
   dispatch: () => {},
 });
