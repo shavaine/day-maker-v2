@@ -1,7 +1,7 @@
 "use client";
 import { FC, useReducer } from "react";
-import { initialState } from "../InitialData";
-import { Reducer } from "../Reducer";
+import { initialState } from "./InitialData";
+import { Reducer } from "./Reducer";
 import { DemoContext } from "./DemoContext";
 
 interface DemoProviderProps {
