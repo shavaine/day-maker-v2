@@ -1,6 +1,6 @@
 import SideNav from "@/components/Navigation/SideNav";
 import { DashboardProvider } from "@/context/DashboardContext/DashboardProvider";
-import { InitialData } from "@/context/DashboardContext/InitialData";
+import { InitialData } from "@/context/DashboardContext/DashboardInitialData";
 
 export default async function DemoLayout({
   children,

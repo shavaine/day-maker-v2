@@ -1,6 +1,6 @@
 import { createContext, Dispatch } from "react";
-import { ActionType } from "./Types";
-import { initialContextValue, InitialState } from "./Interfaces";
+import { ActionType } from "../Types";
+import { initialContextValue, InitialState } from "../Interfaces";
 
 interface Props {
   state: InitialState;

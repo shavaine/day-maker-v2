@@ -1,5 +1,5 @@
-import { ActionType } from "./Types";
-import { InitialState } from "./Interfaces";
+import { ActionType } from "../Types";
+import { InitialState } from "../Interfaces";
 
 
 

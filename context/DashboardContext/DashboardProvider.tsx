@@ -1,8 +1,8 @@
 "use client";
 import { FC, useReducer } from "react";
-import { Reducer } from "./Reducer";
+import { Reducer } from "./DashboardReducer";
 import { DashboardContext } from "./DashboardContext";
-import { InitialState } from "./Interfaces";
+import { InitialState } from "../Interfaces";
 
 interface DashboardProviderProps {
   children: React.ReactNode;

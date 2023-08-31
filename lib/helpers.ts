@@ -1,15 +1,17 @@
 import { Action, Task, Template } from "@/context/Interfaces";
+import { DemoContext } from "@/context/DemoContext/DemoContext";
+import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 
   export const getActionTitleById = (actionId: string, actions: Action[]) => {
     const actionName = actions.find(
-      (action) => action.actionId === actionId
+      (action) => action.id === actionId
     )?.title;
     return actionName;
   };
 
   export const getTemplateNameById = (templateId: string, templates: Template[]) => {
     const templateName = templates.find(
-      (template) => template.templateId === templateId
+      (template) => template.id === templateId
     )?.name;
     return templateName;
   };
@@ -86,3 +88,13 @@ import { Action, Task, Template } from "@/context/Interfaces";
 
     return calendarData;
   }
+
+  // export const getCorrectContext = (DemoContext: React, DashboardContext, path) => {
+  //   if(path.includes('dashboard')) {
+  //     return DemoContext
+  //   }
+
+  //   if(path.includes('demo')) {
+  //     return DashboardContext
+  //   }
+  // }
