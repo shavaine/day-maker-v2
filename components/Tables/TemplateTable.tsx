@@ -1,12 +1,17 @@
 import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { FC, useContext } from "react";
 import TaskTableRow from "./TaskTableRow";
+import { usePathname } from "next/navigation";
+import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 
 interface Props {
   tempId: string | undefined;
 }
 const TemplateTable: FC<Props> = ({ tempId }) => {
-  const { state } = useContext(DemoContext);
+  const pathname = usePathname();
+  const { state } = useContext(
+    pathname.includes("dashboard") ? DashboardContext : DemoContext
+  );
   return (
     <table className="border">
       <tbody>
@@ -21,7 +26,7 @@ const TemplateTable: FC<Props> = ({ tempId }) => {
             .filter((task) => task.templateId === tempId)
             .sort((a, b) => a.startTime - b.startTime)
             .map((task, index) => (
-              <TaskTableRow key={task.taskId} task={task} index={index} />
+              <TaskTableRow key={task.id} task={task} index={index} />
             ))}
       </tbody>
     </table>

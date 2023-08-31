@@ -1,16 +1,20 @@
 "use client";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { Task, Template } from "@/context/Interfaces";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { FC, useContext, useState } from "react";
 import CreateTaskModal from "../Modals/CreateTaskModal";
 import { applyTemplateId } from "@/lib/helpers";
 import { generateCUID } from "@/lib/generateCUID";
 import TaskCard from "./TaskCard";
+import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 
 const CreateTemplateCard: FC = () => {
   const router = useRouter();
-  const { state, dispatch } = useContext(DemoContext);
+  const pathname = usePathname();
+  const { state, dispatch } = useContext(
+    pathname.includes("dashboard") ? DashboardContext : DemoContext
+  );
   const [templateName, setTemplateName] = useState<string>("");
   const [templateDescription, setTemplateDescription] = useState<string>("");
   const [templateTasks, setTemplateTasks] = useState<Task[]>([]);
@@ -29,24 +33,25 @@ const CreateTemplateCard: FC = () => {
 
   const deleteTemplateTask = (toDeleteTask: Task) => {
     const newTemplateTasks = templateTasks.filter(
-      (task) => task.taskId !== toDeleteTask.taskId
+      (task) => task.id !== toDeleteTask.id
     );
     setTemplateTasks([...newTemplateTasks]);
   };
 
   const handleSubmit = () => {
     const newTemplate: Template = {
-      templateId: generateCUID(),
+      id: generateCUID(),
       name: templateName,
       description: templateDescription,
+      userId: "1",
     };
 
-    applyTemplateId(newTemplate.templateId, templateTasks);
+    applyTemplateId(newTemplate.id, templateTasks);
 
     if (templateName.trim() !== "") {
       dispatch({ type: "ADD_TEMPLATE", payload: newTemplate });
       dispatchTasks(templateTasks);
-      router.push("/demo/templates");
+      router.back();
     }
   };
 
@@ -87,7 +92,7 @@ const CreateTemplateCard: FC = () => {
           .sort((a, b) => a.startTime - b.startTime)
           .map((task) => (
             <TaskCard
-              key={task.taskId}
+              key={task.id}
               task={task}
               actions={state.actions}
               removeTask={deleteTemplateTask}

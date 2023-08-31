@@ -4,6 +4,8 @@ import { Task } from "@/context/Interfaces";
 import { generateCUID } from "@/lib/generateCUID";
 import { FC, FormEvent, useContext, useState } from "react";
 import TimePicker from "../TimePicker";
+import { usePathname } from "next/navigation";
+import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 
 interface Props {
   toggleModal: () => void;
@@ -14,7 +16,10 @@ export const CreateTaskForm: FC<Props> = ({
   toggleModal,
   addTemplateTasks,
 }) => {
-  const { state } = useContext(DemoContext);
+  const pathname = usePathname();
+  const { state } = useContext(
+    pathname.includes("dashboard") ? DashboardContext : DemoContext
+  );
   const [actionId, setActionId] = useState<string>("");
   const [startTime, setStartTime] = useState<number>(0);
   const [endTime, setEndTime] = useState<number>(0);
@@ -31,7 +36,7 @@ export const CreateTaskForm: FC<Props> = ({
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newTask: Task = {
-      taskId: generateCUID(),
+      id: generateCUID(),
       templateId: `temporaryID-${generateCUID()}`,
       actionId: actionId,
       startTime: startTime,
@@ -62,7 +67,7 @@ export const CreateTaskForm: FC<Props> = ({
           >
             <option value="">Select an action</option>
             {state.actions.map((action) => (
-              <option key={action.actionId} value={action.actionId}>
+              <option key={action.id} value={action.id}>
                 {action.title}
               </option>
             ))}

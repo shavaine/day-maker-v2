@@ -1,13 +1,18 @@
 "use client";
 import { useState, useContext, FC } from "react";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
+import { usePathname } from "next/navigation";
+import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 
 interface Props {
   currentScheduleId: string;
 }
 
 const RemoveTemplateModal: FC<Props> = ({ currentScheduleId }) => {
-  const { state, dispatch } = useContext(DemoContext);
+  const pathname = usePathname();
+  const { dispatch } = useContext(
+    pathname.includes("dashboard") ? DashboardContext : DemoContext
+  );
   const [modalOpen, setModalOpen] = useState(false);
 
   const deleteSchedule = (currentScheduleId: string) => {

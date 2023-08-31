@@ -1,23 +1,29 @@
 "use client";
+import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { Action } from "@/context/Interfaces";
+import { usePathname } from "next/navigation";
 import { FC, FormEvent, useContext, useState } from "react";
 
 interface Props {
   toggleModal: () => void;
-  actionId: string;
+  id: string;
   title: string;
 }
 
-export const EditActionForm: FC<Props> = ({ toggleModal, actionId, title }) => {
-  const { dispatch } = useContext(DemoContext);
+export const EditActionForm: FC<Props> = ({ toggleModal, id, title }) => {
+  const pathname = usePathname();
+  const { dispatch } = useContext(
+    pathname.includes("dashboard") ? DashboardContext : DemoContext
+  );
   const [actionTitle, setActionTitle] = useState<string>(`${title}`);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const updateAction: Action = {
-      actionId: actionId,
+      id: id,
       title: actionTitle,
+      userId: "1",
     };
 
     if (actionTitle.trim() !== "") {

@@ -1,6 +1,8 @@
+import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { Task } from "@/context/Interfaces";
 import { formatTime, formatTimeType, getActionTitleById } from "@/lib/helpers";
+import { usePathname } from "next/navigation";
 import { FC, useContext, useState } from "react";
 
 interface Props {
@@ -9,7 +11,10 @@ interface Props {
 }
 
 const TaskTableRow: FC<Props> = ({ task, index }) => {
-  const { state } = useContext(DemoContext);
+  const pathname = usePathname();
+  const { state } = useContext(
+    pathname.includes("dashboard") ? DashboardContext : DemoContext
+  );
   const [toggleNotes, setToggleNotes] = useState(false);
   return (
     <>

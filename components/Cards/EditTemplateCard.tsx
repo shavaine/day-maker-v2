@@ -1,12 +1,13 @@
 "use client";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { Task, Template } from "@/context/Interfaces";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { FC, useContext, useState } from "react";
 import CreateTaskModal from "../Modals/CreateTaskModal";
 import { applyTemplateId } from "@/lib/helpers";
 import { generateCUID } from "@/lib/generateCUID";
 import TaskCard from "./TaskCard";
+import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 
 interface Props {
   name: string;
@@ -16,7 +17,10 @@ interface Props {
 }
 const EditTemplateCard: FC<Props> = ({ name, description, tasks, tempId }) => {
   const router = useRouter();
-  const { state, dispatch } = useContext(DemoContext);
+  const pathname = usePathname();
+  const { state, dispatch } = useContext(
+    pathname.includes("dashboard") ? DashboardContext : DemoContext
+  );
   const [templateName, setTemplateName] = useState<string>(name);
   const [templateDescription, setTemplateDescription] =
     useState<string>(description);
@@ -40,7 +44,7 @@ const EditTemplateCard: FC<Props> = ({ name, description, tasks, tempId }) => {
   const removeDeletedTasks = (tasks: Task[]) => {
     tasks.forEach((task) => {
       if (task.templateId === tempId && !templateTasks.includes(task)) {
-        dispatch({ type: "DELETE_TASK", payload: task.taskId });
+        dispatch({ type: "DELETE_TASK", payload: task.id });
       }
     });
   };
@@ -52,19 +56,20 @@ const EditTemplateCard: FC<Props> = ({ name, description, tasks, tempId }) => {
 
   const deleteTemplateTask = (toDeleteTask: Task) => {
     const newTemplateTasks = templateTasks.filter(
-      (task) => task.taskId !== toDeleteTask.taskId
+      (task) => task.id !== toDeleteTask.id
     );
     setTemplateTasks([...newTemplateTasks]);
   };
 
   const handleSubmit = () => {
     const currentTemplate: Template = {
-      templateId: tempId,
+      id: tempId,
       name: templateName,
       description: templateDescription,
+      userId: "1",
     };
 
-    applyTemplateId(currentTemplate.templateId, templateTasks);
+    applyTemplateId(currentTemplate.id, templateTasks);
 
     if (templateName.trim() !== "") {
       dispatch({ type: "UPDATE_TEMPLATE", payload: currentTemplate });
@@ -111,7 +116,7 @@ const EditTemplateCard: FC<Props> = ({ name, description, tasks, tempId }) => {
           .sort((a, b) => a.startTime - b.startTime)
           .map((task) => (
             <TaskCard
-              key={task.taskId}
+              key={task.id}
               task={task}
               actions={state.actions}
               removeTask={deleteTemplateTask}

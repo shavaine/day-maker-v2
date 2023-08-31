@@ -1,7 +1,9 @@
 "use client";
+import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { Action } from "@/context/Interfaces";
 import { generateCUID } from "@/lib/generateCUID";
+import { usePathname } from "next/navigation";
 import { FC, FormEvent, useContext, useState } from "react";
 
 interface Props {
@@ -9,14 +11,18 @@ interface Props {
 }
 
 export const CreateActionForm: FC<Props> = ({ toggleModal }) => {
-  const { dispatch } = useContext(DemoContext);
+  const pathname = usePathname();
+  const { dispatch } = useContext(
+    pathname.includes("dashboard") ? DashboardContext : DemoContext
+  );
   const [actionTitle, setActionTitle] = useState<string>("");
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newAction: Action = {
-      actionId: generateCUID(),
+      id: generateCUID(),
       title: actionTitle,
+      userId: "1",
     };
 
     if (actionTitle.trim() !== "") {

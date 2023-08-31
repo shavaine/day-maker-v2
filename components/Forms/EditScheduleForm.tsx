@@ -1,6 +1,8 @@
 "use client";
+import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { Schedule } from "@/context/Interfaces";
+import { usePathname } from "next/navigation";
 import { FC, FormEvent, useContext, useState } from "react";
 
 interface Props {
@@ -16,15 +18,19 @@ export const EditScheduleForm: FC<Props> = ({
   currentDate,
   tempID,
 }) => {
-  const { state, dispatch } = useContext(DemoContext);
+  const pathname = usePathname();
+  const { state, dispatch } = useContext(
+    pathname.includes("dashboard") ? DashboardContext : DemoContext
+  );
   const [templateID, setTemplateID] = useState<string>(tempID);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const updateSchedule: Schedule = {
-      scheduleId: currentScheduleId,
+      id: currentScheduleId,
       date: currentDate,
       templateId: templateID,
+      userId: "1",
     };
 
     dispatch({ type: "UPDATE_SCHEDULE", payload: updateSchedule });
@@ -46,7 +52,7 @@ export const EditScheduleForm: FC<Props> = ({
           onChange={(e) => setTemplateID(e.target.value)}
         >
           {state.templates.map((template) => (
-            <option key={template.templateId} value={template.templateId}>
+            <option key={template.id} value={template.id}>
               {template.name}
             </option>
           ))}

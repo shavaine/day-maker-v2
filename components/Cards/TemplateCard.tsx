@@ -1,6 +1,8 @@
 "use client";
+import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { FC, useContext } from "react";
 
 interface Props {
@@ -10,7 +12,10 @@ interface Props {
 }
 
 const TemplateCard: FC<Props> = ({ templateId, name, description }) => {
-  const { dispatch } = useContext(DemoContext);
+  const pathname = usePathname();
+  const { dispatch } = useContext(
+    pathname.includes("dashboard") ? DashboardContext : DemoContext
+  );
 
   const deleteTemplate = (templateId: string) => {
     dispatch({ type: "DELETE_TEMPLATE", payload: templateId });
@@ -30,19 +35,13 @@ const TemplateCard: FC<Props> = ({ templateId, name, description }) => {
       </div>
 
       <div className="flex flex-row w-full">
-        <Link
-          className="w-1/3 grow"
-          href={`/demo/templates/view/${templateId}`}
-        >
+        <Link className="w-1/3 grow" href={`templates/view/${templateId}`}>
           <button className="bg-purple-500 text-mainColor font-workSans font-bold w-full hover:opacity-80 p-2">
             View
           </button>
         </Link>
 
-        <Link
-          className="w-1/3 grow"
-          href={`/demo/templates/edit/${templateId}`}
-        >
+        <Link className="w-1/3 grow" href={`templates/edit/${templateId}`}>
           <button className="bg-purple-300 text-mainColor font-workSans font-bold w-full hover:opacity-80 p-2">
             Edit
           </button>

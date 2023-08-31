@@ -2,18 +2,20 @@
 import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { Schedule } from "@/context/Interfaces";
 import { generateCUID } from "@/lib/generateCUID";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { FC, FormEvent, useContext, useState } from "react";
 import DatePicker from "../DatePicker";
 import { formatDateToString, formatStringToDate } from "@/lib/helpers";
+import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 
 export const CreateScheduleForm: FC = () => {
   const router = useRouter();
-  const { state, dispatch } = useContext(DemoContext);
-  const [date, setDate] = useState(formatDateToString(new Date(Date.now())));
-  const [templateID, setTemplateID] = useState<string>(
-    state.templates[0].templateId
+  const pathname = usePathname();
+  const { state, dispatch } = useContext(
+    pathname.includes("dashboard") ? DashboardContext : DemoContext
   );
+  const [date, setDate] = useState(formatDateToString(new Date(Date.now())));
+  const [templateID, setTemplateID] = useState<string>(state.templates[0].id);
 
   const handleDateChange = (newDate: string) => {
     setDate(newDate);
@@ -22,9 +24,10 @@ export const CreateScheduleForm: FC = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newSchedule: Schedule = {
-      scheduleId: generateCUID(),
+      id: generateCUID(),
       date: formatStringToDate(date),
       templateId: templateID,
+      userId: "1",
     };
 
     dispatch({ type: "ADD_SCHEDULE", payload: newSchedule });
@@ -54,7 +57,7 @@ export const CreateScheduleForm: FC = () => {
           onChange={(e) => setTemplateID(e.target.value)}
         >
           {state.templates.map((template) => (
-            <option key={template.templateId} value={template.templateId}>
+            <option key={template.id} value={template.id}>
               {template.name}
             </option>
           ))}

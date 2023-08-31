@@ -8,10 +8,15 @@ import TemplateTable from "../Tables/TemplateTable";
 import ChangeTemplateModal from "../Modals/ChangeTemplateModal";
 import RemoveTemplateModal from "../Modals/RemoveTemplateModal";
 import AddTemplateModal from "../Modals/AddTemplateModal";
+import { usePathname } from "next/navigation";
+import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 
 const ScheduleCard = () => {
   const [scheduleDate, setScheduleDate] = useState(new Date(Date.now()));
-  const { state } = useContext(DemoContext);
+  const pathname = usePathname();
+  const { state } = useContext(
+    pathname.includes("dashboard") ? DashboardContext : DemoContext
+  );
 
   const shownSchedule = state.schedules.find(
     (schedule) =>
@@ -60,13 +65,11 @@ const ScheduleCard = () => {
               </h2>
               <div className="flex flex-row justify-between sm:gap-x-6">
                 <ChangeTemplateModal
-                  currentScheduleId={shownSchedule?.scheduleId}
+                  currentScheduleId={shownSchedule?.id}
                   currentDate={shownSchedule?.date}
                   tempID={shownSchedule?.templateId}
                 />
-                <RemoveTemplateModal
-                  currentScheduleId={shownSchedule?.scheduleId}
-                />
+                <RemoveTemplateModal currentScheduleId={shownSchedule?.id} />
               </div>
             </div>
           ) : (

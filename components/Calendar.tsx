@@ -1,12 +1,17 @@
 "use client";
+import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { getCalendarData, getTemplateNameById } from "@/lib/helpers";
-import { FC, ReactNode, useContext, useState } from "react";
+import { usePathname } from "next/navigation";
+import { FC, useContext, useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 const Calendar: FC = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const { state, dispatch } = useContext(DemoContext);
+  const pathname = usePathname();
+  const { state } = useContext(
+    pathname.includes("dashboard") ? DashboardContext : DemoContext
+  );
 
   const handlePrevMonth = () => {
     setCurrentMonth(

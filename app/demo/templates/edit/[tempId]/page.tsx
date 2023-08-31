@@ -1,8 +1,10 @@
 "use client";
 
 import EditTemplateCard from "@/components/Cards/EditTemplateCard";
+import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { getTemplateNameById } from "@/lib/helpers";
+import { usePathname } from "next/navigation";
 import { FC, useContext } from "react";
 
 interface Props {
@@ -10,9 +12,12 @@ interface Props {
 }
 
 const TemplateEdit: FC<Props> = ({ params }) => {
-  const { state } = useContext(DemoContext);
+  const pathname = usePathname();
+  const { state } = useContext(
+    pathname.includes("dashboard") ? DashboardContext : DemoContext
+  );
   const currentTemplate = state.templates.find(
-    (template) => template.templateId === params.tempId
+    (template) => template.id === params.tempId
   );
   const currentTask = state.tasks.filter(
     (task) => task.templateId === params.tempId
