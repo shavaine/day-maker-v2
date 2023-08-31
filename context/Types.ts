@@ -1,4 +1,4 @@
-import { Action, Schedule, Task, Template } from "./DashboardContext/Interfaces";
+import { Action, Schedule, Task, Template } from "./Interfaces";
 
 export type ActionType =
   | { type: "ADD_ACTION"; payload: Action }

@@ -10,7 +10,7 @@ export function Reducer(state: InitialState, action: ActionType): InitialState {
       return {
         ...state,
         actions: state.actions.map((currentAction) =>
-          currentAction.id === action.payload.actionId ? action.payload : currentAction
+          currentAction.id === action.payload.id ? action.payload : currentAction
         ),
       };
     case "DELETE_ACTION":
@@ -38,7 +38,7 @@ export function Reducer(state: InitialState, action: ActionType): InitialState {
       return {
         ...state,
         tasks: state.tasks.map((currentTask) =>
-          currentTask.id === action.payload.taskId ? action.payload : currentTask
+          currentTask.id === action.payload.id ? action.payload : currentTask
         ),
       };
     case "DELETE_TASK":
@@ -52,7 +52,7 @@ export function Reducer(state: InitialState, action: ActionType): InitialState {
       return {
         ...state,
         schedules: state.schedules.map((currentSchedule) =>
-          currentSchedule.id === action.payload.scheduleId ? action.payload : currentSchedule
+          currentSchedule.id === action.payload.id ? action.payload : currentSchedule
         ),
       };
     case "DELETE_SCHEDULE":

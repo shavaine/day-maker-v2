@@ -36,7 +36,7 @@ const EditActionModal: FC<Props> = ({ title, actionId }) => {
             </div>
             <EditActionForm
               toggleModal={toggleModal}
-              actionId={actionId}
+              id={actionId}
               title={title}
             />
           </div>

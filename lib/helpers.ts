@@ -1,6 +1,4 @@
 import { Action, Task, Template } from "@/context/Interfaces";
-import { DemoContext } from "@/context/DemoContext/DemoContext";
-import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 
   export const getActionTitleById = (actionId: string, actions: Action[]) => {
     const actionName = actions.find(

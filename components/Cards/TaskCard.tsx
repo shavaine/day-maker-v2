@@ -12,9 +12,8 @@ interface Props {
 
 const TaskCard = ({ task, actions, removeTask }: Props) => {
   const [toggleNotes, setToggleNotes] = useState(false);
-
   return (
-    <div className="border p-2 rounded-md flex flex-col" key={task.taskId}>
+    <div className="border p-2 rounded-md flex flex-col" key={task.id}>
       <div className="flex flex-row flex-wrap">
         <FaMinusCircle
           className="text-xl text-red-400 mr-4"
