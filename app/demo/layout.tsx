@@ -1,11 +1,18 @@
 import SideNav from "@/components/Navigation/SideNav";
 import { DemoProvider } from "@/context/DemoContext/DemoProvider";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 
-export default function DemoLayout({
-  children,
-}: {
+interface Props {
   children: React.ReactNode;
-}) {
+}
+export default async function DemoLayout({ children }: Props) {
+  // Redirects to home page if trying to access Demo while signed-in
+  const session = await getServerSession(authOptions);
+  if (session) {
+    redirect("/");
+  }
   return (
     <div className="flex flex-row">
       <SideNav />

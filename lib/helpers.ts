@@ -86,13 +86,3 @@ import { Action, Task, Template } from "@/context/Interfaces";
 
     return calendarData;
   }
-
-  // export const getCorrectContext = (DemoContext: React, DashboardContext, path) => {
-  //   if(path.includes('dashboard')) {
-  //     return DemoContext
-  //   }
-
-  //   if(path.includes('demo')) {
-  //     return DashboardContext
-  //   }
-  // }
