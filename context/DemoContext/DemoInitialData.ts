@@ -1,13 +1,21 @@
 import { Action, Task, Template, Schedule, InitialState } from "../Interfaces";
 
+const user = {
+  email: "demoUser@daymaker.ca",
+  emailVerified: null,
+  id: "1234",
+  image: null,
+  name: "John Doe"
+}
+
 const actions: Action[] = [
-  { id: 'clkniwd650000356kel7co7pw', title: "Take out the trash", userId: '1' },
-  { id: 'clknix59w00003p6ozop5d3ox', title: "Wash dishes", userId: '1' },
-  { id: 'cla627c0e000108md2m8n113p', title: "Clean Room", userId: '1' },
-  { id: 'clqk27n0n000208md3rxh2hf2', title: "Pick-up Dinner", userId: '1' },
-  { id: 'cld6282l7000308mdagfb0fe7  ', title: "Prepare Lunch", userId: '1' },
-  { id: 'cly62887j000408md8syn4459  ', title: "Eat Breakfast", userId: '1' },
-  { id: 'clb628lu2000508md8ccm6cl9 ', title: "Go For A Jog", userId: '1' },
+  { id: 'clkniwd650000356kel7co7pw', title: "Take out the trash", userId: user.id },
+  { id: 'clknix59w00003p6ozop5d3ox', title: "Wash dishes", userId: user.id },
+  { id: 'cla627c0e000108md2m8n113p', title: "Clean Room", userId: user.id },
+  { id: 'clqk27n0n000208md3rxh2hf2', title: "Pick-up Dinner", userId: user.id },
+  { id: 'cld6282l7000308mdagfb0fe7  ', title: "Prepare Lunch", userId: user.id },
+  { id: 'cly62887j000408md8syn4459  ', title: "Eat Breakfast", userId: user.id },
+  { id: 'clb628lu2000508md8ccm6cl9 ', title: "Go For A Jog", userId: user.id },
 ];
 
 const templates: Template[] = [
@@ -15,13 +23,13 @@ const templates: Template[] = [
     id: 'clknixo2i00003p6otb9qn1bq',
     name: "Chores",
     description: "My daily chores.",
-    userId: '1'
+    userId: user.id
   },
   {
     id: 'clknixyhg00003p6obzh9zswy',
     name: "To-do",
     description: "A list of things I need to do.",
-    userId: '1'
+    userId: user.id
   },
 ];
 
@@ -51,7 +59,7 @@ const schedules: Schedule[] = [
     id: 'clkniyxhs00003p6ob1q5xq2y',
     date: todaysDate,
     templateId: templates[0].id,
-    userId: '1'
+    userId: user.id
   },
 ];
 
