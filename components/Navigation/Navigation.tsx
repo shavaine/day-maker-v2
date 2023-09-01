@@ -22,7 +22,7 @@ export default function Navigation() {
     setToggleDropdown(false);
   };
   return (
-    <div className="flex flex-row gap-x-4 ml-auto mr-4 py-2 content-end z-50">
+    <div className="flex flex-row gap-x-4 ml-auto mr-4 py-2 items-center z-50">
       <SignInButton />
       <AuthCheck>
         <SignOutButton />
