@@ -5,6 +5,7 @@ import { Action } from "@/context/Interfaces";
 import { generateCUID } from "@/lib/generateCUID";
 import { usePathname } from "next/navigation";
 import { FC, FormEvent, useContext, useState } from "react";
+import { VscLoading } from "react-icons/vsc";
 
 interface Props {
   toggleModal: () => void;
@@ -15,6 +16,7 @@ export const CreateActionForm: FC<Props> = ({ toggleModal }) => {
   const { dispatch } = useContext(
     pathname.includes("dashboard") ? DashboardContext : DemoContext
   );
+  const [loading, setLoading] = useState(false);
   const [actionTitle, setActionTitle] = useState<string>("");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -34,6 +36,7 @@ export const CreateActionForm: FC<Props> = ({ toggleModal }) => {
     }
 
     if (pathname.includes("dashboard")) {
+      setLoading(true);
       const body = {
         title: actionTitle,
       };
@@ -47,9 +50,12 @@ export const CreateActionForm: FC<Props> = ({ toggleModal }) => {
         });
 
         const newAction = await res.json();
-        dispatch({ type: "ADD_ACTION", payload: newAction });
-        setActionTitle("");
+        if (res.ok) {
+          dispatch({ type: "ADD_ACTION", payload: newAction });
+          setActionTitle("");
+        }
         toggleModal();
+        setLoading(false);
       } catch (error) {
         console.log(error);
         // Add Toast explaining to user what went wrong.
@@ -87,10 +93,14 @@ export const CreateActionForm: FC<Props> = ({ toggleModal }) => {
           Cancel
         </button>
         <button
-          className="border w-24 rounded-lg bg-mainColor p-1 text-white hover:font-bold hover:opacity-80"
+          className="flex justify-center border w-24 rounded-lg bg-mainColor p-1 text-white hover:font-bold hover:opacity-80"
           type="submit"
+          disabled={loading}
         >
           Create
+          {loading && (
+            <VscLoading className="animate-spin self-center ml-1"></VscLoading>
+          )}
         </button>
       </div>
     </form>
