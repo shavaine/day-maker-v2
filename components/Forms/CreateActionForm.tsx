@@ -17,18 +17,43 @@ export const CreateActionForm: FC<Props> = ({ toggleModal }) => {
   );
   const [actionTitle, setActionTitle] = useState<string>("");
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newAction: Action = {
-      id: generateCUID(),
-      title: actionTitle,
-      userId: "1",
-    };
+    if (pathname.includes("demo")) {
+      const newAction: Action = {
+        id: generateCUID(),
+        title: actionTitle,
+        userId: "1234",
+      };
 
-    if (actionTitle.trim() !== "") {
-      dispatch({ type: "ADD_ACTION", payload: newAction });
-      setActionTitle("");
-      toggleModal();
+      if (actionTitle.trim() !== "") {
+        dispatch({ type: "ADD_ACTION", payload: newAction });
+        setActionTitle("");
+        toggleModal();
+      }
+    }
+
+    if (pathname.includes("dashboard")) {
+      const body = {
+        title: actionTitle,
+      };
+      try {
+        const res = await fetch("/api/actions/create", {
+          method: "POST",
+          body: JSON.stringify(body),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const newAction = await res.json();
+        dispatch({ type: "ADD_ACTION", payload: newAction });
+        setActionTitle("");
+        toggleModal();
+      } catch (error) {
+        console.log(error);
+        // Add Toast explaining to user what went wrong.
+      }
     }
   };
 
@@ -49,6 +74,7 @@ export const CreateActionForm: FC<Props> = ({ toggleModal }) => {
           id="CreateAction"
           className="border rounded-lg px-3 py-2 w-96"
           autoFocus
+          min={3}
         />
       </div>
 
