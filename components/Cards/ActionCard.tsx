@@ -1,7 +1,7 @@
 "use client";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { Action } from "@/context/Interfaces";
-import { FC, useContext } from "react";
+import { FC, useContext, useState } from "react";
 import EditActionModal from "../Modals/EditActionModal";
 import { usePathname } from "next/navigation";
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
@@ -18,8 +18,32 @@ const ActionCard: FC<Action> = ({ title, id }: Props): React.ReactNode => {
     pathname.includes("dashboard") ? DashboardContext : DemoContext
   );
 
-  const deleteAction = (actionId: string) => {
-    dispatch({ type: "DELETE_ACTION", payload: actionId });
+  const [loading, setLoading] = useState(false);
+
+  const deleteAction = async (actionId: string) => {
+    if (pathname.includes("demo")) {
+      dispatch({ type: "DELETE_ACTION", payload: actionId });
+    }
+
+    if (pathname.includes("dashboard")) {
+      setLoading(true);
+      try {
+        const res = await fetch(`/api/actions/delete/${actionId}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        // Add Toast Message For Successful Call
+        console.log(await res.json());
+        if (res.ok) {
+          dispatch({ type: "DELETE_ACTION", payload: actionId });
+        }
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   return (
@@ -32,6 +56,7 @@ const ActionCard: FC<Action> = ({ title, id }: Props): React.ReactNode => {
         <button
           className="bg-red-200 text-mainColor font-workSans font-bold w-1/2 grow hover:opacity-80 p-2"
           onClick={() => deleteAction(id)}
+          disabled={loading}
         >
           Delete
         </button>
