@@ -4,6 +4,7 @@ import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { Action } from "@/context/Interfaces";
 import { usePathname } from "next/navigation";
 import { FC, FormEvent, useContext, useState } from "react";
+import { VscLoading } from "react-icons/vsc";
 
 interface Props {
   toggleModal: () => void;
@@ -16,19 +17,52 @@ export const EditActionForm: FC<Props> = ({ toggleModal, id, title }) => {
   const { dispatch } = useContext(
     pathname.includes("dashboard") ? DashboardContext : DemoContext
   );
+  const [loading, setLoading] = useState(false);
   const [actionTitle, setActionTitle] = useState<string>(`${title}`);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const updateAction: Action = {
-      id: id,
-      title: actionTitle,
-      userId: "1",
-    };
 
-    if (actionTitle.trim() !== "") {
-      dispatch({ type: "UPDATE_ACTION", payload: updateAction });
-      toggleModal();
+    if (pathname.includes("demo")) {
+      const updateAction: Action = {
+        id: id,
+        title: actionTitle,
+        userId: "1234",
+      };
+
+      if (actionTitle.trim() !== "") {
+        dispatch({ type: "UPDATE_ACTION", payload: updateAction });
+        setActionTitle("");
+        toggleModal();
+      }
+    }
+
+    if (pathname.includes("dashboard")) {
+      setLoading(true);
+      const body = {
+        id: id,
+        title: actionTitle,
+      };
+      try {
+        const res = await fetch("/api/actions/edit", {
+          method: "PUT",
+          body: JSON.stringify(body),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const editAction = await res.json();
+        if (res.ok) {
+          dispatch({ type: "UPDATE_ACTION", payload: editAction });
+          setActionTitle("");
+        }
+        toggleModal();
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        // Add Toast explaining to user what went wrong.
+      }
     }
   };
 
@@ -59,10 +93,14 @@ export const EditActionForm: FC<Props> = ({ toggleModal, id, title }) => {
           Cancel
         </button>
         <button
-          className="border w-24 rounded-lg bg-mainColor p-1 text-white hover:font-bold hover:opacity-80"
+          className="flex justify-center border w-24 rounded-lg bg-mainColor p-1 text-white hover:font-bold hover:opacity-80"
           type="submit"
+          disabled={loading}
         >
           Change
+          {loading && (
+            <VscLoading className="animate-spin self-center ml-1"></VscLoading>
+          )}
         </button>
       </div>
     </form>
