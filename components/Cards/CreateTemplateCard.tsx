@@ -18,6 +18,7 @@ const CreateTemplateCard: FC = () => {
   const [templateName, setTemplateName] = useState<string>("");
   const [templateDescription, setTemplateDescription] = useState<string>("");
   const [templateTasks, setTemplateTasks] = useState<Task[]>([]);
+  const [loading, setLoading] = useState(false);
 
   // Dispatch Multiple tasks to central state
   const dispatchTasks = (tasks: Task[]) => {
@@ -57,7 +58,7 @@ const CreateTemplateCard: FC = () => {
   };
 
   const handleSubmit = async () => {
-    if (pathname.includes("dashboard")) {
+    if (pathname.includes("demo")) {
       const newTemplate: Template = {
         id: generateCUID(),
         name: templateName,
@@ -75,6 +76,7 @@ const CreateTemplateCard: FC = () => {
     }
 
     if (pathname.includes("dashboard")) {
+      setLoading(true);
       const body = {
         name: templateName,
         description: templateDescription,
@@ -91,11 +93,14 @@ const CreateTemplateCard: FC = () => {
         const newTemplate = await res.json();
         createTasks(templateTasks, newTemplate.id);
 
+        // Update local State
         if (res.ok) {
           dispatch({ type: "ADD_TEMPLATE", payload: newTemplate });
+          applyTemplateId(newTemplate.id, templateTasks);
           dispatchTasks(templateTasks);
           router.back();
         }
+        setLoading(false);
         // Displau Toast about successfully creating template & tasks
       } catch (error) {
         console.log(error);
@@ -161,6 +166,7 @@ const CreateTemplateCard: FC = () => {
           className="border w-24 rounded-lg bg-mainColor p-1 text-white hover:font-bold hover:opacity-80"
           type="button"
           onClick={() => handleSubmit()}
+          disabled={loading}
         >
           Create
         </button>

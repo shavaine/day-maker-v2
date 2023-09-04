@@ -17,7 +17,7 @@ const TemplateList: FC = () => {
       {state.templates.map((template) => (
         <TemplateCard
           key={template.id}
-          templateId={template.id}
+          id={template.id}
           name={template.name}
           description={template.description}
         />
