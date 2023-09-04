@@ -25,6 +25,7 @@ const EditTemplateCard: FC<Props> = ({ name, description, tasks, tempId }) => {
   const [templateDescription, setTemplateDescription] =
     useState<string>(description);
   const [templateTasks, setTemplateTasks] = useState<Task[]>(tasks);
+  const [loading, setLoading] = useState(false);
 
   // Dispatch Multiple tasks to central state
   const dispatchTasks = (tasks: Task[]) => {
@@ -61,21 +62,51 @@ const EditTemplateCard: FC<Props> = ({ name, description, tasks, tempId }) => {
     setTemplateTasks([...newTemplateTasks]);
   };
 
-  const handleSubmit = () => {
-    const currentTemplate: Template = {
-      id: tempId,
-      name: templateName,
-      description: templateDescription,
-      userId: "1",
-    };
+  const handleSubmit = async () => {
+    if (pathname.includes("demo")) {
+      const currentTemplate: Template = {
+        id: tempId,
+        name: templateName,
+        description: templateDescription,
+        userId: "1",
+      };
 
-    applyTemplateId(currentTemplate.id, templateTasks);
+      applyTemplateId(currentTemplate.id, templateTasks);
 
-    if (templateName.trim() !== "") {
-      dispatch({ type: "UPDATE_TEMPLATE", payload: currentTemplate });
-      dispatchTasks(templateTasks);
-      removeDeletedTasks(state.tasks);
-      router.push("/demo/templates");
+      if (templateName.trim() !== "") {
+        dispatch({ type: "UPDATE_TEMPLATE", payload: currentTemplate });
+        dispatchTasks(templateTasks);
+        removeDeletedTasks(state.tasks);
+        router.push("/demo/templates");
+      }
+    }
+
+    if (pathname.includes("dashboard")) {
+      setLoading(true);
+      const body = {
+        id: tempId,
+        name: templateName,
+        description: templateDescription,
+      };
+      try {
+        const res = await fetch("/api/templates/edit", {
+          method: "PUT",
+          body: JSON.stringify(body),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const editTemplate = await res.json();
+        if (res.ok) {
+          dispatch({ type: "UPDATE_TEMPLATE", payload: editTemplate });
+          router.back();
+        }
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        // Add Toast explaining to user what went wrong.
+      }
     }
   };
 
