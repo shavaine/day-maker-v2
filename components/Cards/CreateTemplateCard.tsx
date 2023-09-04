@@ -38,20 +38,69 @@ const CreateTemplateCard: FC = () => {
     setTemplateTasks([...newTemplateTasks]);
   };
 
-  const handleSubmit = () => {
-    const newTemplate: Template = {
-      id: generateCUID(),
-      name: templateName,
-      description: templateDescription,
-      userId: "1",
-    };
+  const createTasks = async (tasks: Task[], templateId: string) => {
+    tasks.forEach((task) => {
+      fetch("/api/tasks/create", {
+        method: "POST",
+        body: JSON.stringify({
+          notes: task.notes,
+          startTime: task.startTime,
+          endTime: task.endTime,
+          actionId: task.actionId,
+          templateId: templateId,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    });
+  };
 
-    applyTemplateId(newTemplate.id, templateTasks);
+  const handleSubmit = async () => {
+    if (pathname.includes("dashboard")) {
+      const newTemplate: Template = {
+        id: generateCUID(),
+        name: templateName,
+        description: templateDescription,
+        userId: "1234",
+      };
 
-    if (templateName.trim() !== "") {
-      dispatch({ type: "ADD_TEMPLATE", payload: newTemplate });
-      dispatchTasks(templateTasks);
-      router.back();
+      applyTemplateId(newTemplate.id, templateTasks);
+
+      if (templateName.trim() !== "") {
+        dispatch({ type: "ADD_TEMPLATE", payload: newTemplate });
+        dispatchTasks(templateTasks);
+        router.back();
+      }
+    }
+
+    if (pathname.includes("dashboard")) {
+      const body = {
+        name: templateName,
+        description: templateDescription,
+      };
+      try {
+        const res = await fetch("/api/templates/create", {
+          method: "POST",
+          body: JSON.stringify(body),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const newTemplate = await res.json();
+        createTasks(templateTasks, newTemplate.id);
+
+        if (res.ok) {
+          dispatch({ type: "ADD_TEMPLATE", payload: newTemplate });
+          dispatchTasks(templateTasks);
+          router.back();
+        }
+        // Displau Toast about successfully creating template & tasks
+      } catch (error) {
+        console.log(error);
+        // Add Toast explaining to user what went wrong.
+      }
     }
   };
 
