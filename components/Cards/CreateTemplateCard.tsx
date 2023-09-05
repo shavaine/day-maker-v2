@@ -4,7 +4,7 @@ import { Task, Template } from "@/context/Interfaces";
 import { usePathname, useRouter } from "next/navigation";
 import { FC, useContext, useState } from "react";
 import CreateTaskModal from "../Modals/CreateTaskModal";
-import { applyTemplateId } from "@/lib/helpers";
+import { applyTemplateId, createTasks } from "@/lib/helpers";
 import { generateCUID } from "@/lib/generateCUID";
 import TaskCard from "./TaskCard";
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
@@ -37,24 +37,6 @@ const CreateTemplateCard: FC = () => {
       (task) => task.id !== toDeleteTask.id
     );
     setTemplateTasks([...newTemplateTasks]);
-  };
-
-  const createTasks = async (tasks: Task[], templateId: string) => {
-    tasks.forEach((task) => {
-      fetch("/api/tasks/create", {
-        method: "POST",
-        body: JSON.stringify({
-          notes: task.notes,
-          startTime: task.startTime,
-          endTime: task.endTime,
-          actionId: task.actionId,
-          templateId: templateId,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    });
   };
 
   const handleSubmit = async () => {
@@ -91,13 +73,14 @@ const CreateTemplateCard: FC = () => {
         });
 
         const newTemplate = await res.json();
-        createTasks(templateTasks, newTemplate.id);
 
         // Update local State
         if (res.ok) {
           dispatch({ type: "ADD_TEMPLATE", payload: newTemplate });
           applyTemplateId(newTemplate.id, templateTasks);
-          dispatchTasks(templateTasks);
+          const finalTasks = await createTasks(templateTasks);
+          // Adds Newly created task to local state
+          dispatchTasks(finalTasks);
           router.back();
         }
         setLoading(false);
