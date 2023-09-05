@@ -1,6 +1,7 @@
 "use client";
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
+import { Task } from "@/context/Interfaces";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, useContext, useState } from "react";
@@ -13,14 +14,31 @@ interface Props {
 
 const TemplateCard: FC<Props> = ({ id, name, description }) => {
   const pathname = usePathname();
-  const { dispatch } = useContext(
+  const { state, dispatch } = useContext(
     pathname.includes("dashboard") ? DashboardContext : DemoContext
   );
   const [loading, setLoading] = useState(false);
 
+  // Remove tasks and schedules assiociated with template from local state
+  // No need to do this on DB level, as task will be deleted through cascade delete
+  const deleteAssociatedData = (templateId: string) => {
+    const currentTasks = state.tasks.filter(
+      (task) => task.templateId === templateId
+    );
+    const currentSchedules = state.schedules.filter(
+      (schedule) => schedule.templateId === templateId
+    );
+    currentTasks.forEach((task) =>
+      dispatch({ type: "DELETE_TASK", payload: task.id })
+    );
+    currentSchedules.forEach((schedule) =>
+      dispatch({ type: "DELETE_SCHEDULE", payload: schedule.id })
+    );
+  };
   const deleteTemplate = async (templateId: string) => {
     if (pathname.includes("demo")) {
       dispatch({ type: "DELETE_TEMPLATE", payload: templateId });
+      deleteAssociatedData(templateId);
     }
 
     if (pathname.includes("dashboard")) {
@@ -35,6 +53,7 @@ const TemplateCard: FC<Props> = ({ id, name, description }) => {
         // Add Toast Message For Successful Call
         if (res.ok) {
           dispatch({ type: "DELETE_TEMPLATE", payload: templateId });
+          deleteAssociatedData(templateId);
         }
         setLoading(false);
       } catch (error) {
