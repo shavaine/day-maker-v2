@@ -13,10 +13,33 @@ const RemoveTemplateModal: FC<Props> = ({ currentScheduleId }) => {
   const { dispatch } = useContext(
     pathname.includes("dashboard") ? DashboardContext : DemoContext
   );
+  const [loading, setLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const deleteSchedule = (currentScheduleId: string) => {
-    dispatch({ type: "DELETE_SCHEDULE", payload: currentScheduleId });
+  const deleteSchedule = async (currentScheduleId: string) => {
+    if (pathname.includes("demo")) {
+      dispatch({ type: "DELETE_SCHEDULE", payload: currentScheduleId });
+    }
+
+    if (pathname.includes("dashboard")) {
+      setLoading(true);
+      try {
+        const res = await fetch(`/api/schedules/delete/${currentScheduleId}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        // Add Toast Message For Successful Call
+        console.log(await res.json());
+        if (res.ok) {
+          dispatch({ type: "DELETE_SCHEDULE", payload: currentScheduleId });
+        }
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   const toggleModal = () => {
@@ -44,6 +67,7 @@ const RemoveTemplateModal: FC<Props> = ({ currentScheduleId }) => {
                 onClick={() => deleteSchedule(currentScheduleId)}
                 className="border w-24 rounded-lg bg-mainColor p-1 text-white hover:font-bold hover:opacity-80"
                 type="button"
+                disabled={loading}
               >
                 Yes
               </button>
