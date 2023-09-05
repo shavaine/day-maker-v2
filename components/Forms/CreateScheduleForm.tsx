@@ -14,6 +14,7 @@ export const CreateScheduleForm: FC = () => {
   const { state, dispatch } = useContext(
     pathname.includes("dashboard") ? DashboardContext : DemoContext
   );
+  const [loading, setLoading] = useState(false);
   const [date, setDate] = useState(formatDateToString(new Date(Date.now())));
   const [templateID, setTemplateID] = useState<string>(state.templates[0].id);
 
@@ -21,17 +22,48 @@ export const CreateScheduleForm: FC = () => {
     setDate(newDate);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newSchedule: Schedule = {
-      id: generateCUID(),
-      date: formatStringToDate(date),
-      templateId: templateID,
-      userId: "1",
-    };
+    if (pathname.includes("demo")) {
+      const newSchedule: Schedule = {
+        id: generateCUID(),
+        date: formatStringToDate(date),
+        templateId: templateID,
+        userId: "1234",
+      };
+      dispatch({ type: "ADD_SCHEDULE", payload: newSchedule });
+      router.back();
+    }
 
-    dispatch({ type: "ADD_SCHEDULE", payload: newSchedule });
-    router.back();
+    if (pathname.includes("dashboard")) {
+      e.preventDefault();
+      setLoading(true);
+      const body = {
+        date: formatStringToDate(date),
+        templateId: templateID,
+      };
+      try {
+        const res = await fetch("/api/schedules/create", {
+          method: "POST",
+          body: JSON.stringify(body),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const newSchedule = await res.json();
+        // Date returned as string, parsed back into Date Type
+        newSchedule.date = new Date(newSchedule.date);
+        if (res.ok) {
+          dispatch({ type: "ADD_SCHEDULE", payload: newSchedule });
+        }
+        setLoading(false);
+        router.back();
+      } catch (error) {
+        console.log(error);
+        // Add Toast explaining to user what went wrong.
+      }
+    }
   };
 
   return (
@@ -75,6 +107,7 @@ export const CreateScheduleForm: FC = () => {
         <button
           className="border w-24 rounded-lg bg-mainColor p-1 text-white hover:font-bold hover:opacity-80"
           type="submit"
+          disabled={loading}
         >
           Create
         </button>
