@@ -86,3 +86,27 @@ import { Action, Task, Template } from "@/context/Interfaces";
 
     return calendarData;
   }
+
+  const createTask = async (task: Task) => {
+      const res = await fetch("/api/tasks/create", {
+        method: "POST",
+        body: JSON.stringify({
+          notes: task.notes,
+          startTime: task.startTime,
+          endTime: task.endTime,
+          actionId: task.actionId,
+          templateId: task.templateId,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const newTask: Task = await res.json();
+      return newTask;
+  }
+
+  export const createTasks = async (tasks: Task[]) => {
+    const finishedTaskPromises = tasks.map((task) => createTask(task));
+    const finishedTasks = await Promise.all(finishedTaskPromises); 
+    return finishedTasks;
+  };
