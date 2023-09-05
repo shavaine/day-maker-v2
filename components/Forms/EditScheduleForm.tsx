@@ -22,19 +22,51 @@ export const EditScheduleForm: FC<Props> = ({
   const { state, dispatch } = useContext(
     pathname.includes("dashboard") ? DashboardContext : DemoContext
   );
+  const [loading, setLoading] = useState(false);
   const [templateID, setTemplateID] = useState<string>(tempID);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const updateSchedule: Schedule = {
-      id: currentScheduleId,
-      date: currentDate,
-      templateId: templateID,
-      userId: "1",
-    };
+    if (pathname.includes("demo")) {
+      const updateSchedule: Schedule = {
+        id: currentScheduleId,
+        date: currentDate,
+        templateId: templateID,
+        userId: "1",
+      };
 
-    dispatch({ type: "UPDATE_SCHEDULE", payload: updateSchedule });
-    toggleModal();
+      dispatch({ type: "UPDATE_SCHEDULE", payload: updateSchedule });
+      toggleModal();
+    }
+
+    if (pathname.includes("dashboard")) {
+      setLoading(true);
+      const body = {
+        id: currentScheduleId,
+        date: currentDate,
+        templateId: templateID,
+      };
+      try {
+        const res = await fetch("/api/schedules/edit", {
+          method: "PUT",
+          body: JSON.stringify(body),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const updateSchedule = await res.json();
+        updateSchedule.date = new Date(updateSchedule.date);
+        if (res.ok) {
+          dispatch({ type: "UPDATE_SCHEDULE", payload: updateSchedule });
+        }
+        toggleModal();
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        // Add Toast explaining to user what went wrong.
+      }
+    }
   };
 
   return (
@@ -70,6 +102,7 @@ export const EditScheduleForm: FC<Props> = ({
         <button
           className="border w-24 rounded-lg bg-mainColor p-1 text-white hover:font-bold hover:opacity-80"
           type="submit"
+          disabled={loading}
         >
           Change
         </button>
