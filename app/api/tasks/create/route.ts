@@ -17,7 +17,7 @@ export async function POST(req: Request) {
 
     const data = await req.json();
 
-    await prisma.task.create({
+    const newTask = await prisma.task.create({
         data: {
             notes: data.notes,
             startTime: data.startTime,
@@ -27,5 +27,5 @@ export async function POST(req: Request) {
         },
     })
 
-    return NextResponse.json({message: "Tasks created successfully"});
+    return NextResponse.json(newTask);
 }
