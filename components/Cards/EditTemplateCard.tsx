@@ -4,8 +4,7 @@ import { Task, Template } from "@/context/Interfaces";
 import { usePathname, useRouter } from "next/navigation";
 import { FC, useContext, useState } from "react";
 import CreateTaskModal from "../Modals/CreateTaskModal";
-import { applyTemplateId } from "@/lib/helpers";
-import { generateCUID } from "@/lib/generateCUID";
+import { applyTemplateId, createTasks } from "@/lib/helpers";
 import TaskCard from "./TaskCard";
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 
@@ -25,6 +24,8 @@ const EditTemplateCard: FC<Props> = ({ name, description, tasks, tempId }) => {
   const [templateDescription, setTemplateDescription] =
     useState<string>(description);
   const [templateTasks, setTemplateTasks] = useState<Task[]>(tasks);
+  const [newTasks, setNewTasks] = useState<Task[]>([]);
+  const [deletedTasks, setDeletedTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(false);
 
   // Dispatch Multiple tasks to central state
@@ -42,17 +43,33 @@ const EditTemplateCard: FC<Props> = ({ name, description, tasks, tempId }) => {
   };
 
   // Deletes Task from global state if deleted in template
-  const removeDeletedTasks = (tasks: Task[]) => {
-    tasks.forEach((task) => {
-      if (task.templateId === tempId && !templateTasks.includes(task)) {
+  const removeDeletedTasks = async (tasks: Task[]) => {
+    if (pathname.includes("demo")) {
+      tasks.forEach((task) => {
+        if (task.templateId === tempId && !templateTasks.includes(task)) {
+          dispatch({ type: "DELETE_TASK", payload: task.id });
+        }
+      });
+    }
+    if (pathname.includes("dashboard")) {
+      tasks.forEach((task) => {
+        try {
+          fetch(`/api/tasks/delete/${task.id}`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+        } catch (error) {
+          console.log(error);
+        }
         dispatch({ type: "DELETE_TASK", payload: task.id });
-      }
-    });
+      });
+    }
   };
-
   // Allows nested form to add tasks to local state
   const addTemplateTask = (task: Task) => {
-    setTemplateTasks([...templateTasks, task]);
+    setNewTasks([...newTasks, task]);
   };
 
   const deleteTemplateTask = (toDeleteTask: Task) => {
@@ -60,6 +77,15 @@ const EditTemplateCard: FC<Props> = ({ name, description, tasks, tempId }) => {
       (task) => task.id !== toDeleteTask.id
     );
     setTemplateTasks([...newTemplateTasks]);
+    setDeletedTasks([...deletedTasks, toDeleteTask]);
+  };
+
+  const deleteNewTask = (toDeleteTask: Task) => {
+    const newTemplateTasks = newTasks.filter(
+      (task) => task.id !== toDeleteTask.id
+    );
+    setNewTasks([...newTemplateTasks]);
+    setDeletedTasks([...deletedTasks, toDeleteTask]);
   };
 
   const handleSubmit = async () => {
@@ -98,11 +124,18 @@ const EditTemplateCard: FC<Props> = ({ name, description, tasks, tempId }) => {
         });
 
         const editTemplate = await res.json();
+
         if (res.ok) {
           dispatch({ type: "UPDATE_TEMPLATE", payload: editTemplate });
-          router.back();
+          applyTemplateId(editTemplate.id, newTasks);
+          const finalTasks = await createTasks(newTasks);
+          // Adds Newly created task to local state
+          dispatchTasks(finalTasks);
+          // Deletes deleted task from the Database and Local State
+          removeDeletedTasks(deletedTasks);
+          setLoading(false);
         }
-        setLoading(false);
+        router.back();
       } catch (error) {
         console.log(error);
         // Add Toast explaining to user what went wrong.
@@ -153,6 +186,16 @@ const EditTemplateCard: FC<Props> = ({ name, description, tasks, tempId }) => {
               removeTask={deleteTemplateTask}
             />
           ))}
+        {newTasks
+          .sort((a, b) => a.startTime - b.startTime)
+          .map((task) => (
+            <TaskCard
+              key={task.id}
+              task={task}
+              actions={state.actions}
+              removeTask={deleteNewTask}
+            />
+          ))}
       </div>
 
       <div className="flex flex-row justify-end gap-x-2">
@@ -167,6 +210,7 @@ const EditTemplateCard: FC<Props> = ({ name, description, tasks, tempId }) => {
           className="border w-24 rounded-lg bg-mainColor p-1 text-white hover:font-bold hover:opacity-80"
           type="button"
           onClick={() => handleSubmit()}
+          disabled={loading}
         >
           Change
         </button>
