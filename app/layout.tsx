@@ -19,7 +19,7 @@ export default function RootLayout({
     <AuthProvider>
       <html lang="en">
         <body
-          className={`${spaceMono.variable} ${viaodaLibre.variable} ${workSans.variable}`}
+          className={`${spaceMono.variable} ${viaodaLibre.variable} ${workSans.variable} h-full`}
         >
           <Navbar />
           {children}
