@@ -13,15 +13,7 @@ export default function NavLink({ name, path, toggleNav }: Props) {
   if (path === "/demo" || path === "/dashboard") {
     return (
       <Link
-        onClick={
-          toggleNav
-            ? () => {
-                setTimeout(() => {
-                  toggleNav!();
-                }, 75);
-              }
-            : undefined
-        }
+        onClick={toggleNav}
         className={`${
           pathname.includes(path)
             ? "pb-2 border-b-4 border-[#471AA0FF] font-spaceMono font-bold text-[#471AA0FF] px-4"
