@@ -55,7 +55,7 @@ export default function Navigation() {
         </ul>
       </div>
       {(pathname.includes("dashboard") || pathname.includes("demo")) && (
-        <ul className="sm:hidden fixed bottom-0 left-0 w-full bg-white shadow-md flex text-center text-[#471AA0FF]">
+        <ul className="md:hidden fixed bottom-0 left-0 w-full bg-white shadow-md flex text-center text-[#471AA0FF]">
           <li
             className={`${
               pathname.includes("schedule")
