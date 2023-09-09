@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Footer() {
   return (
     <footer className="bg-secondaryColor">
-      <div className="container p-0 py-20 flex flex-row flex-wrap justify-between">
+      <div className="container p-0 pt-20 pb-32 md:pb-20 flex flex-row flex-wrap justify-between">
         <div className="flex flex-col justify-between gap-y-6 sm:gap-y-0 mb-10 sm:m-0">
           <Image
             className="w-[75%] h-auto self-center sm:self-auto sm:h-28 sm:w-auto lg:h-44"
