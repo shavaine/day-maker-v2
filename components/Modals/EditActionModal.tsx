@@ -29,7 +29,7 @@ const EditActionModal: FC<Props> = ({ title, actionId }) => {
           {/* Modal Container */}
           <div className="flex flex-col gap-y-4 bg-white p-5 rounded-2xl mx-2 w-full sm:max-w-[600px]">
             <div className="flex flex-row justify-between ">
-              <h1 className="text-3xl font-workSans font-bold text-black">
+              <h1 className="text-2xl sm:text-3xl font-workSans font-bold text-black">
                 Edit Action
               </h1>
             </div>

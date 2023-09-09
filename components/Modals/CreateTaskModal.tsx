@@ -28,7 +28,7 @@ const CreateTaskModal: FC<Props> = ({ addTemplateTasks }) => {
           {/* Modal Container  */}
           <div className="flex flex-col gap-y-4 bg-white p-5 rounded-2xl w-full sm:max-w-[600px] mx-2">
             <div className="flex flex-row justify-between">
-              <h1 className="text-3xl font-workSans font-bold text-black">
+              <h1 className="text-2xl sm:text-3xl font-workSans font-bold text-black">
                 Add Task
               </h1>
             </div>
