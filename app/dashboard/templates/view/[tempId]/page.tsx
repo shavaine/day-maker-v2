@@ -24,15 +24,19 @@ const TemplateView: FC<Props> = ({ params }) => {
         {getTemplateNameById(params.tempId, state.templates)}
       </h1>
       <TemplateTable tempId={params.tempId} />
-      {/* <div className="flex-col gap-y-5 md:hidden"> */}
-      {params.tempId &&
-        state.tasks
-          .filter((task) => task.templateId === params.tempId)
-          .sort((a, b) => a.startTime - b.startTime)
-          .map((task, index) => (
-            <MobileTaskCard key={task.id} task={task} actions={state.actions} />
-          ))}
-      {/* </div> */}
+      <div className="flex flex-col gap-y-3 md:hidden">
+        {params.tempId &&
+          state.tasks
+            .filter((task) => task.templateId === params.tempId)
+            .sort((a, b) => a.startTime - b.startTime)
+            .map((task, index) => (
+              <MobileTaskCard
+                key={task.id}
+                task={task}
+                actions={state.actions}
+              />
+            ))}
+      </div>
     </div>
   );
 };

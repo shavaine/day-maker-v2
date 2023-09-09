@@ -16,7 +16,7 @@ const MobileTaskCard = ({ task, actions }: Props) => {
       <div className="flex flex-col">
         <div className="flex">
           <span className="font-bold mr-1">Time:</span>
-          {formatTimeType(formatTime(task.startTime))} -
+          {formatTimeType(formatTime(task.startTime))} -{" "}
           {formatTimeType(formatTime(task.endTime))}
           <FaAngleUp
             onClick={() => {
