@@ -55,7 +55,7 @@ export const CreateTaskForm: FC<Props> = ({
       className="flex flex-col gap-y-14 font-spaceMono"
       onSubmit={handleSubmit}
     >
-      <div className="flex flex-col gap-y-4">
+      <div className="flex flex-col gap-y-4 text-sm sm:text-base">
         <div className="flex flex-col">
           <label htmlFor="action">Action</label>
           <select

@@ -26,12 +26,11 @@ const CreateTaskModal: FC<Props> = ({ addTemplateTasks }) => {
         // Screen Backdrop
         <div className="z-50 fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
           {/* Modal Container  */}
-          <div className="flex flex-col gap-y-4 bg-white p-5 rounded-2xl max-w-[600px]">
+          <div className="flex flex-col gap-y-4 bg-white p-5 rounded-2xl w-full sm:max-w-[600px] mx-2">
             <div className="flex flex-row justify-between">
               <h1 className="text-3xl font-workSans font-bold text-black">
                 Add Task
               </h1>
-              <button onClick={toggleModal}>X</button>
             </div>
             <CreateTaskForm
               toggleModal={toggleModal}

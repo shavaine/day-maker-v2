@@ -80,7 +80,7 @@ export const EditActionForm: FC<Props> = ({ toggleModal, id, title }) => {
           value={actionTitle}
           onChange={(e) => setActionTitle(e.target.value)}
           id="EditActionForm"
-          className="border rounded-lg px-3 py-2 w-96"
+          className="border rounded-lg px-3 py-2 w-full"
         />
       </div>
 
