@@ -1,5 +1,6 @@
 "use client";
 
+import MobileTaskCard from "@/components/Cards/MobileTaskCard";
 import TemplateTable from "@/components/Tables/TemplateTable";
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
@@ -18,11 +19,20 @@ const TemplateView: FC<Props> = ({ params }) => {
   );
 
   return (
-    <div className="flex flex-col gap-y-5 bg-white p-3 lg:p-10 rounded-md border shadow">
-      <h1 className=" text-secondaryColor font-workSans font-bold text-3xl">
+    <div className="flex flex-col gap-y-3 bg-white p-3 lg:p-10 rounded-md border shadow">
+      <h1 className=" text-secondaryColor font-workSans font-bold text-3xl text-center md:text-start">
         {getTemplateNameById(params.tempId, state.templates)}
       </h1>
       <TemplateTable tempId={params.tempId} />
+      {/* <div className="flex-col gap-y-5 md:hidden"> */}
+      {params.tempId &&
+        state.tasks
+          .filter((task) => task.templateId === params.tempId)
+          .sort((a, b) => a.startTime - b.startTime)
+          .map((task, index) => (
+            <MobileTaskCard key={task.id} task={task} actions={state.actions} />
+          ))}
+      {/* </div> */}
     </div>
   );
 };
