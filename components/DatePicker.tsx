@@ -18,7 +18,7 @@ const DatePicker: FC<DatePickerProps> = ({
 
   return (
     <input
-      className="border w-full"
+      className="border rounded-md px-3 py-2 w-full focus:outline-mainColor"
       type="date"
       value={selectedDate}
       onChange={handleDateChange}
