@@ -1,7 +1,6 @@
 "use client";
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
-import { Task } from "@/context/Interfaces";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, useContext, useState } from "react";
