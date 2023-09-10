@@ -1,12 +1,14 @@
 const privacyPolicy = () => {
   return (
     <main>
-      <section className="bg-home-header py-32">
+      <section className="bg-home-header px-2 py-32">
         <header className="container py-20 bg-white rounded-lg flex flex-col gap-y-3 font-spaceMono shadow-xl">
-          <h1 className="text-5xl text-mainColor text-center">
+          <h1 className="text-xl font-bold sm:font-normal sm:text-5xl text-mainColor text-center mb-10">
             Privacy Policy for DayMaker
           </h1>
-          <p className="text-sm text-[#6F7787FF]">Effective Date: 2023-09-06</p>
+          <p className="text-sm text-[#6F7787FF] font-bold text-center">
+            Effective Date: 2023-09-06
+          </p>
           <p className="text-sm text-[#6F7787FF]">
             Welcome to DayMaker! We understand the importance of your privacy
             and are committed to protecting your personal information. This
@@ -22,24 +24,29 @@ const privacyPolicy = () => {
           </p>
           <ol className="text-sm text-[#6F7787FF]">
             <li>
-              1. User Account Information: When you create an account with
-              DayMaker, we collect personal information such as your name and
-              email address to establish and manage your account.
+              <span className="font-bold">1. User Account Information:</span>{" "}
+              When you create an account with DayMaker, we collect personal
+              information such as your name and email address to establish and
+              manage your account.
             </li>
             <li>
-              2. Actions, Templates, and Schedules: DayMaker allows you to
-              create reusable Actions, Templates, and Schedules. These may
-              include descriptions and other task-related data that you input.
+              <span className="font-bold">
+                2. Actions, Templates, and Schedules:
+              </span>{" "}
+              DayMaker allows you to create reusable Actions, Templates, and
+              Schedules. These may include descriptions and other task-related
+              data that you input.
             </li>
             <li>
-              3. Usage Information: We collect information about how you
-              interact with our app, including your activity, usage patterns,
-              and device information (e.g., browser type, IP address).
+              <span className="font-bold">3. Usage Information:</span> We
+              collect information about how you interact with our app, including
+              your activity, usage patterns, and device information (e.g.,
+              browser type, IP address).
             </li>
             <li>
-              4. Communication Data: If you contact us for support or other
-              purposes, we may collect and store the communication, including
-              your email address.
+              <span className="font-bold">4. Communication Data:</span> If you
+              contact us for support or other purposes, we may collect and store
+              the communication, including your email address.
             </li>
           </ol>
           <p className="font-bold uppercase text-[#171A1FFF]">
@@ -47,18 +54,20 @@ const privacyPolicy = () => {
           </p>
           <ol className="text-sm text-[#6F7787FF]">
             <li>
-              1. To Provide Services: We use your personal information to
-              provide you with access to DayMaker`s features, including the
-              creation of Actions, Templates, and Schedules.
+              <span className="font-bold">1. To Provide Services:</span> We use
+              your personal information to provide you with access to DayMaker`s
+              features, including the creation of Actions, Templates, and
+              Schedules.
             </li>
             <li>
-              2. To Communicate: We may use your email address to send you
-              important updates, notifications, and information related to your
-              account or our services.
+              <span className="font-bold">2. To Communicate:</span> We may use
+              your email address to send you important updates, notifications,
+              and information related to your account or our services.
             </li>
             <li>
-              3. To Improve Our Services: We analyze usage patterns and feedback
-              to enhance our app`s functionality, user experience, and features.
+              <span className="font-bold">3. To Improve Our Services:</span> We
+              analyze usage patterns and feedback to enhance our app`s
+              functionality, user experience, and features.
             </li>
           </ol>
           <p className="font-bold uppercase text-[#171A1FFF]">
@@ -70,15 +79,17 @@ const privacyPolicy = () => {
           </p>
           <ol className="text-sm text-[#6F7787FF]">
             <li>
-              Service Providers: We may engage third-party service providers to
-              assist us with app functionality, analytics, or support. These
-              providers may access and process your data but are contractually
-              bound to maintain its confidentiality.
+              <span className="font-bold">Service Providers:</span> We may
+              engage third-party service providers to assist us with app
+              functionality, analytics, or support. These providers may access
+              and process your data but are contractually bound to maintain its
+              confidentiality.
             </li>
             <li>
-              Legal Requirements: We may disclose your information in response
-              to a legal request, court order, government investigation, or to
-              protect our rights, property, or safety.
+              <span className="font-bold">Legal Requirements:</span> We may
+              disclose your information in response to a legal request, court
+              order, government investigation, or to protect our rights,
+              property, or safety.
             </li>
           </ol>
           <p className="font-bold uppercase text-[#171A1FFF]">Security</p>
