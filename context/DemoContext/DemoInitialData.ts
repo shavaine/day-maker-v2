@@ -1,4 +1,4 @@
-import { Action, Task, Template, Schedule, InitialState } from "../Interfaces";
+import { Action, Task, Template, Schedule, InitialState, Toast } from "../Interfaces";
 
 const user = {
   email: "demoUser@daymaker.ca",
@@ -6,6 +6,11 @@ const user = {
   id: "1234",
   image: null,
   name: "John Doe"
+}
+
+const toast: Toast = {
+  message: "",
+  type: "notice"
 }
 
 const actions: Action[] = [
@@ -68,4 +73,5 @@ export const initialState: InitialState = {
   tasks: tasks,
   templates: templates,
   schedules: schedules,
+  toast: toast
 };
