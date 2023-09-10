@@ -33,9 +33,9 @@ const TaskCard = ({ task, actions, removeTask }: Props) => {
           </div>
           <div className="hidden md:flex">
             {" "}
-            <span className="font-bold">Start Time: </span>
+            <span className="font-bold mr-1">Start Time:</span>
             {formatTimeType(formatTime(task.startTime))}
-            <span className="font-bold ml-6 ">End Time: </span>
+            <span className="font-bold ml-6 mr-1 ">End Time:</span>
             {formatTimeType(formatTime(task.endTime))}
           </div>
 

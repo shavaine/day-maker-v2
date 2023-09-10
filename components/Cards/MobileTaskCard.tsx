@@ -1,7 +1,7 @@
 "use client";
 import { Action, Task } from "@/context/Interfaces";
 import { formatTime, formatTimeType, getActionTitleById } from "@/lib/helpers";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { FaAngleUp } from "react-icons/fa";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
   actions: Action[];
 }
 
-const MobileTaskCard = ({ task, actions }: Props) => {
+const MobileTaskCard: FC<Props> = ({ task, actions }) => {
   const [toggleNotes, setToggleNotes] = useState(false);
   return (
     <div className="border p-2 rounded-md flex flex-col text-sm" key={task.id}>
