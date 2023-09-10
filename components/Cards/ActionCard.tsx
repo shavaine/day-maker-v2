@@ -14,7 +14,7 @@ interface Props {
 // Imported in ActionList Component
 const ActionCard: FC<Action> = ({ title, id }: Props): React.ReactNode => {
   const pathname = usePathname();
-  const { dispatch } = useContext(
+  const { state, dispatch } = useContext(
     pathname.includes("dashboard") ? DashboardContext : DemoContext
   );
 
@@ -23,6 +23,11 @@ const ActionCard: FC<Action> = ({ title, id }: Props): React.ReactNode => {
   const deleteAction = async (actionId: string) => {
     if (pathname.includes("demo")) {
       dispatch({ type: "DELETE_ACTION", payload: actionId });
+      state.tasks.forEach((task) => {
+        if (task.actionId === actionId) {
+          dispatch({ type: "DELETE_TASK", payload: task.id });
+        }
+      });
     }
 
     if (pathname.includes("dashboard")) {
@@ -38,6 +43,11 @@ const ActionCard: FC<Action> = ({ title, id }: Props): React.ReactNode => {
         console.log(await res.json());
         if (res.ok) {
           dispatch({ type: "DELETE_ACTION", payload: actionId });
+          state.tasks.forEach((task) => {
+            if (task.actionId === actionId) {
+              dispatch({ type: "DELETE_TASK", payload: task.id });
+            }
+          });
         }
         setLoading(false);
       } catch (error) {
