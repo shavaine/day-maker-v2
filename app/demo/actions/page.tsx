@@ -1,16 +1,5 @@
-import ActionList from "@/components/List/ActionList";
-import CreateActionModal from "@/components/Modals/CreateActionModal";
+import ActionPage from "@/components/Layouts/ActionPage";
 
 export default function Actions() {
-  return (
-    <div className="max-h-screen overflow-auto">
-      <div className="flex flex-row justify-between ">
-        <h1 className="pageTitle">Actions</h1>
-        <h4 className="text-lg text-gray-500 mt-5">
-          <CreateActionModal />
-        </h4>
-      </div>
-      <ActionList />
-    </div>
-  );
+  return <ActionPage />;
 }

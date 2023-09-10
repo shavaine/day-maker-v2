@@ -56,7 +56,7 @@ const Calendar: FC = () => {
 
     if (schedule) {
       return (
-        <p className="font-bold">
+        <p className="font-bold text-xs overflow-auto sm:text-base w-[90%] sm:mx-auto">
           {getTemplateNameById(schedule.templateId, state.templates)}
         </p>
       );
@@ -70,7 +70,7 @@ const Calendar: FC = () => {
 
   return (
     <div>
-      <div className="flex flex-col gap-y-20 bg-white p-4 py-10 rounded-md border shadow">
+      <div className="flex flex-col gap-y-20 bg-white sm:p-4 py-10 rounded-md border shadow">
         <div className="flex flex-row justify-between">
           <FaAngleLeft
             className="hover:opacity-60 hover:cursor-pointer text-3xl lg:ml-32"
@@ -79,7 +79,7 @@ const Calendar: FC = () => {
           <h2 className="font-bold font-workSans text-3xl">
             {" "}
             {currentMonth.toLocaleString("default", {
-              month: "long",
+              month: "short",
               year: "numeric",
             })}
           </h2>

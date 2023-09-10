@@ -13,7 +13,7 @@ const TemplateTable: FC<Props> = ({ tempId }) => {
     pathname.includes("dashboard") ? DashboardContext : DemoContext
   );
   return (
-    <table className="border">
+    <table className="border hidden md:inline-table">
       <tbody>
         <tr className="bg-gray-200 font-workSans font-normal">
           <th className="w-[15%] p-4 text-start font-normal">Start Time</th>

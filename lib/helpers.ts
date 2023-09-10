@@ -33,9 +33,9 @@ import { Action, Task, Template } from "@/context/Interfaces";
     const [hours, minutes] = time.split(":");
     const newHours = Number(hours) > 12 ? Number(hours) - 12 : Number(hours);
     if (Number(hours) > 11) {
-      return `${String(newHours)}:${minutes.padStart(2, "0")} PM`
+      return `${String(newHours)}:${minutes.padStart(2, "0")}PM`
     } else {
-      return `${String(newHours)}:${minutes.padStart(2, "0")} AM`
+      return `${String(newHours)}:${minutes.padStart(2, "0")}AM`
     }
   }
 

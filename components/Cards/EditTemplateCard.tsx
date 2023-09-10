@@ -94,14 +94,14 @@ const EditTemplateCard: FC<Props> = ({ name, description, tasks, tempId }) => {
         id: tempId,
         name: templateName,
         description: templateDescription,
-        userId: "1",
+        userId: "1234",
       };
 
-      applyTemplateId(currentTemplate.id, templateTasks);
+      applyTemplateId(currentTemplate.id, newTasks);
 
       if (templateName.trim() !== "") {
         dispatch({ type: "UPDATE_TEMPLATE", payload: currentTemplate });
-        dispatchTasks(templateTasks);
+        dispatchTasks(newTasks);
         removeDeletedTasks(state.tasks);
         router.push("/demo/templates");
       }

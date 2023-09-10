@@ -29,8 +29,6 @@ export const AddScheduleForm: FC<Props> = ({ toggleModal, scheduleDate }) => {
         templateId: templateID,
         userId: "1234",
       };
-      console.log("new date");
-      console.log(newSchedule.date);
       dispatch({ type: "ADD_SCHEDULE", payload: newSchedule });
       toggleModal();
     }

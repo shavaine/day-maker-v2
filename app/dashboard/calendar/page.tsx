@@ -1,10 +1,5 @@
-import Calendar from "@/components/Calendar";
+import CalendarPage from "@/components/Layouts/CalendarPage";
 
-export default function CalendarPage() {
-  return (
-    <div>
-      <h1 className="pageTitle">Calendar</h1>
-      <Calendar />
-    </div>
-  );
+export default function Calendar() {
+  return <CalendarPage />;
 }

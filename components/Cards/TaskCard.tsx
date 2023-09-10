@@ -13,31 +13,52 @@ interface Props {
 const TaskCard = ({ task, actions, removeTask }: Props) => {
   const [toggleNotes, setToggleNotes] = useState(false);
   return (
-    <div className="border p-2 rounded-md flex flex-col" key={task.id}>
-      <div className="flex flex-row flex-wrap">
+    <div className="border p-1 rounded-md flex flex-col text-xs" key={task.id}>
+      <div className="flex">
         <FaMinusCircle
-          className="text-xl text-red-400 mr-4"
+          className="text-xl text-red-400 mr-2 self-center"
           onClick={() => removeTask(task)}
         />
-        <span className="font-bold mr-1">Start Time:</span>{" "}
-        {formatTimeType(formatTime(task.startTime))}
-        <span className="font-bold ml-6 mr-1">End Time:</span>{" "}
-        {formatTimeType(formatTime(task.endTime))}
-        <span className="font-bold ml-6 mr-1">Action:</span>
-        {getActionTitleById(task.actionId, actions)}
-        <FaAngleUp
-          onClick={() => {
-            setToggleNotes((prev) => !prev);
-          }}
-          className={`ml-auto text-xl ${toggleNotes && "rotate-180"}`}
-        />
-      </div>
-      {toggleNotes && (
-        <div className="flex flex-col mt-2 ml-9">
-          <p className="font-bold">Notes:</p>
-          <p>{task.notes}</p>
+        <div className="flex flex-col lg:flex-row flex-wrap grow">
+          <div className="flex md:hidden">
+            <span className="font-bold mr-1">Time:</span>
+            {formatTimeType(formatTime(task.startTime))} -{" "}
+            {formatTimeType(formatTime(task.endTime))}
+            <FaAngleUp
+              onClick={() => {
+                setToggleNotes((prev) => !prev);
+              }}
+              className={`ml-auto text-xl ${toggleNotes && "rotate-180"}`}
+            />
+          </div>
+          <div className="hidden md:flex">
+            {" "}
+            <span className="font-bold mr-1">Start Time:</span>
+            {formatTimeType(formatTime(task.startTime))}
+            <span className="font-bold ml-6 mr-1 ">End Time:</span>
+            {formatTimeType(formatTime(task.endTime))}
+          </div>
+
+          <div className="flex grow">
+            <span className="font-bold lg:ml-6 mr-1">Action:</span>
+            {getActionTitleById(task.actionId, actions)}
+            <FaAngleUp
+              onClick={() => {
+                setToggleNotes((prev) => !prev);
+              }}
+              className={`hidden md:flex ml-auto  text-xl ${
+                toggleNotes && "rotate-180"
+              }`}
+            />
+          </div>
+          {toggleNotes && (
+            <div className="flex flex-col">
+              <p className="font-bold">Notes:</p>
+              <p>{task.notes}</p>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };

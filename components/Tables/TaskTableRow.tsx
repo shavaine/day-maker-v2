@@ -42,8 +42,11 @@ const TaskTableRow: FC<Props> = ({ task, index }) => {
         </td>
       </tr>
       {toggleNotes && (
-        <tr className="text-center">
-          <td colSpan={4}>{task.notes}</td>
+        <tr className={`${index % 2 === 0 ? "my-3" : "bg-gray-100"}`}>
+          <td className="font-spaceMono font-bold px-4 pb-4">Notes:</td>
+          <td className="font-workSans px-4 pb-4" colSpan={3}>
+            {task.notes}
+          </td>
         </tr>
       )}
     </>

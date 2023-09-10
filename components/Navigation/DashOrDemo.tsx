@@ -2,8 +2,13 @@
 import { useSession } from "next-auth/react";
 import NavLink from "./NavLink";
 import { VscLoading } from "react-icons/vsc";
+import { FC } from "react";
 
-const DashOrDemo = () => {
+interface Props {
+  toggleNav?: () => void;
+}
+
+const DashOrDemo: FC<Props> = ({ toggleNav }) => {
   const { data: session, status } = useSession();
   if (status === "loading") {
     return (
@@ -17,13 +22,13 @@ const DashOrDemo = () => {
   if (status === "authenticated") {
     return (
       <li>
-        <NavLink name="Dashboard" path="/dashboard" />
+        <NavLink name="Dashboard" path="/dashboard" toggleNav={toggleNav} />
       </li>
     );
   } else {
     return (
       <li>
-        <NavLink name="Demo" path="/demo" />
+        <NavLink name="Demo" path="/demo" toggleNav={toggleNav} />
       </li>
     );
   }

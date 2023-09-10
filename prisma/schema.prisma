@@ -72,7 +72,7 @@ model Task {
   notes      String?
   startTime  Int
   endTime    Int
-  action     Action   @relation(fields: [actionId], references: [id])
+  action     Action   @relation(fields: [actionId], references: [id], onDelete: Cascade)
   actionId   String
   template   Template @relation(fields: [templateId], references: [id], onDelete: Cascade)
   templateId String

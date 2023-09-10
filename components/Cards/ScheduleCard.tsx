@@ -10,6 +10,7 @@ import RemoveTemplateModal from "../Modals/RemoveTemplateModal";
 import AddTemplateModal from "../Modals/AddTemplateModal";
 import { usePathname } from "next/navigation";
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
+import MobileTaskList from "../List/MobileTaskList";
 
 const ScheduleCard = () => {
   const [scheduleDate, setScheduleDate] = useState(new Date(Date.now()));
@@ -53,17 +54,17 @@ const ScheduleCard = () => {
           onClick={handleAddDay}
         />
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-y-3">
         <>
           {shownSchedule?.templateId ? (
-            <div className="flex flex-col sm:flex-row justify-between">
+            <div className="flex sm:flex-row justify-between">
               <h2 className="text-2xl text-secondaryColor font-workSans font-bold">
                 {getTemplateNameById(
                   shownSchedule?.templateId,
                   state.templates
                 )}
               </h2>
-              <div className="flex flex-row justify-between sm:gap-x-6">
+              <div className="flex gap-x-2">
                 <ChangeTemplateModal
                   currentScheduleId={shownSchedule?.id}
                   currentDate={shownSchedule?.date}
@@ -78,7 +79,14 @@ const ScheduleCard = () => {
         </>
         {/* Table */}
         {shownSchedule?.templateId && (
-          <TemplateTable tempId={shownSchedule?.templateId} />
+          <>
+            <TemplateTable tempId={shownSchedule?.templateId} />
+            <MobileTaskList
+              tempId={shownSchedule?.templateId}
+              tasks={state.tasks}
+              actions={state.actions}
+            />
+          </>
         )}
       </div>
     </div>

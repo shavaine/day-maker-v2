@@ -1,18 +1,5 @@
-import TemplateList from "@/components/List/TemplateList";
-import Link from "next/link";
+import TemplatePage from "@/components/Layouts/TemplatePage";
 
 export default function Templates() {
-  return (
-    <div className="max-h-screen overflow-auto">
-      <div className="flex flex-row justify-between ">
-        <h1 className=" pageTitle">Templates</h1>
-        <Link className="self-center" href="templates/create">
-          <h4 className="text-lg text-gray-500 hover:font-bold">
-            Create Template
-          </h4>
-        </Link>
-      </div>
-      <TemplateList />
-    </div>
-  );
+  return <TemplatePage />;
 }
