@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -13,7 +14,10 @@ export default function Footer() {
             alt="White Logo"
           />
           <p className="font-viaodaLibre text-white text-center sm:text-start lg:text-end lg:-mt-6 w-screen sm:w-auto">
-            © 2023 Copyright - Shavaine Brown
+            © 2023 Copyright - Shavaine Brown -
+            <Link className="ml-1 hover:font-bold" href="/privacy-policy">
+              Privacy Policy
+            </Link>
           </p>
         </div>
 
