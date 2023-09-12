@@ -1,4 +1,4 @@
-import { Action, Task, Template, Schedule, InitialState, Toast } from "../Interfaces";
+import { Action, Task, Template, Schedule, InitialState, ToastInterface } from "../Interfaces";
 
 const user = {
   email: "demoUser@daymaker.ca",
@@ -8,7 +8,7 @@ const user = {
   name: "John Doe"
 }
 
-const toast: Toast = {
+const toast: ToastInterface = {
   message: "",
   type: "notice"
 }

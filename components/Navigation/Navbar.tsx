@@ -5,7 +5,7 @@ import DashOrDemo from "./DashOrDemo";
 
 export default function Navbar() {
   return (
-    <div className="flex flex-row border-b bg-white content-center py-2 sticky top-0 z-40">
+    <div className="flex flex-row border-b bg-white content-center py-2 sticky top-0 z-30">
       <Image
         className="ml-3 sm:ml-10 mr-auto w-auto h-16"
         src="/assets/logo.png"

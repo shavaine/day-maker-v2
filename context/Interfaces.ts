@@ -27,7 +27,7 @@ export interface Schedule {
   userId: string;
 }
 
-export interface Toast {
+export interface ToastInterface {
   message: string;
   type: "success" | "error" | "notice"
 }
@@ -37,13 +37,5 @@ export interface InitialState {
     tasks: Task[];
     templates: Template[];
     schedules: Schedule[];
-    toast: Toast;
+    toast: ToastInterface;
 }
-
-export const initialContextValue: InitialState = {
-  actions: [],
-  tasks: [],
-  templates: [],
-  schedules: [],
-  toast: {message: "", type: "notice"}
-};

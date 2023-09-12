@@ -1,4 +1,6 @@
 import { Action, Task, Template } from "@/context/Interfaces";
+import { ActionType } from "@/context/Types";
+import { Dispatch, SetStateAction } from "react";
 
   export const getActionTitleById = (actionId: string, actions: Action[]) => {
     const actionName = actions.find(
@@ -110,3 +112,23 @@ import { Action, Task, Template } from "@/context/Interfaces";
     const finishedTasks = await Promise.all(finishedTaskPromises); 
     return finishedTasks;
   };
+
+  interface showFormToastProps {
+    message: string;
+    dispatch: Dispatch<ActionType>;
+    setLoading: Dispatch<SetStateAction<boolean>>
+
+  }
+  export const showErrorToast = async ({message, dispatch, setLoading}: showFormToastProps) => {
+    dispatch({
+      type: "SHOW_TOAST",
+      payload: {
+        message: message,
+        type: "error",
+      },
+    });
+    setTimeout(() => {
+      dispatch({ type: "CLEAR_TOAST" });
+      setLoading(false);
+    }, 3000);
+};
