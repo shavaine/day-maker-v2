@@ -5,6 +5,7 @@ import { FC, useContext, useState } from "react";
 import EditActionModal from "../Modals/EditActionModal";
 import { usePathname } from "next/navigation";
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
+import { VscLoading } from "react-icons/vsc";
 
 interface Props {
   title: string;
@@ -90,6 +91,9 @@ const ActionCard: FC<Action> = ({ title, id }: Props): React.ReactNode => {
           disabled={loading}
         >
           Delete
+          {loading && (
+            <VscLoading className="animate-spin self-center ml-1"></VscLoading>
+          )}
         </button>
       </div>
     </div>

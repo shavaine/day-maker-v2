@@ -2,6 +2,8 @@
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { Action } from "@/context/Interfaces";
+import { actionClientValidate } from "@/lib/Validation/formValidation";
+import { showErrorToast } from "@/lib/helpers";
 import { usePathname } from "next/navigation";
 import { FC, FormEvent, useContext, useState } from "react";
 import { VscLoading } from "react-icons/vsc";
@@ -14,54 +16,75 @@ interface Props {
 
 export const EditActionForm: FC<Props> = ({ toggleModal, id, title }) => {
   const pathname = usePathname();
-  const { dispatch } = useContext(
+  const { state, dispatch } = useContext(
     pathname.includes("dashboard") ? DashboardContext : DemoContext
   );
   const [loading, setLoading] = useState(false);
-  const [actionTitle, setActionTitle] = useState<string>(`${title}`);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
+    const formData = new FormData(e.currentTarget);
+    const actionTitle = formData.get("title")?.toString();
+    const form = actionClientValidate(actionTitle, state.actions);
 
-    if (pathname.includes("demo")) {
-      const updateAction: Action = {
-        id: id,
-        title: actionTitle,
-        userId: "1234",
-      };
-
-      if (actionTitle.trim() !== "") {
+    if (form.notValid) {
+      showErrorToast({ message: form.message, dispatch, setLoading });
+    } else {
+      if (pathname.includes("demo")) {
+        const updateAction: Action = {
+          id: id,
+          title: actionTitle!,
+          userId: "1234",
+        };
         dispatch({ type: "UPDATE_ACTION", payload: updateAction });
-        setActionTitle("");
         toggleModal();
       }
-    }
 
-    if (pathname.includes("dashboard")) {
-      setLoading(true);
-      const body = {
-        id: id,
-        title: actionTitle,
-      };
-      try {
-        const res = await fetch("/api/actions/edit", {
-          method: "PUT",
-          body: JSON.stringify(body),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+      if (pathname.includes("dashboard")) {
+        setLoading(true);
+        const body = {
+          id: id,
+          title: actionTitle,
+        };
+        try {
+          const res = await fetch("/api/actions/edit", {
+            method: "PUT",
+            body: JSON.stringify(body),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
 
-        const editAction = await res.json();
-        if (res.ok) {
-          dispatch({ type: "UPDATE_ACTION", payload: editAction });
-          setActionTitle("");
+          if (res.ok) {
+            const editAction = await res.json();
+            dispatch({ type: "UPDATE_ACTION", payload: editAction });
+            dispatch({
+              type: "SHOW_TOAST",
+              payload: {
+                message: `Action ${editAction.title} was successfully edited`,
+                type: "success",
+              },
+            });
+            toggleModal();
+            setLoading(false);
+          } else if (res.status === 400) {
+            const errorData = await res.json();
+            const message: string = errorData.error;
+            console.log("HTTP 400 Error Data:", errorData);
+            showErrorToast({ message: message, dispatch, setLoading });
+          }
+        } catch (error) {
+          toggleModal();
+          console.error("Something went wrong", error);
+          dispatch({
+            type: "SHOW_TOAST",
+            payload: {
+              message: `Something went wrong, please try again later`,
+              type: "error",
+            },
+          });
         }
-        toggleModal();
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-        // Add Toast explaining to user what went wrong.
       }
     }
   };
@@ -77,8 +100,8 @@ export const EditActionForm: FC<Props> = ({ toggleModal, id, title }) => {
         </label>
         <input
           type="text"
-          value={actionTitle}
-          onChange={(e) => setActionTitle(e.target.value)}
+          name="title"
+          placeholder={title}
           id="EditActionForm"
           className="border rounded-lg px-3 py-2 w-full"
         />
