@@ -14,15 +14,22 @@ interface Props {
 // Imported in ActionList Component
 const ActionCard: FC<Action> = ({ title, id }: Props): React.ReactNode => {
   const pathname = usePathname();
+
   const { state, dispatch } = useContext(
     pathname.includes("dashboard") ? DashboardContext : DemoContext
   );
-
   const [loading, setLoading] = useState(false);
 
   const deleteAction = async (actionId: string) => {
     if (pathname.includes("demo")) {
       dispatch({ type: "DELETE_ACTION", payload: actionId });
+      dispatch({
+        type: "SHOW_TOAST",
+        payload: {
+          message: `Action ${title} successfully deleted`,
+          type: "success",
+        },
+      });
       state.tasks.forEach((task) => {
         if (task.actionId === actionId) {
           dispatch({ type: "DELETE_TASK", payload: task.id });
@@ -39,10 +46,17 @@ const ActionCard: FC<Action> = ({ title, id }: Props): React.ReactNode => {
             "Content-Type": "application/json",
           },
         });
-        // Add Toast Message For Successful Call
-        console.log(await res.json());
+
         if (res.ok) {
           dispatch({ type: "DELETE_ACTION", payload: actionId });
+          dispatch({
+            type: "SHOW_TOAST",
+            payload: {
+              message: `Action ${title} successfully deleted`,
+              type: "success",
+            },
+          });
+          // locally delete related task for action. (tasks will cascade delete on server)
           state.tasks.forEach((task) => {
             if (task.actionId === actionId) {
               dispatch({ type: "DELETE_TASK", payload: task.id });
@@ -52,6 +66,13 @@ const ActionCard: FC<Action> = ({ title, id }: Props): React.ReactNode => {
         setLoading(false);
       } catch (error) {
         console.log(error);
+        dispatch({
+          type: "SHOW_TOAST",
+          payload: {
+            message: `Something went wrong, please try again later`,
+            type: "error",
+          },
+        });
       }
     }
   };
