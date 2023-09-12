@@ -2,7 +2,9 @@
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { Action } from "@/context/Interfaces";
+import { actionClientValidate } from "@/lib/Validation/formValidation";
 import { generateCUID } from "@/lib/generateCUID";
+import { showErrorToast } from "@/lib/helpers";
 import { usePathname } from "next/navigation";
 import { FC, FormEvent, useContext, useState } from "react";
 import { VscLoading } from "react-icons/vsc";
@@ -13,52 +15,84 @@ interface Props {
 
 export const CreateActionForm: FC<Props> = ({ toggleModal }) => {
   const pathname = usePathname();
-  const { dispatch } = useContext(
+  const { state, dispatch } = useContext(
     pathname.includes("dashboard") ? DashboardContext : DemoContext
   );
   const [loading, setLoading] = useState(false);
-  const [actionTitle, setActionTitle] = useState<string>("");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (pathname.includes("demo")) {
-      const newAction: Action = {
-        id: generateCUID(),
-        title: actionTitle,
-        userId: "1234",
-      };
+    setLoading(true);
+    // Form Validation
+    const formData = new FormData(e.currentTarget);
+    const actionTitle = formData.get("title")?.toString();
+    const form = actionClientValidate(actionTitle, state.actions);
 
-      if (actionTitle.trim() !== "") {
+    if (form.notValid) {
+      showErrorToast({ message: form.message, dispatch, setLoading });
+    } else {
+      if (pathname.includes("demo")) {
+        const newAction: Action = {
+          id: generateCUID(),
+          title: actionTitle!,
+          userId: "1234",
+        };
+
         dispatch({ type: "ADD_ACTION", payload: newAction });
-        setActionTitle("");
         toggleModal();
-      }
-    }
-
-    if (pathname.includes("dashboard")) {
-      setLoading(true);
-      const body = {
-        title: actionTitle,
-      };
-      try {
-        const res = await fetch("/api/actions/create", {
-          method: "POST",
-          body: JSON.stringify(body),
-          headers: {
-            "Content-Type": "application/json",
+        dispatch({
+          type: "SHOW_TOAST",
+          payload: {
+            message: `Action ${newAction.title} was successfully created`,
+            type: "success",
           },
         });
+      }
 
-        const newAction = await res.json();
-        if (res.ok) {
-          dispatch({ type: "ADD_ACTION", payload: newAction });
-          setActionTitle("");
+      if (pathname.includes("dashboard")) {
+        setLoading(true);
+        const body = {
+          title: actionTitle!,
+        };
+        try {
+          const res = await fetch("/api/actions/create", {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+
+          if (res.ok) {
+            const newAction = await res.json();
+            dispatch({ type: "ADD_ACTION", payload: newAction });
+            dispatch({
+              type: "SHOW_TOAST",
+              payload: {
+                message: `Action ${newAction.title} was successfully created`,
+                type: "success",
+              },
+            });
+            toggleModal();
+            setLoading(false);
+          } else if (res.status === 400) {
+            const errorData = await res.json();
+            const message: string = errorData.error;
+            console.log("HTTP 400 Error Data:", errorData);
+            showErrorToast({ message: message, dispatch, setLoading });
+          }
+          // Will mostly handle network errors
+        } catch (error) {
+          toggleModal();
+          console.error("Something went wrong", error);
+          dispatch({
+            type: "SHOW_TOAST",
+            payload: {
+              message: `Something went wrong, please try again later`,
+              type: "error",
+            },
+          });
         }
-        toggleModal();
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-        // Add Toast explaining to user what went wrong.
       }
     }
   };
@@ -74,13 +108,11 @@ export const CreateActionForm: FC<Props> = ({ toggleModal }) => {
         </label>
         <input
           type="text"
-          value={actionTitle}
-          onChange={(e) => setActionTitle(e.target.value)}
+          name="title"
           placeholder="Enter Title"
           id="CreateAction"
           className="border rounded-lg px-3 py-2 w-full"
           autoFocus
-          min={3}
         />
       </div>
 
