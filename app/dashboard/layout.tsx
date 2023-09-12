@@ -1,6 +1,5 @@
 import SideNav from "@/components/Navigation/SideNav";
 import { DashboardProvider } from "@/context/DashboardContext/DashboardProvider";
-import { InitialData } from "@/context/DashboardContext/DashboardInitialData";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
@@ -14,11 +13,11 @@ export default async function DemoLayout({ children }: Props) {
   if (!session) {
     redirect("/api/auth/signin");
   }
-  const initialState = await InitialData();
+
   return (
     <div className="flex flex-row">
       <SideNav />
-      <DashboardProvider initialState={initialState}>
+      <DashboardProvider>
         <main className="w-full bg-gray-100 p-3 sm:p-10">{children}</main>
       </DashboardProvider>
     </div>
