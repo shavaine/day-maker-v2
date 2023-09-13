@@ -9,6 +9,7 @@ import { generateCUID } from "@/lib/generateCUID";
 import TaskCard from "./TaskCard";
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { templateClientValidate } from "@/lib/Validation/formValidation";
+import { VscLoading } from "react-icons/vsc";
 
 const CreateTemplateCard: FC = () => {
   const router = useRouter();
@@ -61,18 +62,16 @@ const CreateTemplateCard: FC = () => {
 
         applyTemplateId(newTemplate.id, templateTasks);
 
-        if (templateName.trim() !== "") {
-          dispatch({ type: "ADD_TEMPLATE", payload: newTemplate });
-          dispatchTasks(templateTasks);
-          router.back();
-          dispatch({
-            type: "SHOW_TOAST",
-            payload: {
-              message: `Template ${newTemplate.name} was successfully created`,
-              type: "success",
-            },
-          });
-        }
+        dispatch({ type: "ADD_TEMPLATE", payload: newTemplate });
+        dispatchTasks(templateTasks);
+        router.back();
+        dispatch({
+          type: "SHOW_TOAST",
+          payload: {
+            message: `Template ${newTemplate.name} was successfully created`,
+            type: "success",
+          },
+        });
       }
 
       if (pathname.includes("dashboard")) {
@@ -124,10 +123,15 @@ const CreateTemplateCard: FC = () => {
             console.log("HTTP 400 Error Data:", errorData);
             showErrorToast({ message: message, dispatch, setLoading });
           }
-          // Displau Toast about successfully creating template & tasks
         } catch (error) {
-          console.log(error);
-          // Add Toast explaining to user what went wrong.
+          console.error("Something went wrong", error);
+          dispatch({
+            type: "SHOW_TOAST",
+            payload: {
+              message: `Something went wrong, please try again later`,
+              type: "error",
+            },
+          });
         }
       }
     }
@@ -187,12 +191,15 @@ const CreateTemplateCard: FC = () => {
           Cancel
         </button>
         <button
-          className="border w-24 rounded-lg bg-mainColor p-1 text-white hover:font-bold hover:opacity-80"
+          className="flex justify-center border w-24 rounded-lg bg-mainColor p-1 text-white hover:font-bold hover:opacity-80"
           type="button"
           onClick={() => handleSubmit()}
           disabled={loading}
         >
           Create
+          {loading && (
+            <VscLoading className="animate-spin self-center ml-1"></VscLoading>
+          )}
         </button>
       </div>
     </div>
