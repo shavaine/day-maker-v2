@@ -86,7 +86,7 @@ const ActionCard: FC<Action> = ({ title, id }: Props): React.ReactNode => {
       <div className="flex flex-row w-full">
         <EditActionModal title={title} actionId={id} />
         <button
-          className="bg-red-200 text-mainColor font-workSans font-bold w-1/2 grow hover:opacity-80 p-2"
+          className="flex justify-center bg-red-200 text-mainColor font-workSans font-bold w-1/2 grow hover:opacity-80 p-2"
           onClick={() => deleteAction(id)}
           disabled={loading}
         >

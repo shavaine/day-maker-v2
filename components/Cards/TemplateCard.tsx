@@ -4,6 +4,7 @@ import { DemoContext } from "@/context/DemoContext/DemoContext";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, useContext, useState } from "react";
+import { VscLoading } from "react-icons/vsc";
 
 interface Props {
   id: string;
@@ -88,11 +89,14 @@ const TemplateCard: FC<Props> = ({ id, name, description }) => {
         </Link>
 
         <button
-          className="bg-red-200 text-mainColor font-workSans font-bold w-1/3 grow hover:opacity-80 p-2"
+          className="flex justify-center bg-red-200 text-mainColor font-workSans font-bold w-1/3 grow hover:opacity-80 p-2"
           onClick={() => deleteTemplate(id)}
           disabled={loading}
         >
           Delete
+          {loading && (
+            <VscLoading className="animate-spin self-center ml-1"></VscLoading>
+          )}
         </button>
       </div>
     </div>
