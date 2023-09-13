@@ -4,10 +4,11 @@ import { Task, Template } from "@/context/Interfaces";
 import { usePathname, useRouter } from "next/navigation";
 import { FC, useContext, useState } from "react";
 import CreateTaskModal from "../Modals/CreateTaskModal";
-import { applyTemplateId, createTasks } from "@/lib/helpers";
+import { applyTemplateId, createTasks, showErrorToast } from "@/lib/helpers";
 import { generateCUID } from "@/lib/generateCUID";
 import TaskCard from "./TaskCard";
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
+import { templateClientValidate } from "@/lib/Validation/formValidation";
 
 const CreateTemplateCard: FC = () => {
   const router = useRouter();
@@ -40,54 +41,94 @@ const CreateTemplateCard: FC = () => {
   };
 
   const handleSubmit = async () => {
-    if (pathname.includes("demo")) {
-      const newTemplate: Template = {
-        id: generateCUID(),
-        name: templateName,
-        description: templateDescription,
-        userId: "1234",
-      };
+    setLoading(true);
+    const input = templateClientValidate(
+      templateName,
+      templateDescription,
+      state.templates
+    );
 
-      applyTemplateId(newTemplate.id, templateTasks);
+    if (input.notValid) {
+      showErrorToast({ message: input.message, dispatch, setLoading });
+    } else {
+      if (pathname.includes("demo")) {
+        const newTemplate: Template = {
+          id: generateCUID(),
+          name: templateName,
+          description: templateDescription,
+          userId: "1234",
+        };
 
-      if (templateName.trim() !== "") {
-        dispatch({ type: "ADD_TEMPLATE", payload: newTemplate });
-        dispatchTasks(templateTasks);
-        router.back();
-      }
-    }
+        applyTemplateId(newTemplate.id, templateTasks);
 
-    if (pathname.includes("dashboard")) {
-      setLoading(true);
-      const body = {
-        name: templateName,
-        description: templateDescription,
-      };
-      try {
-        const res = await fetch("/api/templates/create", {
-          method: "POST",
-          body: JSON.stringify(body),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        const newTemplate = await res.json();
-
-        // Update local State
-        if (res.ok) {
+        if (templateName.trim() !== "") {
           dispatch({ type: "ADD_TEMPLATE", payload: newTemplate });
-          applyTemplateId(newTemplate.id, templateTasks);
-          const finalTasks = await createTasks(templateTasks);
-          // Adds Newly created task to local state
-          dispatchTasks(finalTasks);
+          dispatchTasks(templateTasks);
           router.back();
+          dispatch({
+            type: "SHOW_TOAST",
+            payload: {
+              message: `Template ${newTemplate.name} was successfully created`,
+              type: "success",
+            },
+          });
         }
-        setLoading(false);
-        // Displau Toast about successfully creating template & tasks
-      } catch (error) {
-        console.log(error);
-        // Add Toast explaining to user what went wrong.
+      }
+
+      if (pathname.includes("dashboard")) {
+        setLoading(true);
+        const body = {
+          name: templateName,
+          description: templateDescription,
+        };
+        try {
+          const res = await fetch("/api/templates/create", {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+
+          const newTemplate = await res.json();
+
+          // Update local State
+          if (res.ok) {
+            dispatch({ type: "ADD_TEMPLATE", payload: newTemplate });
+            // Applies newly created template's ID to task in state
+            applyTemplateId(newTemplate.id, templateTasks);
+            try {
+              const finalTasks = await createTasks(templateTasks);
+              // Adds Newly created task to local state
+              dispatchTasks(finalTasks);
+            } catch (error) {
+              console.log(error);
+              showErrorToast({
+                message: "Unable to Create Task",
+                dispatch,
+                setLoading,
+              });
+            }
+            setLoading(false);
+            router.back();
+            dispatch({
+              type: "SHOW_TOAST",
+              payload: {
+                message: `Template ${newTemplate.name} was successfully created`,
+                type: "success",
+              },
+            });
+          } else if (res.status === 400) {
+            const errorData = await res.json();
+            const message: string = errorData.error;
+            console.log("HTTP 400 Error Data:", errorData);
+            showErrorToast({ message: message, dispatch, setLoading });
+          }
+          // Displau Toast about successfully creating template & tasks
+        } catch (error) {
+          console.log(error);
+          // Add Toast explaining to user what went wrong.
+        }
       }
     }
   };
