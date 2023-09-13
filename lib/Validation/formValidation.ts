@@ -21,6 +21,23 @@ export const actionServerValidate = (title: string | undefined) => {
     return { notValid: false, message: "Valid Action"}
 }
 
+export const taskClientValidate = (task: Task) => {
+    // Checks if Title is empty, null or undefined
+    if (task.startTime > task.endTime ) {
+        return { notValid: true, message: "Start-time can not be greater then End-time"}
+    } else if (task.actionId === 'default') {
+        return { notValid: true, message: "You must select an Action"}
+    } 
+    return { notValid: false, message: "Valid Task"}
+}
+
+export const taskServerValidate = (startTime :number, endTime :number) => {
+    if (startTime > endTime ) {
+        return { notValid: true, message: "Start-time can not be greater then End-time"}
+    }
+    return { notValid: false, message: "Valid Action"}
+}
+
 export const templateClientValidate = (name: string | undefined, description: string , templates: Template[]) => {
     // Checks if Name is empty, null or undefined
     if (!name?.trim()) {

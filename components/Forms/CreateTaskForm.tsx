@@ -6,6 +6,9 @@ import { FC, FormEvent, useContext, useState } from "react";
 import TimePicker from "../TimePicker";
 import { usePathname } from "next/navigation";
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
+import { taskClientValidate } from "@/lib/Validation/formValidation";
+import { showErrorToast } from "@/lib/helpers";
+import { VscLoading } from "react-icons/vsc";
 
 interface Props {
   toggleModal: () => void;
@@ -17,10 +20,11 @@ export const CreateTaskForm: FC<Props> = ({
   addTemplateTasks,
 }) => {
   const pathname = usePathname();
-  const { state } = useContext(
+  const { state, dispatch } = useContext(
     pathname.includes("dashboard") ? DashboardContext : DemoContext
   );
-  const [actionId, setActionId] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+  const [actionId, setActionId] = useState<string>("default");
   const [startTime, setStartTime] = useState<number>(0);
   const [endTime, setEndTime] = useState<number>(0);
   const [notes, setNotes] = useState<string>("");
@@ -35,6 +39,8 @@ export const CreateTaskForm: FC<Props> = ({
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
+
     const newTask: Task = {
       id: generateCUID(),
       templateId: `temporaryID-${generateCUID()}`,
@@ -44,9 +50,15 @@ export const CreateTaskForm: FC<Props> = ({
       notes: notes,
     };
 
-    if (actionId !== "") {
-      addTemplateTasks(newTask);
-      toggleModal();
+    const input = taskClientValidate(newTask);
+
+    if (input.notValid) {
+      showErrorToast({ message: input.message, dispatch, setLoading });
+    } else {
+      if (actionId !== "") {
+        addTemplateTasks(newTask);
+        toggleModal();
+      }
     }
   };
 
@@ -65,7 +77,7 @@ export const CreateTaskForm: FC<Props> = ({
             value={actionId}
             onChange={(e) => setActionId(e.target.value)}
           >
-            <option value="">Select an action</option>
+            <option value="default">Select an action</option>
             {state.actions.map((action) => (
               <option key={action.id} value={action.id}>
                 {action.title}
@@ -113,10 +125,14 @@ export const CreateTaskForm: FC<Props> = ({
           Cancel
         </button>
         <button
-          className="border w-24 rounded-lg bg-mainColor p-1 text-white hover:font-bold hover:opacity-80"
+          className="flex justify-center border w-24 rounded-lg bg-mainColor p-1 text-white hover:font-bold hover:opacity-80"
           type="submit"
+          disabled={loading}
         >
           Create
+          {loading && (
+            <VscLoading className="animate-spin self-center ml-1"></VscLoading>
+          )}
         </button>
       </div>
     </form>
