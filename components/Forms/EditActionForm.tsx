@@ -39,6 +39,13 @@ export const EditActionForm: FC<Props> = ({ toggleModal, id, title }) => {
         };
         dispatch({ type: "UPDATE_ACTION", payload: updateAction });
         toggleModal();
+        dispatch({
+          type: "SHOW_TOAST",
+          payload: {
+            message: `Action ${updateAction.title} was successfully changed`,
+            type: "success",
+          },
+        });
       }
 
       if (pathname.includes("dashboard")) {
