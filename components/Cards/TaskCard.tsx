@@ -39,20 +39,26 @@ const TaskCard = ({ task, actions, removeTask }: Props) => {
             {formatTimeType(formatTime(task.endTime))}
           </div>
 
-          <div className="flex grow">
-            <span className="font-bold lg:ml-6 mr-1">Action:</span>
+          <div className="flex lg:mr-6">
+            <span className="font-bold lg:ml-6  mr-1">Action:</span>
             {getActionTitleById(task.actionId, actions)}
-            <FaAngleUp
-              onClick={() => {
-                setToggleNotes((prev) => !prev);
-              }}
-              className={`hidden md:flex ml-auto  text-xl ${
-                toggleNotes && "rotate-180"
-              }`}
-            />
           </div>
           {toggleNotes && (
-            <div className="flex flex-col">
+            <div className="hidden md:flex flex-col  mr-1">
+              <p className="font-bold">Notes:</p>
+              <p>{task.notes}</p>
+            </div>
+          )}
+          <FaAngleUp
+            onClick={() => {
+              setToggleNotes((prev) => !prev);
+            }}
+            className={`hidden md:flex ml-auto  text-xl ${
+              toggleNotes && "rotate-180"
+            }`}
+          />
+          {toggleNotes && (
+            <div className="flex md:hidden flex-col">
               <p className="font-bold">Notes:</p>
               <p>{task.notes}</p>
             </div>
