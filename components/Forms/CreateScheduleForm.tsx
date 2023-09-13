@@ -5,8 +5,15 @@ import { generateCUID } from "@/lib/generateCUID";
 import { usePathname, useRouter } from "next/navigation";
 import { FC, FormEvent, useContext, useState } from "react";
 import DatePicker from "../DatePicker";
-import { formatDateToString, formatStringToDate } from "@/lib/helpers";
+import {
+  formatDateToString,
+  formatStringToDate,
+  showErrorToast,
+  showSuccessToast,
+} from "@/lib/helpers";
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
+import { scheduleValidate } from "@/lib/Validation/formValidation";
+import { VscLoading } from "react-icons/vsc";
 
 export const CreateScheduleForm: FC = () => {
   const router = useRouter();
@@ -24,44 +31,76 @@ export const CreateScheduleForm: FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (pathname.includes("demo")) {
-      const newSchedule: Schedule = {
-        id: generateCUID(),
-        date: formatStringToDate(date),
-        templateId: templateID,
-        userId: "1234",
-      };
-      dispatch({ type: "ADD_SCHEDULE", payload: newSchedule });
-      router.back();
-    }
 
-    if (pathname.includes("dashboard")) {
-      e.preventDefault();
-      setLoading(true);
-      const body = {
-        date: formatStringToDate(date),
-        templateId: templateID,
-      };
-      try {
-        const res = await fetch("/api/schedules/create", {
-          method: "POST",
-          body: JSON.stringify(body),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+    setLoading(true);
+    const input = scheduleValidate(
+      formatStringToDate(date),
+      templateID,
+      state.schedules,
+      state.templates
+    );
 
-        const newSchedule = await res.json();
-        // Date returned as string, parsed back into Date Type
-        newSchedule.date = new Date(newSchedule.date);
-        if (res.ok) {
-          dispatch({ type: "ADD_SCHEDULE", payload: newSchedule });
-        }
-        setLoading(false);
+    if (input.notValid) {
+      showErrorToast({ message: input.message, dispatch, setLoading });
+    } else {
+      if (pathname.includes("demo")) {
+        const newSchedule: Schedule = {
+          id: generateCUID(),
+          date: formatStringToDate(date),
+          templateId: templateID,
+          userId: "1234",
+        };
+        dispatch({ type: "ADD_SCHEDULE", payload: newSchedule });
         router.back();
-      } catch (error) {
-        console.log(error);
-        // Add Toast explaining to user what went wrong.
+        showSuccessToast({
+          message: `Schedule was successfully created`,
+          dispatch,
+        });
+      }
+
+      if (pathname.includes("dashboard")) {
+        e.preventDefault();
+        setLoading(true);
+        const body = {
+          date: formatStringToDate(date),
+          templateId: templateID,
+        };
+        try {
+          const res = await fetch("/api/schedules/create", {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+
+          const newSchedule = await res.json();
+          // Date returned as string, parsed back into Date Type
+          newSchedule.date = new Date(newSchedule.date);
+          if (res.ok) {
+            dispatch({ type: "ADD_SCHEDULE", payload: newSchedule });
+            showSuccessToast({
+              message: `Schedule was successfully created`,
+              dispatch,
+            });
+            setLoading(false);
+            router.back();
+          } else if (res.status === 400) {
+            const errorData = await res.json();
+            const message: string = errorData.error;
+            console.log("HTTP 400 Error Data:", errorData);
+            showErrorToast({ message: message, dispatch, setLoading });
+          }
+        } catch (error) {
+          console.error("Something went wrong", error);
+          dispatch({
+            type: "SHOW_TOAST",
+            payload: {
+              message: `Something went wrong, please try again later`,
+              type: "error",
+            },
+          });
+        }
       }
     }
   };
@@ -107,11 +146,14 @@ export const CreateScheduleForm: FC = () => {
               Cancel
             </button>
             <button
-              className="border w-24 rounded-lg bg-mainColor p-1 text-white hover:font-bold hover:opacity-80"
+              className="flex justify-center border w-24 rounded-lg bg-mainColor p-1 text-white hover:font-bold hover:opacity-80"
               type="submit"
               disabled={loading}
             >
               Create
+              {loading && (
+                <VscLoading className="animate-spin self-center ml-1"></VscLoading>
+              )}
             </button>
           </div>
         </form>

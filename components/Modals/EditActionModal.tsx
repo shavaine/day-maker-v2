@@ -25,7 +25,7 @@ const EditActionModal: FC<Props> = ({ title, actionId }) => {
       </button>
       {modalOpen && (
         // Screen Backfrop
-        <div className="z-50 fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
+        <div className="z-40 fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
           {/* Modal Container */}
           <div className="flex flex-col gap-y-4 bg-white p-5 rounded-2xl mx-2 w-full sm:max-w-[600px]">
             <div className="flex flex-row justify-between ">

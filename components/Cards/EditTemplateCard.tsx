@@ -4,9 +4,16 @@ import { Task, Template } from "@/context/Interfaces";
 import { usePathname, useRouter } from "next/navigation";
 import { FC, useContext, useState } from "react";
 import CreateTaskModal from "../Modals/CreateTaskModal";
-import { applyTemplateId, createTasks } from "@/lib/helpers";
+import {
+  applyTemplateId,
+  createTasks,
+  showErrorToast,
+  showSuccessToast,
+} from "@/lib/helpers";
 import TaskCard from "./TaskCard";
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
+import { editTemplateClientValidate } from "@/lib/Validation/formValidation";
+import { VscLoading } from "react-icons/vsc";
 
 interface Props {
   name: string;
@@ -89,56 +96,94 @@ const EditTemplateCard: FC<Props> = ({ name, description, tasks, tempId }) => {
   };
 
   const handleSubmit = async () => {
-    if (pathname.includes("demo")) {
-      const currentTemplate: Template = {
-        id: tempId,
-        name: templateName,
-        description: templateDescription,
-        userId: "1234",
-      };
+    setLoading(true);
+    const input = editTemplateClientValidate(
+      templateName,
+      templateDescription,
+      state.templates
+    );
 
-      applyTemplateId(currentTemplate.id, newTasks);
+    if (input.notValid) {
+      showErrorToast({ message: input.message, dispatch, setLoading });
+    } else {
+      if (pathname.includes("demo")) {
+        const currentTemplate: Template = {
+          id: tempId,
+          name: templateName,
+          description: templateDescription,
+          userId: "1234",
+        };
 
-      if (templateName.trim() !== "") {
+        applyTemplateId(currentTemplate.id, newTasks);
+
         dispatch({ type: "UPDATE_TEMPLATE", payload: currentTemplate });
         dispatchTasks(newTasks);
         removeDeletedTasks(state.tasks);
         router.push("/demo/templates");
-      }
-    }
-
-    if (pathname.includes("dashboard")) {
-      setLoading(true);
-      const body = {
-        id: tempId,
-        name: templateName,
-        description: templateDescription,
-      };
-      try {
-        const res = await fetch("/api/templates/edit", {
-          method: "PUT",
-          body: JSON.stringify(body),
-          headers: {
-            "Content-Type": "application/json",
-          },
+        showSuccessToast({
+          message: `Template ${currentTemplate.name} was successfully updated`,
+          dispatch,
         });
+      }
 
-        const editTemplate = await res.json();
+      if (pathname.includes("dashboard")) {
+        setLoading(true);
+        const body = {
+          id: tempId,
+          name: templateName,
+          description: templateDescription,
+        };
+        try {
+          const res = await fetch("/api/templates/edit", {
+            method: "PUT",
+            body: JSON.stringify(body),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
 
-        if (res.ok) {
-          dispatch({ type: "UPDATE_TEMPLATE", payload: editTemplate });
-          applyTemplateId(editTemplate.id, newTasks);
-          const finalTasks = await createTasks(newTasks);
-          // Adds Newly created task to local state
-          dispatchTasks(finalTasks);
-          // Deletes deleted task from the Database and Local State
-          removeDeletedTasks(deletedTasks);
-          setLoading(false);
+          const editTemplate = await res.json();
+
+          if (res.ok) {
+            dispatch({ type: "UPDATE_TEMPLATE", payload: editTemplate });
+            applyTemplateId(editTemplate.id, newTasks);
+            try {
+              const finalTasks = await createTasks(newTasks);
+              // Adds Newly created task to local state
+              dispatchTasks(finalTasks);
+            } catch (error) {
+              console.log(error);
+              showErrorToast({
+                message: "Unable to Edit Task",
+                dispatch,
+                setLoading,
+              });
+            }
+
+            // Deletes deleted task from the Database and Local State
+            removeDeletedTasks(deletedTasks);
+            setLoading(false);
+            router.back();
+            showSuccessToast({
+              message: `Template ${editTemplate.name} was successfully updated`,
+              dispatch,
+            });
+          } else if (res.status === 400) {
+            const errorData = await res.json();
+            const message: string = errorData.error;
+            console.log("HTTP 400 Error Data:", errorData);
+            showErrorToast({ message: message, dispatch, setLoading });
+          }
+        } catch (error) {
+          console.error("Something went wrong", error);
+          dispatch({
+            type: "SHOW_TOAST",
+            payload: {
+              message: `Something went wrong, please try again later`,
+              type: "error",
+            },
+          });
         }
-        router.back();
-      } catch (error) {
-        console.log(error);
-        // Add Toast explaining to user what went wrong.
       }
     }
   };
@@ -207,12 +252,15 @@ const EditTemplateCard: FC<Props> = ({ name, description, tasks, tempId }) => {
           Cancel
         </button>
         <button
-          className="border w-24 rounded-lg bg-mainColor p-1 text-white hover:font-bold hover:opacity-80"
+          className="flex justify-center border w-24 rounded-lg bg-mainColor p-1 text-white hover:font-bold hover:opacity-80"
           type="button"
           onClick={() => handleSubmit()}
           disabled={loading}
         >
           Change
+          {loading && (
+            <VscLoading className="animate-spin self-center ml-1"></VscLoading>
+          )}
         </button>
       </div>
     </div>

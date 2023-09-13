@@ -60,6 +60,14 @@ export function Reducer(state: InitialState, action: ActionType): InitialState {
       ...state,
       schedules: state.schedules.filter((currentSchedule) => currentSchedule.id !== action.payload),
     };
+    case "SHOW_TOAST":
+      return {
+        ...state, toast: {message: action.payload.message, type: action.payload.type}
+      }
+    case "CLEAR_TOAST":
+      return {
+        ...state, toast: {message: "", type: "notice"}
+      }
     default:
       return state;
       

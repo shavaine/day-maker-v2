@@ -5,6 +5,15 @@ import { InitialState } from "../Interfaces";
 
 export function Reducer(state: InitialState, action: ActionType): InitialState {
   switch (action.type) {
+    case 'SET_INITIAL_STATE':
+    return {
+      ...state,
+      actions: action.payload.actions,
+      tasks: action.payload.tasks,
+      templates: action.payload.templates,
+      schedules: action.payload.schedules,
+      toast: action.payload.toast,
+    };
     case "ADD_ACTION":
       return { ...state, actions: [...state.actions, action.payload] };
     case "UPDATE_ACTION":
@@ -61,6 +70,14 @@ export function Reducer(state: InitialState, action: ActionType): InitialState {
       ...state,
       schedules: state.schedules.filter((currentSchedule) => currentSchedule.id !== action.payload),
     };
+    case "SHOW_TOAST":
+      return {
+        ...state, toast: {message: action.payload.message, type: action.payload.type}
+      }
+    case "CLEAR_TOAST":
+      return {
+        ...state, toast: {message: "", type: "notice"}
+      }
     default:
       return state;
       

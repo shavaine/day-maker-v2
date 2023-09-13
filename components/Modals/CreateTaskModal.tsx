@@ -24,7 +24,7 @@ const CreateTaskModal: FC<Props> = ({ addTemplateTasks }) => {
       </button>
       {modalOpen && (
         // Screen Backdrop
-        <div className="z-50 fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
+        <div className="z-40 fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
           {/* Modal Container  */}
           <div className="flex flex-col gap-y-4 bg-white p-5 rounded-2xl w-full sm:max-w-[600px] mx-2">
             <div className="flex flex-row justify-between">

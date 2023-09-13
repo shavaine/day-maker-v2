@@ -1,4 +1,6 @@
 import { Action, Task, Template } from "@/context/Interfaces";
+import { ActionType } from "@/context/Types";
+import { Dispatch, SetStateAction } from "react";
 
   export const getActionTitleById = (actionId: string, actions: Action[]) => {
     const actionName = actions.find(
@@ -31,12 +33,9 @@ import { Action, Task, Template } from "@/context/Interfaces";
 
   export const formatTimeType = (time: string) => {
     const [hours, minutes] = time.split(":");
-    const newHours = Number(hours) > 12 ? Number(hours) - 12 : Number(hours);
-    if (Number(hours) > 11) {
-      return `${String(newHours)}:${minutes.padStart(2, "0")}PM`
-    } else {
-      return `${String(newHours)}:${minutes.padStart(2, "0")}AM`
-    }
+    const newHours = hours === "00" || hours === "12" ? 12 : Number(hours) % 12;
+    const period = Number(hours) >= 12 ? "PM" : "AM";
+    return `${String(newHours).padStart(2, "0")}:${minutes.padStart(2, "0")}${period}`;
   }
 
   export const formatStringToDate = (date: string) => {
@@ -110,3 +109,41 @@ import { Action, Task, Template } from "@/context/Interfaces";
     const finishedTasks = await Promise.all(finishedTaskPromises); 
     return finishedTasks;
   };
+
+  interface showErrorToastProps {
+    message: string;
+    dispatch: Dispatch<ActionType>;
+    setLoading: Dispatch<SetStateAction<boolean>>
+
+  }
+  export const showErrorToast = async ({message, dispatch, setLoading}: showErrorToastProps) => {
+    dispatch({
+      type: "SHOW_TOAST",
+      payload: {
+        message: message,
+        type: "error",
+      },
+    });
+    setTimeout(() => {
+      dispatch({ type: "CLEAR_TOAST" });
+      setLoading(false);
+    }, 3000);
+};
+
+  interface showSuccessToastProps {
+      message: string;
+      dispatch: Dispatch<ActionType>;
+    }
+
+  export const showSuccessToast = async ({message, dispatch}: showSuccessToastProps) => {
+    dispatch({
+      type: "SHOW_TOAST",
+      payload: {
+        message: message,
+        type: "success",
+      },
+    });
+    setTimeout(() => {
+      dispatch({ type: "CLEAR_TOAST" });
+    }, 3000);
+};

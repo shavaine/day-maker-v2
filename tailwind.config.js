@@ -34,6 +34,11 @@ module.exports = {
         'home-header': "url('/assets/header-bg.svg')",
         'home-main': "url('/assets/side-wave_background.svg')"
       },
+      backgroundColor: {
+        success: '#D0F0C0',
+        error: '#FF8A8A',
+        notice: '#CCCCCC'
+      }
     },
   },
   plugins: [],

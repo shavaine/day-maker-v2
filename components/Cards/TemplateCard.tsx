@@ -1,9 +1,11 @@
 "use client";
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
+import { showSuccessToast } from "@/lib/helpers";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, useContext, useState } from "react";
+import { VscLoading } from "react-icons/vsc";
 
 interface Props {
   id: string;
@@ -35,13 +37,17 @@ const TemplateCard: FC<Props> = ({ id, name, description }) => {
     );
   };
   const deleteTemplate = async (templateId: string) => {
+    setLoading(true);
     if (pathname.includes("demo")) {
       dispatch({ type: "DELETE_TEMPLATE", payload: templateId });
+      showSuccessToast({
+        message: `Template ${name} was successfully deleted`,
+        dispatch,
+      });
       deleteAssociatedData(templateId);
     }
 
     if (pathname.includes("dashboard")) {
-      setLoading(true);
       try {
         const res = await fetch(`/api/templates/delete/${templateId}`, {
           method: "DELETE",
@@ -52,9 +58,13 @@ const TemplateCard: FC<Props> = ({ id, name, description }) => {
         // Add Toast Message For Successful Call
         if (res.ok) {
           dispatch({ type: "DELETE_TEMPLATE", payload: templateId });
+          showSuccessToast({
+            message: `Template ${name} was successfully deleted`,
+            dispatch,
+          });
           deleteAssociatedData(templateId);
+          setLoading(false);
         }
-        setLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -88,11 +98,14 @@ const TemplateCard: FC<Props> = ({ id, name, description }) => {
         </Link>
 
         <button
-          className="bg-red-200 text-mainColor font-workSans font-bold w-1/3 grow hover:opacity-80 p-2"
+          className="flex justify-center bg-red-200 text-mainColor font-workSans font-bold w-1/3 grow hover:opacity-80 p-2"
           onClick={() => deleteTemplate(id)}
           disabled={loading}
         >
           Delete
+          {loading && (
+            <VscLoading className="animate-spin self-center ml-1"></VscLoading>
+          )}
         </button>
       </div>
     </div>
