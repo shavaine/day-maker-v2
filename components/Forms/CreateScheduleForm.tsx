@@ -79,12 +79,9 @@ export const CreateScheduleForm: FC = () => {
           newSchedule.date = new Date(newSchedule.date);
           if (res.ok) {
             dispatch({ type: "ADD_SCHEDULE", payload: newSchedule });
-            dispatch({
-              type: "SHOW_TOAST",
-              payload: {
-                message: `Schedule was successfully created`,
-                type: "success",
-              },
+            showSuccessToast({
+              message: `Schedule was successfully created`,
+              dispatch,
             });
             setLoading(false);
             router.back();

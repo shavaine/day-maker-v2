@@ -4,7 +4,12 @@ import { Task, Template } from "@/context/Interfaces";
 import { usePathname, useRouter } from "next/navigation";
 import { FC, useContext, useState } from "react";
 import CreateTaskModal from "../Modals/CreateTaskModal";
-import { applyTemplateId, createTasks, showErrorToast } from "@/lib/helpers";
+import {
+  applyTemplateId,
+  createTasks,
+  showErrorToast,
+  showSuccessToast,
+} from "@/lib/helpers";
 import TaskCard from "./TaskCard";
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { editTemplateClientValidate } from "@/lib/Validation/formValidation";
@@ -115,12 +120,9 @@ const EditTemplateCard: FC<Props> = ({ name, description, tasks, tempId }) => {
         dispatchTasks(newTasks);
         removeDeletedTasks(state.tasks);
         router.push("/demo/templates");
-        dispatch({
-          type: "SHOW_TOAST",
-          payload: {
-            message: `Template ${currentTemplate.name} was successfully edited`,
-            type: "success",
-          },
+        showSuccessToast({
+          message: `Template ${currentTemplate.name} was successfully updated`,
+          dispatch,
         });
       }
 
@@ -162,6 +164,10 @@ const EditTemplateCard: FC<Props> = ({ name, description, tasks, tempId }) => {
             removeDeletedTasks(deletedTasks);
             setLoading(false);
             router.back();
+            showSuccessToast({
+              message: `Template ${editTemplate.name} was successfully updated`,
+              dispatch,
+            });
           } else if (res.status === 400) {
             const errorData = await res.json();
             const message: string = errorData.error;

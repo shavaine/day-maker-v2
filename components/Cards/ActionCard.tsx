@@ -6,6 +6,7 @@ import EditActionModal from "../Modals/EditActionModal";
 import { usePathname } from "next/navigation";
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { VscLoading } from "react-icons/vsc";
+import { showSuccessToast } from "@/lib/helpers";
 
 interface Props {
   title: string;
@@ -24,12 +25,9 @@ const ActionCard: FC<Action> = ({ title, id }: Props): React.ReactNode => {
   const deleteAction = async (actionId: string) => {
     if (pathname.includes("demo")) {
       dispatch({ type: "DELETE_ACTION", payload: actionId });
-      dispatch({
-        type: "SHOW_TOAST",
-        payload: {
-          message: `Action ${title} successfully deleted`,
-          type: "success",
-        },
+      showSuccessToast({
+        message: `Action ${title} successfully deleted`,
+        dispatch,
       });
       state.tasks.forEach((task) => {
         if (task.actionId === actionId) {
@@ -50,12 +48,9 @@ const ActionCard: FC<Action> = ({ title, id }: Props): React.ReactNode => {
 
         if (res.ok) {
           dispatch({ type: "DELETE_ACTION", payload: actionId });
-          dispatch({
-            type: "SHOW_TOAST",
-            payload: {
-              message: `Action ${title} successfully deleted`,
-              type: "success",
-            },
+          showSuccessToast({
+            message: `Action ${title} successfully deleted`,
+            dispatch,
           });
           // locally delete related task for action. (tasks will cascade delete on server)
           state.tasks.forEach((task) => {

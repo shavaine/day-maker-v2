@@ -1,6 +1,7 @@
 "use client";
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
+import { showSuccessToast } from "@/lib/helpers";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, useContext, useState } from "react";
@@ -36,13 +37,17 @@ const TemplateCard: FC<Props> = ({ id, name, description }) => {
     );
   };
   const deleteTemplate = async (templateId: string) => {
+    setLoading(true);
     if (pathname.includes("demo")) {
       dispatch({ type: "DELETE_TEMPLATE", payload: templateId });
+      showSuccessToast({
+        message: `Template ${name} was successfully deleted`,
+        dispatch,
+      });
       deleteAssociatedData(templateId);
     }
 
     if (pathname.includes("dashboard")) {
-      setLoading(true);
       try {
         const res = await fetch(`/api/templates/delete/${templateId}`, {
           method: "DELETE",
@@ -53,9 +58,13 @@ const TemplateCard: FC<Props> = ({ id, name, description }) => {
         // Add Toast Message For Successful Call
         if (res.ok) {
           dispatch({ type: "DELETE_TEMPLATE", payload: templateId });
+          showSuccessToast({
+            message: `Template ${name} was successfully deleted`,
+            dispatch,
+          });
           deleteAssociatedData(templateId);
+          setLoading(false);
         }
-        setLoading(false);
       } catch (error) {
         console.log(error);
       }

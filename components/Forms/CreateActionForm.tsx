@@ -4,7 +4,7 @@ import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { Action } from "@/context/Interfaces";
 import { actionClientValidate } from "@/lib/Validation/formValidation";
 import { generateCUID } from "@/lib/generateCUID";
-import { showErrorToast } from "@/lib/helpers";
+import { showErrorToast, showSuccessToast } from "@/lib/helpers";
 import { usePathname } from "next/navigation";
 import { FC, FormEvent, useContext, useState } from "react";
 import { VscLoading } from "react-icons/vsc";
@@ -40,12 +40,9 @@ export const CreateActionForm: FC<Props> = ({ toggleModal }) => {
 
         dispatch({ type: "ADD_ACTION", payload: newAction });
         toggleModal();
-        dispatch({
-          type: "SHOW_TOAST",
-          payload: {
-            message: `Action ${newAction.title} was successfully created`,
-            type: "success",
-          },
+        showSuccessToast({
+          message: `Action ${newAction.title} was successfully created`,
+          dispatch,
         });
       }
 
@@ -66,15 +63,12 @@ export const CreateActionForm: FC<Props> = ({ toggleModal }) => {
           if (res.ok) {
             const newAction = await res.json();
             dispatch({ type: "ADD_ACTION", payload: newAction });
-            dispatch({
-              type: "SHOW_TOAST",
-              payload: {
-                message: `Action ${newAction.title} was successfully created`,
-                type: "success",
-              },
-            });
             toggleModal();
             setLoading(false);
+            showSuccessToast({
+              message: `Action ${newAction.title} was successfully created`,
+              dispatch,
+            });
           } else if (res.status === 400) {
             const errorData = await res.json();
             const message: string = errorData.error;

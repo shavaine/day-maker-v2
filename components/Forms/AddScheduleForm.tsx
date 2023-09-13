@@ -4,7 +4,7 @@ import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { Schedule } from "@/context/Interfaces";
 import { scheduleValidate } from "@/lib/Validation/formValidation";
 import { generateCUID } from "@/lib/generateCUID";
-import { showErrorToast } from "@/lib/helpers";
+import { showErrorToast, showSuccessToast } from "@/lib/helpers";
 import { usePathname } from "next/navigation";
 import { FC, FormEvent, useContext, useState } from "react";
 import { VscLoading } from "react-icons/vsc";
@@ -46,12 +46,9 @@ export const AddScheduleForm: FC<Props> = ({ toggleModal, scheduleDate }) => {
         dispatch({ type: "ADD_SCHEDULE", payload: newSchedule });
         setLoading(false);
         toggleModal();
-        dispatch({
-          type: "SHOW_TOAST",
-          payload: {
-            message: `Schedule was successfully created`,
-            type: "success",
-          },
+        showSuccessToast({
+          message: `Schedule was successfully created`,
+          dispatch,
         });
       }
 
@@ -78,12 +75,9 @@ export const AddScheduleForm: FC<Props> = ({ toggleModal, scheduleDate }) => {
             dispatch({ type: "ADD_SCHEDULE", payload: newSchedule });
             setLoading(false);
             toggleModal();
-            dispatch({
-              type: "SHOW_TOAST",
-              payload: {
-                message: `Schedule was successfully created`,
-                type: "success",
-              },
+            showSuccessToast({
+              message: `Schedule was successfully created`,
+              dispatch,
             });
           } else if (res.status === 400) {
             const errorData = await res.json();

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { MdDeleteForever } from "react-icons/md";
 import { VscLoading } from "react-icons/vsc";
+import { showSuccessToast } from "@/lib/helpers";
 
 interface Props {
   currentScheduleId: string;
@@ -21,12 +22,9 @@ const RemoveTemplateModal: FC<Props> = ({ currentScheduleId }) => {
   const deleteSchedule = async (currentScheduleId: string) => {
     if (pathname.includes("demo")) {
       dispatch({ type: "DELETE_SCHEDULE", payload: currentScheduleId });
-      dispatch({
-        type: "SHOW_TOAST",
-        payload: {
-          message: `Schedule successfully deleted`,
-          type: "success",
-        },
+      showSuccessToast({
+        message: `Schedule was successfully deleted`,
+        dispatch,
       });
     }
 
@@ -44,12 +42,9 @@ const RemoveTemplateModal: FC<Props> = ({ currentScheduleId }) => {
         if (res.ok) {
           dispatch({ type: "DELETE_SCHEDULE", payload: currentScheduleId });
           setLoading(false);
-          dispatch({
-            type: "SHOW_TOAST",
-            payload: {
-              message: `Schedule successfully deleted`,
-              type: "success",
-            },
+          showSuccessToast({
+            message: `Schedule was successfully deleted`,
+            dispatch,
           });
         }
       } catch (error) {

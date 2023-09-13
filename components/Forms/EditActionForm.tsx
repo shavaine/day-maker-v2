@@ -3,7 +3,7 @@ import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { Action } from "@/context/Interfaces";
 import { actionClientValidate } from "@/lib/Validation/formValidation";
-import { showErrorToast } from "@/lib/helpers";
+import { showErrorToast, showSuccessToast } from "@/lib/helpers";
 import { usePathname } from "next/navigation";
 import { FC, FormEvent, useContext, useState } from "react";
 import { VscLoading } from "react-icons/vsc";
@@ -39,12 +39,9 @@ export const EditActionForm: FC<Props> = ({ toggleModal, id, title }) => {
         };
         dispatch({ type: "UPDATE_ACTION", payload: updateAction });
         toggleModal();
-        dispatch({
-          type: "SHOW_TOAST",
-          payload: {
-            message: `Action ${updateAction.title} was successfully changed`,
-            type: "success",
-          },
+        showSuccessToast({
+          message: `Action ${updateAction.title} was successfully updated`,
+          dispatch,
         });
       }
 
@@ -66,15 +63,12 @@ export const EditActionForm: FC<Props> = ({ toggleModal, id, title }) => {
           if (res.ok) {
             const editAction = await res.json();
             dispatch({ type: "UPDATE_ACTION", payload: editAction });
-            dispatch({
-              type: "SHOW_TOAST",
-              payload: {
-                message: `Action ${editAction.title} was successfully edited`,
-                type: "success",
-              },
-            });
             toggleModal();
             setLoading(false);
+            showSuccessToast({
+              message: `Action ${editAction.title} was successfully updated`,
+              dispatch,
+            });
           } else if (res.status === 400) {
             const errorData = await res.json();
             const message: string = errorData.error;

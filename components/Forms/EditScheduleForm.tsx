@@ -3,7 +3,7 @@ import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { Schedule } from "@/context/Interfaces";
 import { editScheduleValidate } from "@/lib/Validation/formValidation";
-import { showErrorToast } from "@/lib/helpers";
+import { showErrorToast, showSuccessToast } from "@/lib/helpers";
 import { usePathname } from "next/navigation";
 import { FC, FormEvent, useContext, useState } from "react";
 import { VscLoading } from "react-icons/vsc";
@@ -47,12 +47,9 @@ export const EditScheduleForm: FC<Props> = ({
 
         dispatch({ type: "UPDATE_SCHEDULE", payload: updateSchedule });
         toggleModal();
-        dispatch({
-          type: "SHOW_TOAST",
-          payload: {
-            message: `Schedule was successfully updated`,
-            type: "success",
-          },
+        showSuccessToast({
+          message: `Schedule was successfully updated`,
+          dispatch,
         });
       }
 
@@ -78,12 +75,9 @@ export const EditScheduleForm: FC<Props> = ({
             dispatch({ type: "UPDATE_SCHEDULE", payload: updateSchedule });
             setLoading(false);
             toggleModal();
-            dispatch({
-              type: "SHOW_TOAST",
-              payload: {
-                message: `Schedule was successfully updated`,
-                type: "success",
-              },
+            showSuccessToast({
+              message: `Schedule was successfully updated`,
+              dispatch,
             });
           } else if (res.status === 400) {
             const errorData = await res.json();
