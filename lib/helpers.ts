@@ -33,12 +33,9 @@ import { Dispatch, SetStateAction } from "react";
 
   export const formatTimeType = (time: string) => {
     const [hours, minutes] = time.split(":");
-    const newHours = Number(hours) > 12 ? Number(hours) - 12 : Number(hours);
-    if (Number(hours) > 11) {
-      return `${String(newHours)}:${minutes.padStart(2, "0")}PM`
-    } else {
-      return `${String(newHours)}:${minutes.padStart(2, "0")}AM`
-    }
+    const newHours = hours === "00" ? 12 : Number(hours) % 12;
+    const period = Number(hours) >= 12 ? "PM" : "AM";
+    return `${String(newHours).padStart(2, "0")}:${minutes.padStart(2, "0")}${period}`;
   }
 
   export const formatStringToDate = (date: string) => {
