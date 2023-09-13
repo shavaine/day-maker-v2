@@ -1,4 +1,4 @@
-import { Action, Task, Template } from "@/context/Interfaces"
+import { Action, Schedule, Task, Template } from "@/context/Interfaces"
 
 export const actionClientValidate = (title: string | undefined, actions: Action[]) => {
     // Checks if Title is empty, null or undefined
@@ -76,5 +76,42 @@ export const templateServerValidate = (name: string | undefined, description: st
     } else if (description.length > 100) {
         return { notValid: true, message: "Description must can't be longer then 100 characters"}
     }
+    return { notValid: false, message: "Valid Template"}
+}
+
+export const scheduleValidate = (date: Date, templateId: string, schedules: Schedule[], templates: Template[]) => {
+    // Checks if the templateId is non-existing or invalid
+    const templateExists = templates.some(template => template.id === templateId);
+    if (!templateExists) {
+        return { notValid: true, message: "Invalid or non-existing template" };
+    }
+
+    // Checks if the schedule date is in the past
+    const currentDate = new Date();
+    if (date.setHours(0,0,0,0) < currentDate.setHours(0,0,0,0)) {
+        return { notValid: true, message: "Schedule date cannot be in the past" };
+    }
+
+    // Checks if a schedule already exists for the same date
+    const scheduleExistsForDate = schedules.some(schedule => {
+        return (
+        schedule.date.toDateString() === date.toDateString() &&
+        schedule.userId === schedule.userId
+        );
+    });
+
+    if (scheduleExistsForDate) {
+        return { notValid: true, message: "A schedule already exists for this date" };
+    }
+    return { notValid: false, message: "Valid Template"}
+}
+
+export const editScheduleValidate = (templateId: string, templates: Template[]) => {
+    // Checks if the templateId is non-existing or invalid
+    const templateExists = templates.some(template => template.id === templateId);
+    if (!templateExists) {
+        return { notValid: true, message: "Invalid or non-existing template" };
+    }
+
     return { notValid: false, message: "Valid Template"}
 }
