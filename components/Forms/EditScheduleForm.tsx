@@ -2,8 +2,11 @@
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { Schedule } from "@/context/Interfaces";
+import { editScheduleValidate } from "@/lib/Validation/formValidation";
+import { showErrorToast } from "@/lib/helpers";
 import { usePathname } from "next/navigation";
 import { FC, FormEvent, useContext, useState } from "react";
+import { VscLoading } from "react-icons/vsc";
 
 interface Props {
   toggleModal: () => void;
@@ -27,44 +30,78 @@ export const EditScheduleForm: FC<Props> = ({
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (pathname.includes("demo")) {
-      const updateSchedule: Schedule = {
-        id: currentScheduleId,
-        date: currentDate,
-        templateId: templateID,
-        userId: "1",
-      };
+    setLoading(true);
 
-      dispatch({ type: "UPDATE_SCHEDULE", payload: updateSchedule });
-      toggleModal();
-    }
+    const input = editScheduleValidate(tempID, state.templates);
 
-    if (pathname.includes("dashboard")) {
-      setLoading(true);
-      const body = {
-        id: currentScheduleId,
-        date: currentDate,
-        templateId: templateID,
-      };
-      try {
-        const res = await fetch("/api/schedules/edit", {
-          method: "PUT",
-          body: JSON.stringify(body),
-          headers: {
-            "Content-Type": "application/json",
+    if (input.notValid) {
+      showErrorToast({ message: input.message, dispatch, setLoading });
+    } else {
+      if (pathname.includes("demo")) {
+        const updateSchedule: Schedule = {
+          id: currentScheduleId,
+          date: currentDate,
+          templateId: templateID,
+          userId: "1",
+        };
+
+        dispatch({ type: "UPDATE_SCHEDULE", payload: updateSchedule });
+        toggleModal();
+        dispatch({
+          type: "SHOW_TOAST",
+          payload: {
+            message: `Schedule was successfully updated`,
+            type: "success",
           },
         });
+      }
 
-        const updateSchedule = await res.json();
-        updateSchedule.date = new Date(updateSchedule.date);
-        if (res.ok) {
-          dispatch({ type: "UPDATE_SCHEDULE", payload: updateSchedule });
+      if (pathname.includes("dashboard")) {
+        setLoading(true);
+        const body = {
+          id: currentScheduleId,
+          date: currentDate,
+          templateId: templateID,
+        };
+        try {
+          const res = await fetch("/api/schedules/edit", {
+            method: "PUT",
+            body: JSON.stringify(body),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+
+          const updateSchedule = await res.json();
+          updateSchedule.date = new Date(updateSchedule.date);
+          if (res.ok) {
+            dispatch({ type: "UPDATE_SCHEDULE", payload: updateSchedule });
+            setLoading(false);
+            toggleModal();
+            dispatch({
+              type: "SHOW_TOAST",
+              payload: {
+                message: `Schedule was successfully updated`,
+                type: "success",
+              },
+            });
+          } else if (res.status === 400) {
+            const errorData = await res.json();
+            const message: string = errorData.error;
+            console.log("HTTP 400 Error Data:", errorData);
+            showErrorToast({ message: message, dispatch, setLoading });
+          }
+        } catch (error) {
+          toggleModal();
+          console.error("Something went wrong", error);
+          dispatch({
+            type: "SHOW_TOAST",
+            payload: {
+              message: `Something went wrong, please try again later`,
+              type: "error",
+            },
+          });
         }
-        toggleModal();
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-        // Add Toast explaining to user what went wrong.
       }
     }
   };
@@ -100,11 +137,14 @@ export const EditScheduleForm: FC<Props> = ({
           Cancel
         </button>
         <button
-          className="border w-24 rounded-lg bg-mainColor p-1 text-white hover:font-bold hover:opacity-80"
+          className="flex justify-center border w-24 rounded-lg bg-mainColor p-1 text-white hover:font-bold hover:opacity-80"
           type="submit"
           disabled={loading}
         >
           Change
+          {loading && (
+            <VscLoading className="animate-spin self-center ml-1"></VscLoading>
+          )}
         </button>
       </div>
     </form>
