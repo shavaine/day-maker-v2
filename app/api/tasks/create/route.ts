@@ -20,7 +20,7 @@ export async function POST(req: Request) {
 
     const existingAction = await prisma.action.findFirst({
         where: {
-            title: data.actionId,
+            id: data.actionId,
             userId: user?.id!,
         },
     });
