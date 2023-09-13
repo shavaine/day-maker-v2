@@ -110,13 +110,13 @@ import { Dispatch, SetStateAction } from "react";
     return finishedTasks;
   };
 
-  interface showFormToastProps {
+  interface showErrorToastProps {
     message: string;
     dispatch: Dispatch<ActionType>;
     setLoading: Dispatch<SetStateAction<boolean>>
 
   }
-  export const showErrorToast = async ({message, dispatch, setLoading}: showFormToastProps) => {
+  export const showErrorToast = async ({message, dispatch, setLoading}: showErrorToastProps) => {
     dispatch({
       type: "SHOW_TOAST",
       payload: {
@@ -127,5 +127,23 @@ import { Dispatch, SetStateAction } from "react";
     setTimeout(() => {
       dispatch({ type: "CLEAR_TOAST" });
       setLoading(false);
+    }, 3000);
+};
+
+  interface showSuccessToastProps {
+      message: string;
+      dispatch: Dispatch<ActionType>;
+    }
+
+  export const showSuccessToast = async ({message, dispatch}: showSuccessToastProps) => {
+    dispatch({
+      type: "SHOW_TOAST",
+      payload: {
+        message: message,
+        type: "success",
+      },
+    });
+    setTimeout(() => {
+      dispatch({ type: "CLEAR_TOAST" });
     }, 3000);
 };
