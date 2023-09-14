@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
 
 export default function HeaderCard() {
@@ -13,10 +14,14 @@ export default function HeaderCard() {
         Effortlessly organize your schedule, supercharge your <br />{" "}
         productivity, and reclaim control of your day.
       </p>
-      <button className="bg-purple-950 text-white p-2 px-4 rounded-full mx-auto flex flex-row gap-3">
+      <Link
+        href="https://github.com/shavaine/day-maker-v2"
+        target="_blank"
+        className="bg-purple-950 text-white p-2 px-4 rounded-full mx-auto flex flex-row gap-3 hover:opacity-80 hover:font-bold"
+      >
         <FaGithub className="text-2xl" />
         Github
-      </button>
+      </Link>
     </header>
   );
 }
