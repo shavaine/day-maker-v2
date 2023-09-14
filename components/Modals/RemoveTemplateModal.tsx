@@ -37,8 +37,6 @@ const RemoveTemplateModal: FC<Props> = ({ currentScheduleId }) => {
             "Content-Type": "application/json",
           },
         });
-        // Add Toast Message For Successful Call
-        console.log(await res.json());
         if (res.ok) {
           dispatch({ type: "DELETE_SCHEDULE", payload: currentScheduleId });
           setLoading(false);

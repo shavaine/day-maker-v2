@@ -24,9 +24,9 @@ export default function Navigation() {
   return (
     <div className="flex flex-row gap-x-4 ml-auto mr-4 py-2 items-center z-50">
       <div className="hidden sm:flex gap-x-4 items-center">
-        <SignInButton />
+        <SignInButton toggleNav={closeNav} />
         <AuthCheck>
-          <SignOutButton />
+          <SignOutButton toggleNav={closeNav} />
         </AuthCheck>
       </div>
       <FaBars
@@ -48,9 +48,9 @@ export default function Navigation() {
           </li>
           <DashOrDemo toggleNav={closeNav} />
           <hr className="mt-3 border-1 w-full " />
-          <SignInButton />
+          <SignInButton toggleNav={closeNav} />
           <AuthCheck>
-            <SignOutButton />
+            <SignOutButton toggleNav={closeNav} />
           </AuthCheck>
         </ul>
       </div>
