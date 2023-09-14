@@ -1,34 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![DayMaker Logot](./public/assets/logo.png)
+<h1>Welcome to <a href="https://www.day-maker.ca" target="_blank">DayMaker</a>: Unleash Your Productivity Potential!</h1>
+<h2>Effortlessly organize your schedule, supercharge your productivity, and reclaim control of your day</h2> 
+<br>
+<h3>Introduction</h3> 
+<p>Daymaker is a powerful web application designed to help you streamline your daily tasks and schedules. With Daymaker, you can create reusable actions, templates, and schedules, making it easier than ever to stay organized and maximize your productivity. This README provides essential information about Daymaker, its features, and the technologies used to build it.</p>
+<br>
+<h3>Getting Started</h3> 
+<p>To get started with Daymaker, follow these simple steps:</p> 
 
-## Getting Started
+1. Create Reusable Actions: Start by defining actions that you frequently perform. These actions can be assigned to tasks, making it easy to add them to your schedules.
 
-First, run the development server:
+2. Create Templates: Build templates that encapsulate your recurring schedules and tasks. You can add tasks to templates using your reusable actions.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+3. Create Schedules: Schedule your day by selecting a date and adding a template. Daymaker will help you stay on track by organizing your tasks automatically.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<br>
+<h3>Important Notes</h3> 
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Demo Route: Explore Daymaker's features without logging in on the Demo Route. Note that the Demo Route doesn't save any data to the database and uses default data provided by the application. Refreshing the page on the Demo Route will reset all initial data and remove locally made changes.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Action and Template Deletion: Be cautious when deleting actions or templates, as this will also remove associated tasks and schedules.
 
-## Learn More
+<br>
+<h3>Additional Notes</h3> 
 
-To learn more about Next.js, take a look at the following resources:
+- Custom UI Components: Daymaker uses custom-built UI components, minimizing third-party dependencies and ensuring a smooth user experience.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<br>
+<h3>Technologies Used</h3> 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Daymaker is built using a modern tech stack, ensuring a seamless and secure experience:
 
-## Deploy on Vercel
+- Frontend: React.js, HTML, CSS, JavaScript, TypeScript
+- Backend:  NextAuth.js, Prisma, PostgreSQL, Node.js
+- Full-Stack: Next.js
+- Styling: Tailwind CSS
+- Authentication: Google Authentication
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<br>
+<h3>Application Accessibility</h3> 
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Daymaker is fully responsive and optimized for all viewports. Whether you're on a desktop, tablet, or mobile device, you can access Daymaker and manage your schedule effortlessly.
+
+<br>
+<h3> Explore Daymaker</h3>
+
+<p>Ready to experience the benefits of Daymaker? Visit our website at <a href="https://www.day-maker.ca" target="_blank">day-maker.ca</a> to get started.</p> 

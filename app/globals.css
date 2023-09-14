@@ -13,5 +13,5 @@ body {
 }
 
 .pageTitle {
-  @apply mb-6 mt-3  sm:mb-12 text-secondaryColor font-workSans font-bold text-4xl;
+  @apply mb-6 mt-3 sm:mb-12 text-center md:text-start text-secondaryColor font-workSans font-bold text-3xl sm:text-4xl;
 }

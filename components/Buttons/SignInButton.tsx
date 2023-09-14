@@ -4,7 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { VscLoading } from "react-icons/vsc";
 
-export default function SignInButton() {
+interface Props {
+  toggleNav: () => void;
+}
+export default function SignInButton({ toggleNav }: Props) {
   const { data: session, status } = useSession();
   if (status === "loading") {
     return (
@@ -17,7 +20,7 @@ export default function SignInButton() {
 
   if (status === "authenticated") {
     return (
-      <Link href="/dashboard/schedule">
+      <Link href="/dashboard/profile" onClick={toggleNav}>
         <Image
           src={session.user?.image ?? "/assets/avatar.png"}
           width={32}

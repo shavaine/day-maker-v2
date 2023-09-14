@@ -12,10 +12,10 @@ export default function HomeContentCard() {
             1. Create reusable Actions that can be assigned to task
           </h3>
           <Image
-            src="/assets/placeholder-wide.png"
-            width={416}
-            height={174}
-            alt="placeholder Image"
+            src="/assets/Step-one.png"
+            width={1920}
+            height={1080}
+            alt="Step One"
             className="w-full md:w-1/3"
           />
         </div>
@@ -24,10 +24,10 @@ export default function HomeContentCard() {
             2. Create Templates and add tasks using your reusable actions
           </h3>
           <Image
-            src="/assets/placeholder-wide.png"
-            width={416}
-            height={174}
-            alt="placeholder Image"
+            src="/assets/Step-two.png"
+            width={1920}
+            height={1080}
+            alt="Step Two"
             className="w-full md:w-1/3"
           />
         </div>
@@ -36,10 +36,10 @@ export default function HomeContentCard() {
             3. Create Schedules by selecting a date and adding a template
           </h3>
           <Image
-            src="/assets/placeholder-wide.png"
-            width={416}
-            height={174}
-            alt="placeholder Image"
+            src="/assets/Step-three.png"
+            width={1920}
+            height={1080}
+            alt="Step Three"
             className="w-full md:w-1/3"
           />
         </div>
