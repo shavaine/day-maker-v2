@@ -12,8 +12,9 @@ const SchedulePage: FC = () => {
       >
         <TbCalendarPlus className="sm:hidden text-3xl text-mainColor" />
       </Link>
-      <h1 className="pageTitle">Schedule</h1>
-      <div className="flex flex-row justify-between ">
+
+      <div className="flex flex-row justify-center sm:justify-between ">
+        <h1 className="pageTitle">Schedule</h1>
         <Link className="hidden sm:inline" href={`schedule/create`}>
           <h4 className="text-lg text-gray-500 self-center hover:font-bold mt-5">
             Create Schedule
