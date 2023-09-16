@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { FC } from "react";
 
 interface Props {
   path: string;
@@ -9,8 +9,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-export default function MobileLink({ path, toggleNav, children }: Props) {
-  const pathname = usePathname();
+const MobileLink: FC<Props> = ({ path, toggleNav, children }) => {
   const { data: session, status } = useSession();
 
   const authenticated = status === "authenticated" ? true : false;
@@ -30,4 +29,6 @@ export default function MobileLink({ path, toggleNav, children }: Props) {
       {children}
     </Link>
   );
-}
+};
+
+export default MobileLink;

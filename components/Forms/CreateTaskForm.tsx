@@ -15,10 +15,7 @@ interface Props {
   addTemplateTasks: (task: Task) => void;
 }
 
-export const CreateTaskForm: FC<Props> = ({
-  toggleModal,
-  addTemplateTasks,
-}) => {
+const CreateTaskForm: FC<Props> = ({ toggleModal, addTemplateTasks }) => {
   const pathname = usePathname();
   const { state, dispatch } = useContext(
     pathname.includes("dashboard") ? DashboardContext : DemoContext
@@ -138,3 +135,5 @@ export const CreateTaskForm: FC<Props> = ({
     </form>
   );
 };
+
+export default CreateTaskForm;

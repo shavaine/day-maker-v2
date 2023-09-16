@@ -1,6 +1,5 @@
 "use client";
 import { DemoContext } from "@/context/DemoContext/DemoContext";
-import { Action } from "@/context/Interfaces";
 import { FC, useContext, useState } from "react";
 import EditActionModal from "../Modals/EditActionModal";
 import { usePathname } from "next/navigation";
@@ -14,7 +13,7 @@ interface Props {
 }
 
 // Imported in ActionList Component
-const ActionCard: FC<Action> = ({ title, id }: Props): React.ReactNode => {
+const ActionCard: FC<Props> = ({ title, id }): React.ReactNode => {
   const pathname = usePathname();
 
   const { state, dispatch } = useContext(

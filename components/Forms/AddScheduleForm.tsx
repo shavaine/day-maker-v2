@@ -14,7 +14,7 @@ interface Props {
   scheduleDate: Date;
 }
 
-export const AddScheduleForm: FC<Props> = ({ toggleModal, scheduleDate }) => {
+const AddScheduleForm: FC<Props> = ({ toggleModal, scheduleDate }) => {
   const pathname = usePathname();
   const { state, dispatch } = useContext(
     pathname.includes("dashboard") ? DashboardContext : DemoContext
@@ -144,3 +144,5 @@ export const AddScheduleForm: FC<Props> = ({ toggleModal, scheduleDate }) => {
     </form>
   );
 };
+
+export default AddScheduleForm;

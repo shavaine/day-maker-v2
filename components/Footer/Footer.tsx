@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { FC } from "react";
 
-export default function Footer() {
+const Footer: FC = () => {
   return (
     <footer className="bg-secondaryColor">
       <div className="container p-0 pt-20 pb-32 md:pb-20 flex flex-row flex-wrap justify-between">
@@ -31,4 +32,6 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

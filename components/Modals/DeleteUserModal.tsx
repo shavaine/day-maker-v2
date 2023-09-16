@@ -1,12 +1,11 @@
 "use client";
 import { useState, useContext } from "react";
-import { useRouter } from "next/navigation";
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { VscLoading } from "react-icons/vsc";
 import { signOut } from "next-auth/react";
+import { FC } from "react";
 
-const DeleteUserModal = () => {
-  const router = useRouter();
+const DeleteUserModal: FC = () => {
   const { dispatch } = useContext(DashboardContext);
   const [loading, setLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);

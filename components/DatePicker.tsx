@@ -1,17 +1,13 @@
 "use client";
 import { ChangeEvent, FC } from "react";
 
-interface DatePickerProps {
+interface Props {
   selectedDate: string;
   onDateChange: (newDate: string) => void;
   id: string;
 }
 
-const DatePicker: FC<DatePickerProps> = ({
-  selectedDate,
-  onDateChange,
-  id,
-}) => {
+const DatePicker: FC<Props> = ({ selectedDate, onDateChange, id }) => {
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
     onDateChange(event.target.value);
   };

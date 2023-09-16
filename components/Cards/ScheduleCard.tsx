@@ -2,7 +2,7 @@
 
 import { DemoContext } from "@/context/DemoContext/DemoContext";
 import { formatCustomDate, getTemplateNameById } from "@/lib/helpers";
-import { useContext, useState } from "react";
+import { useContext, useState, FC } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import TemplateTable from "../Tables/TemplateTable";
 import ChangeTemplateModal from "../Modals/ChangeTemplateModal";
@@ -12,7 +12,7 @@ import { usePathname } from "next/navigation";
 import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import MobileTaskList from "../List/MobileTaskList";
 
-const ScheduleCard = () => {
+const ScheduleCard: FC = () => {
   const [scheduleDate, setScheduleDate] = useState(new Date(Date.now()));
   const pathname = usePathname();
   const { state } = useContext(

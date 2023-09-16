@@ -2,7 +2,7 @@ import { InitialState } from "../Interfaces";
 import { ActionType } from "../Types";
 
 
-export function Reducer(state: InitialState, action: ActionType): InitialState {
+const Reducer = (state: InitialState, action: ActionType): InitialState => {
   switch (action.type) {
     case "ADD_ACTION":
       return { ...state, actions: [...state.actions, action.payload] };
@@ -73,3 +73,5 @@ export function Reducer(state: InitialState, action: ActionType): InitialState {
       
   }
 }
+
+export default Reducer

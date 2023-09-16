@@ -2,6 +2,7 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { FC } from "react";
 
 interface Props {
   path: string;
@@ -9,7 +10,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-export default function SideLink({ path, toggleNav, children }: Props) {
+const SideLink: FC<Props> = ({ path, toggleNav, children }) => {
   const pathname = usePathname();
   const { data: session, status } = useSession();
 
@@ -35,4 +36,6 @@ export default function SideLink({ path, toggleNav, children }: Props) {
       {children}
     </Link>
   );
-}
+};
+
+export default SideLink;

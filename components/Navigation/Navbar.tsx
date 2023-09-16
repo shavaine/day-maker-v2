@@ -3,8 +3,9 @@ import NavLink from "./NavLink";
 import Navigation from "./Navigation";
 import DashOrDemo from "./DashOrDemo";
 import Link from "next/link";
+import { FC } from "react";
 
-export default function Navbar() {
+const Navbar: FC = () => {
   return (
     <div className="flex flex-row border-b bg-white content-center py-2 sticky top-0 z-30">
       <Link className="mr-auto" href="/">
@@ -25,4 +26,6 @@ export default function Navbar() {
       <Navigation />
     </div>
   );
-}
+};
+
+export default Navbar;

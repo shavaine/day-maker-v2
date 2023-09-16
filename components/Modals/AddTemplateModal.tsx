@@ -1,6 +1,6 @@
 "use client";
 import { useState, FC } from "react";
-import { AddScheduleForm } from "../Forms/AddScheduleForm";
+import AddScheduleForm from "../Forms/AddScheduleForm";
 
 interface Props {
   scheduleDate: Date;

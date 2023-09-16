@@ -13,7 +13,7 @@ interface Props {
   toggleModal: () => void;
 }
 
-export const CreateActionForm: FC<Props> = ({ toggleModal }) => {
+const CreateActionForm: FC<Props> = ({ toggleModal }) => {
   const pathname = usePathname();
   const { state, dispatch } = useContext(
     pathname.includes("dashboard") ? DashboardContext : DemoContext
@@ -132,3 +132,5 @@ export const CreateActionForm: FC<Props> = ({ toggleModal }) => {
     </form>
   );
 };
+
+export default CreateActionForm;

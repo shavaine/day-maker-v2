@@ -5,8 +5,9 @@ import {
 } from "react-icons/ai";
 import { HiListBullet } from "react-icons/hi2";
 import SideLink from "./SideLink";
+import { FC } from "react";
 
-export default function SideNav() {
+const SideNav: FC = () => {
   return (
     <div className="hidden md:flex h-screen border-r py-6 px-5">
       <ul className="flex flex-col gap-y-5 font-spaceMono">
@@ -37,4 +38,6 @@ export default function SideNav() {
       </ul>
     </div>
   );
-}
+};
+
+export default SideNav;

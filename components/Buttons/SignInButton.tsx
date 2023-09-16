@@ -2,12 +2,14 @@
 import { useSession, signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { FC } from "react";
 import { VscLoading } from "react-icons/vsc";
 
 interface Props {
   toggleNav: () => void;
 }
-export default function SignInButton({ toggleNav }: Props) {
+
+const SignInButton: FC<Props> = ({ toggleNav }) => {
   const { data: session, status } = useSession();
   if (status === "loading") {
     return (
@@ -40,4 +42,6 @@ export default function SignInButton({ toggleNav }: Props) {
       Login
     </button>
   );
-}
+};
+
+export default SignInButton;
