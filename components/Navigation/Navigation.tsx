@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, FC } from "react";
 import SignInButton from "../Buttons/SignInButton";
 import AuthCheck from "../AuthCheck";
 import SignOutButton from "../Buttons/SignOutButton";
@@ -15,7 +15,7 @@ import { HiListBullet } from "react-icons/hi2";
 import DashOrDemo from "./DashOrDemo";
 import MobileLink from "./MobileLink";
 
-export default function Navigation() {
+const Navigation: FC = () => {
   const pathname = usePathname();
   const [toggleDropdown, setToggleDropdown] = useState(false);
   const closeNav = () => {
@@ -108,4 +108,6 @@ export default function Navigation() {
       )}
     </div>
   );
-}
+};
+
+export default Navigation;

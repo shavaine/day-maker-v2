@@ -1,7 +1,8 @@
 import ActionList from "../List/ActionList";
 import CreateActionModal from "../Modals/CreateActionModal";
+import { FC } from "react";
 
-const ActionPage = () => {
+const ActionPage: FC = () => {
   return (
     <div className="max-h-screen overflow-auto">
       <h4 className="sm:hidden fixed bottom-20 right-1 z-50 bg-white rounded-full p-2 border">

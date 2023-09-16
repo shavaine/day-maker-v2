@@ -39,4 +39,5 @@ const MobileTaskCard: FC<Props> = ({ task, actions }) => {
     </div>
   );
 };
+
 export default MobileTaskCard;

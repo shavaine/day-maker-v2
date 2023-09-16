@@ -1,7 +1,6 @@
 "use client";
-import { Action } from "@/context/Interfaces";
 import { useState, FC } from "react";
-import { EditActionForm } from "../Forms/EditActionForm";
+import EditActionForm from "../Forms/EditActionForm";
 
 interface Props {
   title: string;

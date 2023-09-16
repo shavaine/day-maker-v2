@@ -1,6 +1,7 @@
 import Calendar from "../Calendar";
+import { FC } from "react";
 
-const CalendarPage = () => {
+const CalendarPage: FC = () => {
   return (
     <div>
       <h1 className="pageTitle">Calendar</h1>

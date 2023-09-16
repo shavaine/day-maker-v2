@@ -1,6 +1,6 @@
 "use client";
 import { useState, FC } from "react";
-import { EditScheduleForm } from "../Forms/EditScheduleForm";
+import EditScheduleForm from "../Forms/EditScheduleForm";
 import { FaEdit } from "react-icons/fa";
 
 interface Props {

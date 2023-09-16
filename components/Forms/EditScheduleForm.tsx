@@ -15,7 +15,7 @@ interface Props {
   tempID: string;
 }
 
-export const EditScheduleForm: FC<Props> = ({
+const EditScheduleForm: FC<Props> = ({
   toggleModal,
   currentScheduleId,
   currentDate,
@@ -144,3 +144,5 @@ export const EditScheduleForm: FC<Props> = ({
     </form>
   );
 };
+
+export default EditScheduleForm;

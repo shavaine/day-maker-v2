@@ -1,7 +1,8 @@
 import BackButton from "../Buttons/BackButton";
 import CreateTemplateCard from "../Cards/CreateTemplateCard";
+import { FC } from "react";
 
-const TemplateCreatePage = () => {
+const TemplateCreatePage: FC = () => {
   return (
     <div className="max-h-screen overflow-auto">
       <div className="flex flex-row justify-between ">

@@ -3,7 +3,7 @@ import { InitialState } from "../Interfaces";
 
 
 
-export function Reducer(state: InitialState, action: ActionType): InitialState {
+const Reducer = (state: InitialState, action: ActionType): InitialState => {
   switch (action.type) {
     case 'SET_INITIAL_STATE':
     return {
@@ -83,3 +83,5 @@ export function Reducer(state: InitialState, action: ActionType): InitialState {
       
   }
 }
+
+export default Reducer

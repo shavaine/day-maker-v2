@@ -14,7 +14,7 @@ interface Props {
   title: string;
 }
 
-export const EditActionForm: FC<Props> = ({ toggleModal, id, title }) => {
+const EditActionForm: FC<Props> = ({ toggleModal, id, title }) => {
   const pathname = usePathname();
   const { state, dispatch } = useContext(
     pathname.includes("dashboard") ? DashboardContext : DemoContext
@@ -130,3 +130,5 @@ export const EditActionForm: FC<Props> = ({ toggleModal, id, title }) => {
     </form>
   );
 };
+
+export default EditActionForm;

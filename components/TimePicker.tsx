@@ -1,17 +1,13 @@
 import { formatTime } from "@/lib/helpers";
 import { ChangeEvent, FC } from "react";
 
-interface TimePickerProps {
+interface Props {
   selectedTime: number; // Time in minutes
   onTimeChange: (newTime: number) => void;
   id: string;
 }
 
-const TimePicker: FC<TimePickerProps> = ({
-  selectedTime,
-  onTimeChange,
-  id,
-}) => {
+const TimePicker: FC<Props> = ({ selectedTime, onTimeChange, id }) => {
   const formattedTime = formatTime(selectedTime);
 
   const handleTimeChange = (event: ChangeEvent<HTMLInputElement>) => {

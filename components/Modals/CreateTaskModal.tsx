@@ -1,6 +1,6 @@
 "use client";
 import { useState, FC } from "react";
-import { CreateTaskForm } from "../Forms/CreateTaskForm";
+import CreateTaskForm from "../Forms/CreateTaskForm";
 import { Task } from "@/context/Interfaces";
 
 interface Props {

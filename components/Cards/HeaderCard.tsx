@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
+import { FC } from "react";
 
-export default function HeaderCard() {
+const HeaderCard: FC = () => {
   return (
     <header className="container py-20 bg-white rounded-lg flex flex-col gap-y-3 text-center font-spaceMono shadow-xl">
       <p className="font-bold uppercase text-xl text-[#171A1FFF]">
@@ -24,4 +25,6 @@ export default function HeaderCard() {
       </Link>
     </header>
   );
-}
+};
+
+export default HeaderCard;

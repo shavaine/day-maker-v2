@@ -1,13 +1,13 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { FC, useState, useEffect } from "react";
 
 interface ToastProps {
   message: string;
-  duration?: number; // Optional duration in milliseconds
+  duration?: number;
   type: string;
 }
 
-const Toast: React.FC<ToastProps> = ({ message, duration = 3000, type }) => {
+const Toast: FC<ToastProps> = ({ message, duration = 3000, type }) => {
   const [show, setShow] = useState(false);
   const [currentMessage, setCurrentMessage] = useState(message);
 

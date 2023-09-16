@@ -5,7 +5,7 @@ import { FC } from "react";
 interface Props {
   toggleNav: () => void;
 }
-export default function SignOutButton({ toggleNav }: Props) {
+const SignOutButton: FC<Props> = ({ toggleNav }) => {
   const Logout = () => {
     signOut();
     toggleNav();
@@ -18,4 +18,6 @@ export default function SignOutButton({ toggleNav }: Props) {
       Sign out
     </button>
   );
-}
+};
+
+export default SignOutButton;

@@ -1,8 +1,9 @@
 import { TbCalendarPlus } from "react-icons/tb";
+import { FC } from "react";
 import ScheduleCard from "../Cards/ScheduleCard";
 import Link from "next/link";
 
-const SchedulePage = () => {
+const SchedulePage: FC = () => {
   return (
     <div className="max-h-screen overflow-auto">
       <Link

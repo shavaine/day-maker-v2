@@ -1,15 +1,15 @@
 "use client";
 import { FC, useEffect, useReducer } from "react";
-import { Reducer } from "./DashboardReducer";
+import Reducer from "./DashboardReducer";
 import { DashboardContext, initialDashboardState } from "./DashboardContext";
 import Toast from "@/components/Toast/Toast";
 import { InitialState } from "../Interfaces";
 
-interface DashboardProviderProps {
+interface Props {
   children: React.ReactNode;
 }
 
-export const DashboardProvider: FC<DashboardProviderProps> = ({ children }) => {
+const DashboardProvider: FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(Reducer, initialDashboardState);
 
   useEffect(() => {
@@ -45,3 +45,5 @@ export const DashboardProvider: FC<DashboardProviderProps> = ({ children }) => {
     </DashboardContext.Provider>
   );
 };
+
+export default DashboardProvider;

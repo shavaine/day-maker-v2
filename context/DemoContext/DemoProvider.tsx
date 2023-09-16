@@ -1,15 +1,15 @@
 "use client";
 import { FC, useReducer } from "react";
 import { initialState } from "./DemoInitialData";
-import { Reducer } from "./DemoReducer";
+import Reducer from "./DemoReducer";
 import { DemoContext } from "./DemoContext";
 import Toast from "@/components/Toast/Toast";
 
-interface DemoProviderProps {
+interface Props {
   children: React.ReactNode;
 }
 
-export const DemoProvider: FC<DemoProviderProps> = ({ children }) => {
+const DemoProvider: FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(Reducer, initialState);
 
   return (
@@ -19,3 +19,5 @@ export const DemoProvider: FC<DemoProviderProps> = ({ children }) => {
     </DemoContext.Provider>
   );
 };
+
+export default DemoProvider;

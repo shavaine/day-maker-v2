@@ -1,6 +1,6 @@
 "use client";
 import { useState, FC } from "react";
-import { CreateActionForm } from "../Forms/CreateActionForm";
+import CreateActionForm from "../Forms/CreateActionForm";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 
 const CreateActionModal: FC = () => {

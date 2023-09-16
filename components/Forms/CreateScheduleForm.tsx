@@ -15,7 +15,7 @@ import { DashboardContext } from "@/context/DashboardContext/DashboardContext";
 import { scheduleValidate } from "@/lib/Validation/formValidation";
 import { VscLoading } from "react-icons/vsc";
 
-export const CreateScheduleForm: FC = () => {
+const CreateScheduleForm: FC = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { state, dispatch } = useContext(
@@ -161,3 +161,5 @@ export const CreateScheduleForm: FC = () => {
     </div>
   );
 };
+
+export default CreateScheduleForm;

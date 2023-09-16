@@ -1,8 +1,9 @@
 import { BiSolidAddToQueue } from "react-icons/bi";
 import TemplateList from "../List/TemplateList";
 import Link from "next/link";
+import { FC } from "react";
 
-const TemplatePage = () => {
+const TemplatePage: FC = () => {
   return (
     <div className="max-h-screen overflow-auto">
       <Link

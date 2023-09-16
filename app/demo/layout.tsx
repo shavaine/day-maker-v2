@@ -1,5 +1,5 @@
 import SideNav from "@/components/Navigation/SideNav";
-import { DemoProvider } from "@/context/DemoContext/DemoProvider";
+import DemoProvider from "@/context/DemoContext/DemoProvider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";

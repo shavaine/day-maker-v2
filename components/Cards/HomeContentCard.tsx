@@ -1,6 +1,7 @@
 import Image from "next/image";
+import { FC } from "react";
 
-export default function HomeContentCard() {
+const HomeContentCard: FC = () => {
   return (
     <div className="container py-20 bg-white rounded-lg flex flex-col font-workSans text-center drop-shadow-2xl border">
       <h1 className="font-bold text-2xl  md:text-5xl text-purple-950 mb-16">
@@ -46,4 +47,6 @@ export default function HomeContentCard() {
       </div>
     </div>
   );
-}
+};
+
+export default HomeContentCard;

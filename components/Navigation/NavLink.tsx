@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { FC } from "react";
 
 interface Props {
   name: string;
@@ -8,7 +9,7 @@ interface Props {
   toggleNav?: () => void;
 }
 
-export default function NavLink({ name, path, toggleNav }: Props) {
+const NavLink: FC<Props> = ({ name, path, toggleNav }) => {
   const pathname = usePathname();
   if (path === "/demo" || path === "/dashboard") {
     return (
@@ -47,4 +48,6 @@ export default function NavLink({ name, path, toggleNav }: Props) {
       {name}
     </Link>
   );
-}
+};
+
+export default NavLink;

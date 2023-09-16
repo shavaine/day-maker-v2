@@ -1,4 +1,6 @@
-const GettingStartedCard = () => {
+import { FC } from "react";
+
+const GettingStartedCard: FC = () => {
   return (
     <div className="flex flex-col gap-y-10 p-5 sm:p-10 bg-white drop-shadow-md rounded-md font-workSans">
       <div className="flex flex-col gap-y-2 text-lg">
