@@ -2,8 +2,8 @@ import { FC } from "react";
 
 const GettingStartedCard: FC = () => {
   return (
-    <div className="flex flex-col gap-y-10 p-5 sm:p-10 bg-white drop-shadow-md rounded-md font-workSans">
-      <div className="flex flex-col gap-y-2 text-lg">
+    <section className="flex flex-col gap-y-10 p-5 sm:p-10 bg-white drop-shadow-md rounded-md font-workSans">
+      <article className="flex flex-col gap-y-2 text-lg">
         <h2 className="text-2xl text-mainColor font-bold">
           1. Create Reusable Actions
         </h2>
@@ -27,8 +27,8 @@ const GettingStartedCard: FC = () => {
           Actions should be general and versatile to be easily reused across
           various tasks.
         </p>
-      </div>
-      <div className="flex flex-col gap-y-2 text-lg">
+      </article>
+      <article className="flex flex-col gap-y-2 text-lg">
         <h2 className="text-2xl text-mainColor font-bold">
           2. Build Templates
         </h2>
@@ -53,8 +53,8 @@ const GettingStartedCard: FC = () => {
           You can add multiple tasks to a template, making it perfect for
           structuring your daily routines or weekly plans.
         </p>
-      </div>
-      <div className="flex flex-col gap-y-2 text-lg">
+      </article>
+      <article className="flex flex-col gap-y-2 text-lg">
         <h2 className="text-2xl text-mainColor font-bold">
           3. Schedule Your Day
         </h2>
@@ -81,8 +81,8 @@ const GettingStartedCard: FC = () => {
           Similarly, deleting a template will remove all schedules associated
           with it.
         </p>
-      </div>
-      <div className="flex flex-col gap-y-2 text-lg">
+      </article>
+      <article className="flex flex-col gap-y-2 text-lg">
         <h2 className="text-2xl text-mainColor font-bold">
           4. Stay Organized and Productive
         </h2>
@@ -102,8 +102,8 @@ const GettingStartedCard: FC = () => {
             your commitments.
           </li>
         </ol>
-      </div>
-      <div className="flex flex-col gap-y-2 text-lg">
+      </article>
+      <article className="flex flex-col gap-y-2 text-lg">
         <h2 className="text-2xl text-mainColor font-bold">Additional Notes</h2>
         <ol>
           <li className="list-disc ml-5">
@@ -119,8 +119,8 @@ const GettingStartedCard: FC = () => {
           don`t hesitate to reach out to our support or check our documentation
           for more details.
         </p>
-      </div>
-    </div>
+      </article>
+    </section>
   );
 };
 export default GettingStartedCard;

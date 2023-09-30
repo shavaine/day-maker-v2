@@ -15,11 +15,11 @@ export default async function DemoLayout({ children }: Props) {
   }
 
   return (
-    <div className="flex flex-row">
+    <main className="flex flex-row">
       <SideNav />
       <DashboardProvider>
         <main className="w-full bg-gray-100 p-3 sm:p-10">{children}</main>
       </DashboardProvider>
-    </div>
+    </main>
   );
 }
