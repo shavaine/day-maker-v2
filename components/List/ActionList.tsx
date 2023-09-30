@@ -13,11 +13,11 @@ const ActionList: FC = () => {
   );
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+    <section className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4">
       {state.actions.map((action) => (
         <ActionCard key={action.id} title={action.title} id={action.id} />
       ))}
-    </div>
+    </section>
   );
 };
 
