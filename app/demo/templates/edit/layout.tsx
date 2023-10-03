@@ -6,12 +6,12 @@ interface Props {
 }
 export default function EditTemplateLayout({ children }: Props) {
   return (
-    <div className="max-h-screen overflow-auto">
-      <div className="flex flex-row justify-between ">
+    <>
+      <header className="flex flex-row justify-between ">
         <h1 className="pageTitle">Edit Template</h1>
         <BackButton />
-      </div>
+      </header>
       {children}
-    </div>
+    </>
   );
 }

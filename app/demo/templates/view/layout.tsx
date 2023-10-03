@@ -6,12 +6,12 @@ export default function ViewTemplateLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="max-h-screen overflow-auto">
-      <div className="flex flex-row justify-between ">
+    <>
+      <header className="flex flex-row justify-between ">
         <h1 className="pageTitle">View Template</h1>
         <BackButton />
-      </div>
+      </header>
       {children}
-    </div>
+    </>
   );
 }
