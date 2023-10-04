@@ -10,7 +10,7 @@ interface Props {
 
 const MobileTaskList: FC<Props> = ({ tempId, tasks, actions }) => {
   return (
-    <div className="flex flex-col gap-y-3 md:hidden">
+    <section className="flex flex-col gap-y-3 md:hidden">
       {tempId &&
         tasks
           .filter((task) => task.templateId === tempId)
@@ -18,7 +18,7 @@ const MobileTaskList: FC<Props> = ({ tempId, tasks, actions }) => {
           .map((task, index) => (
             <MobileTaskCard key={task.id} task={task} actions={actions} />
           ))}
-    </div>
+    </section>
   );
 };
 export default MobileTaskList;
