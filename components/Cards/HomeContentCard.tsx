@@ -3,7 +3,7 @@ import { FC } from "react";
 
 const HomeContentCard: FC = () => {
   return (
-    <div className="container py-20 bg-white rounded-lg flex flex-col font-workSans text-center drop-shadow-2xl border">
+    <article className="container py-20 bg-white rounded-lg flex flex-col font-workSans text-center drop-shadow-2xl border">
       <h1 className="font-bold text-2xl  md:text-5xl text-purple-950 mb-16">
         How To Use
       </h1>
@@ -45,7 +45,7 @@ const HomeContentCard: FC = () => {
           />
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 

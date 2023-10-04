@@ -18,7 +18,7 @@ const TemplateViewPage: FC<Props> = ({ tempId }) => {
   );
 
   return (
-    <div className="flex flex-col gap-y-3 bg-white p-3 lg:p-10 rounded-md border shadow">
+    <article className="flex flex-col gap-y-3 bg-white p-3 lg:p-10 rounded-md border shadow">
       <h1 className=" text-secondaryColor font-workSans font-bold text-3xl text-center md:text-start">
         {getTemplateNameById(tempId, state.templates)}
       </h1>
@@ -28,7 +28,7 @@ const TemplateViewPage: FC<Props> = ({ tempId }) => {
         tasks={state.tasks}
         actions={state.actions}
       />
-    </div>
+    </article>
   );
 };
 export default TemplateViewPage;

@@ -72,19 +72,16 @@ const TemplateCard: FC<Props> = ({ id, name, description }) => {
   };
 
   return (
-    <div className="flex flex-col justify-between bg-white border shadow grow h-60 pt-3 break-all overflow-auto font-spaceMon rounded-md">
-      <div>
-        <p className="text-center font-workSans font-bold text-mainColor text-3xl mb-2">
+    <article className="flex flex-col justify-between bg-white border shadow grow h-60 pt-3 break-all overflow-auto font-spaceMon rounded-md">
+      <header>
+        <h2 className="text-center font-workSans font-bold text-mainColor text-3xl mb-2">
           {name}
-        </p>
-        <p className="font-spaceMono px-3">
-          <span className="font-bold">Description:</span>
-          <br />
-          {description}
-        </p>
-      </div>
+        </h2>
+        <h3 className="font-spaceMono px-3 font-bold">Description:</h3>
+        <p className="font-spaceMono px-3">{description}</p>
+      </header>
 
-      <div className="flex flex-row w-full">
+      <footer className="flex flex-row w-full">
         <Link className="w-1/3 grow" href={`templates/view/${id}`}>
           <button className="bg-purple-500 text-mainColor font-workSans font-bold w-full hover:opacity-80 p-2">
             View
@@ -107,8 +104,8 @@ const TemplateCard: FC<Props> = ({ id, name, description }) => {
             <VscLoading className="animate-spin self-center ml-1"></VscLoading>
           )}
         </button>
-      </div>
-    </div>
+      </footer>
+    </article>
   );
 };
 

@@ -189,8 +189,8 @@ const EditTemplateCard: FC<Props> = ({ name, description, tasks, tempId }) => {
   };
 
   return (
-    <div className="flex flex-col gap-y-14 font-spaceMono">
-      <div className="flex flex-col gap-y-4">
+    <>
+      <section className="flex flex-col gap-y-4">
         <div className="flex flex-col">
           <label className="text-black text-sm" htmlFor="templateName">
             Title
@@ -241,9 +241,9 @@ const EditTemplateCard: FC<Props> = ({ name, description, tasks, tempId }) => {
               removeTask={deleteNewTask}
             />
           ))}
-      </div>
+      </section>
 
-      <div className="flex flex-row justify-end gap-x-2">
+      <footer className="flex flex-row justify-end gap-x-2">
         <button
           onClick={() => router.back()}
           className="border w-24 rounded-lg p-1 hover:font-bold"
@@ -262,8 +262,8 @@ const EditTemplateCard: FC<Props> = ({ name, description, tasks, tempId }) => {
             <VscLoading className="animate-spin self-center ml-1"></VscLoading>
           )}
         </button>
-      </div>
-    </div>
+      </footer>
+    </>
   );
 };
 export default EditTemplateCard;

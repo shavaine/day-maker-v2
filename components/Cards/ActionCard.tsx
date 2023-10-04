@@ -73,11 +73,11 @@ const ActionCard: FC<Props> = ({ title, id }): React.ReactNode => {
   };
 
   return (
-    <div className="flex flex-col justify-between bg-white border shadow grow break-all overflow-auto font-spaceMon rounded-md">
-      <p className="text-center font-workSans font-bold text-mainColor text-lg p-3">
+    <article className="flex flex-col justify-between bg-white border shadow grow break-all overflow-auto font-spaceMon rounded-md">
+      <h2 className="text-center font-workSans font-bold text-mainColor text-lg p-3">
         {title}
-      </p>
-      <div className="flex flex-row w-full">
+      </h2>
+      <footer className="flex flex-row w-full">
         <EditActionModal title={title} actionId={id} />
         <button
           className="flex justify-center bg-red-200 text-mainColor font-workSans font-bold w-1/2 grow hover:opacity-80 p-2"
@@ -89,8 +89,8 @@ const ActionCard: FC<Props> = ({ title, id }): React.ReactNode => {
             <VscLoading className="animate-spin self-center ml-1"></VscLoading>
           )}
         </button>
-      </div>
-    </div>
+      </footer>
+    </article>
   );
 };
 

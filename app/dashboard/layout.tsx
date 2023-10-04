@@ -15,7 +15,7 @@ export default async function DemoLayout({ children }: Props) {
   }
 
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row min-h-screen overflow-auto">
       <SideNav />
       <DashboardProvider>
         <main className="w-full bg-gray-100 p-3 sm:p-10">{children}</main>

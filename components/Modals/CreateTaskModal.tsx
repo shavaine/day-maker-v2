@@ -15,9 +15,9 @@ const CreateTaskModal: FC<Props> = ({ addTemplateTasks }) => {
   };
 
   return (
-    <div>
+    <>
       <button
-        className="hover:font-bold hover:opacity-80 font-spaceMono bg-secondaryColor text-white p-1 px-2 rounded-md"
+        className="hover:font-bold hover:opacity-80 font-spaceMono bg-secondaryColor text-white p-1 px-2 rounded-md w-32"
         onClick={toggleModal}
       >
         + Add Task
@@ -39,7 +39,7 @@ const CreateTaskModal: FC<Props> = ({ addTemplateTasks }) => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

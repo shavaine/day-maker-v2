@@ -14,7 +14,7 @@ export default async function DemoLayout({ children }: Props) {
     redirect("/");
   }
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row min-h-screen overflow-auto">
       <SideNav />
       <DemoProvider>
         <main className="w-full bg-gray-100 p-3 sm:p-10">{children}</main>

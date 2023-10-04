@@ -138,8 +138,8 @@ const CreateTemplateCard: FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-y-14 font-spaceMono bg-white p-3 lg:p-10 rounded-md border shadow">
-      <div className="flex flex-col gap-y-4">
+    <article className="flex flex-col gap-y-14 font-spaceMono bg-white p-3 lg:p-10 rounded-md border shadow">
+      <section className="flex flex-col gap-y-4">
         <div className="flex flex-col">
           <label className="text-black text-sm" htmlFor="templateName">
             Title
@@ -180,9 +180,9 @@ const CreateTemplateCard: FC = () => {
               removeTask={deleteTemplateTask}
             />
           ))}
-      </div>
+      </section>
 
-      <div className="flex flex-row justify-end gap-x-2">
+      <footer className="flex flex-row justify-end gap-x-2">
         <button
           onClick={() => router.back()}
           className="border w-24 rounded-lg p-1 hover:font-bold"
@@ -201,8 +201,8 @@ const CreateTemplateCard: FC = () => {
             <VscLoading className="animate-spin self-center ml-1"></VscLoading>
           )}
         </button>
-      </div>
-    </div>
+      </footer>
+    </article>
   );
 };
 export default CreateTemplateCard;

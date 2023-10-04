@@ -9,7 +9,7 @@ import { FC } from "react";
 
 const SideNav: FC = () => {
   return (
-    <div className="hidden md:flex h-screen border-r py-6 px-5">
+    <aside className="hidden md:flex min-h-screen border-r py-6 px-5">
       <ul className="flex flex-col gap-y-5 font-spaceMono">
         <li>
           <SideLink path="schedule">
@@ -36,7 +36,7 @@ const SideNav: FC = () => {
           </SideLink>
         </li>
       </ul>
-    </div>
+    </aside>
   );
 };
 

@@ -7,7 +7,7 @@ import { FC } from "react";
 
 const Navbar: FC = () => {
   return (
-    <div className="flex flex-row border-b bg-white content-center py-2 sticky top-0 z-30">
+    <nav className="flex flex-row border-b bg-white content-center py-2 sticky top-0 z-30">
       <Link className="mr-auto" href="/">
         <Image
           className="ml-3 sm:ml-10 mr-auto w-auto h-16"
@@ -24,7 +24,7 @@ const Navbar: FC = () => {
         <DashOrDemo />
       </ul>
       <Navigation />
-    </div>
+    </nav>
   );
 };
 

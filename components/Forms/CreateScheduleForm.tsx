@@ -106,59 +106,55 @@ const CreateScheduleForm: FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-y-14 font-spaceMono bg-white p-3 lg:p-10 rounded-md border shadow">
-      <div className="flex flex-col gap-y-4">
-        <form
-          className="flex flex-col gap-y-4 font-spaceMono"
-          onSubmit={handleSubmit}
-        >
-          <div className="flex flex-col">
-            <label htmlFor="date">Date</label>
-            <DatePicker
-              selectedDate={date}
-              onDateChange={handleDateChange}
-              id="selectedDate"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="template">Templates</label>
-            <select
-              className="border rounded-md px-3 py-2 w-full focus:outline-mainColor"
-              id="template"
-              name="template"
-              value={templateID}
-              onChange={(e) => setTemplateID(e.target.value)}
-            >
-              {state.templates.map((template) => (
-                <option key={template.id} value={template.id}>
-                  {template.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="flex flex-row justify-end gap-x-2">
-            <button
-              onClick={() => router.back()}
-              className="border w-24 rounded-lg p-1 hover:font-bold"
-              type="button"
-            >
-              Cancel
-            </button>
-            <button
-              className="flex justify-center border w-24 rounded-lg bg-mainColor p-1 text-white hover:font-bold hover:opacity-80"
-              type="submit"
-              disabled={loading}
-            >
-              Create
-              {loading && (
-                <VscLoading className="animate-spin self-center ml-1"></VscLoading>
-              )}
-            </button>
-          </div>
-        </form>
+    <form
+      className="flex flex-col gap-y-4 font-spaceMono bg-white p-3 lg:p-10 rounded-md border shadow"
+      onSubmit={handleSubmit}
+    >
+      <div className="flex flex-col">
+        <label htmlFor="date">Date</label>
+        <DatePicker
+          selectedDate={date}
+          onDateChange={handleDateChange}
+          id="selectedDate"
+        />
       </div>
-    </div>
+      <div className="flex flex-col">
+        <label htmlFor="template">Templates</label>
+        <select
+          className="border rounded-md px-3 py-2 w-full focus:outline-mainColor"
+          id="template"
+          name="template"
+          value={templateID}
+          onChange={(e) => setTemplateID(e.target.value)}
+        >
+          {state.templates.map((template) => (
+            <option key={template.id} value={template.id}>
+              {template.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="flex flex-row justify-end gap-x-2">
+        <button
+          onClick={() => router.back()}
+          className="border w-24 rounded-lg p-1 hover:font-bold"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          className="flex justify-center border w-24 rounded-lg bg-mainColor p-1 text-white hover:font-bold hover:opacity-80"
+          type="submit"
+          disabled={loading}
+        >
+          Create
+          {loading && (
+            <VscLoading className="animate-spin self-center ml-1"></VscLoading>
+          )}
+        </button>
+      </div>
+    </form>
   );
 };
 

@@ -37,8 +37,8 @@ const ScheduleCard: FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-y-20 bg-white p-3 lg:p-10 rounded-md border shadow">
-      <div className="flex flex-row justify-between">
+    <article className="flex flex-col gap-y-20 bg-white p-3 lg:p-10 rounded-md border shadow">
+      <header className="flex flex-row justify-between">
         <FaArrowLeft
           className="text-2xl self-center hover:opacity-80 hover:cursor-pointer"
           onClick={handleSubtractDay}
@@ -53,8 +53,8 @@ const ScheduleCard: FC = () => {
           className="text-2xl self-center hover:opacity-80 hover:cursor-pointer"
           onClick={handleAddDay}
         />
-      </div>
-      <div className="flex flex-col gap-y-3">
+      </header>
+      <section className="flex flex-col gap-y-3">
         <>
           {shownSchedule?.templateId ? (
             <div className="flex sm:flex-row justify-between">
@@ -88,8 +88,8 @@ const ScheduleCard: FC = () => {
             />
           </>
         )}
-      </div>
-    </div>
+      </section>
+    </article>
   );
 };
 export default ScheduleCard;
