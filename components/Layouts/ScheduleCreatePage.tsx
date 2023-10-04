@@ -4,13 +4,13 @@ import { FC } from "react";
 
 const ScheduleCreatePage: FC = () => {
   return (
-    <div className="max-h-screen overflow-auto">
-      <div className="flex flex-row justify-between ">
+    <>
+      <header className="flex flex-row justify-between ">
         <h1 className=" pageTitle">Create Schedule</h1>
         <BackButton />
-      </div>
+      </header>
       <CreateScheduleForm />
-    </div>
+    </>
   );
 };
 export default ScheduleCreatePage;
